@@ -1,0 +1,45 @@
+@import './functions';
+@import './mixins';
+@import './variables';
+@import './reset';
+
+.app-header {
+    @include flex-center-vert;
+    height: 50px;
+    background: black;
+    color: white;
+    padding: 0 15px 0 5px;
+    position: relative;
+    max-width: 1024px;
+    margin: 0 auto;
+    z-index: z(header);
+
+    &__logo {
+        width: 50px;
+    }
+
+    &__title {
+        margin-right: auto;
+        font-weight: bold;
+    }
+
+    &__nav {
+        display: flex;
+    }
+
+    &__nav-item {
+        margin: 0 10px;
+    }
+}
+
+.app-body {
+
+    &__container {
+        max-width: 1024px;
+        margin: 0 auto;
+        background-color: #fff;
+        min-height: calc(100vh - 50px);
+        padding: 10px 20px;
+    }
+
+}

@@ -1,15 +1,26 @@
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import logo from './assets/images/logo.svg'
+import { APP_MODE, GENDER } from './constants/enums'
+import { GENDER_OPTIONS } from './constants/options'
+import environment from './environment'
 
 function App() {
   const [msg, setMsg] = useState('')
+  const [gender, setGender] = useState('1')
 
   useEffect(() => {
     console.log('In effect:', msg)
   }, [msg])
 
   const handleClick = () => {
-    console.log('first')
+    console.log('env:', environment.APP_ENV, ' mode:', environment.APP_MODE)
+
+    setGender((g) => g === '1' ? '2' : '1')
+    if (gender === GENDER.FEMALE) {
+      console.log('female!!')
+    } else {
+      console.log('male!!')
+    }
   }
 
   const handleTxtChanged = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,6 +30,11 @@ function App() {
 
   return (
     <div className="app">
+
+      {/* 識別環境 */}
+      {environment.APP_MODE !== APP_MODE.PROD && (
+        <div className="env-info">Mode: {process.env.REACT_APP_MODE}</div>
+      )}
 
       <header className="app-header">
 
@@ -41,6 +57,11 @@ function App() {
 
           something put here!!!
 
+          <div>
+            <select name="gender" id="gender">
+              {GENDER_OPTIONS.map(g => <option key={g.Value} value={g.Value}>{g.Label}</option>)}
+            </select>
+          </div>
           <div>
             <input type="button" value="click me" onClick={handleClick} />
             <input type="text" onChange={handleTxtChanged} />

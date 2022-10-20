@@ -17,8 +17,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_MODE=DEV PUBLIC_URL= react-scripts start",
     "build": "react-scripts build",
+    "build:sit": "REACT_APP_MODE=SIT PUBLIC_URL=/sit react-scripts build",
+    "build:uat": "REACT_APP_MODE=UAT PUBLIC_URL=/uat react-scripts build",
+    "build:prod": "REACT_APP_MODE=PROD PUBLIC_URL= react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -29,7 +32,10 @@
       "standard"
     ],
     "rules": {
-      "space-before-function-paren": "off"
+      "space-before-function-paren": "off",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
+      "import/no-anonymous-default-export": "off"
     }
   },
   "browserslist": {

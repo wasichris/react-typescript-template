@@ -1,8 +1,22 @@
 {
-    // "editor.formatOnSave": true,
-    // "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
-    // "typescript.format.insertSpaceAfterConstructor": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
+  // "editor.formatOnSave": true,
+  // "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+  // "typescript.format.insertSpaceAfterConstructor": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  // indent spaces settings
+  "editor.detectIndentation": false,
+  "[typescript]": {
+    "editor.tabSize": 2
+  },
+  "[jsonc]": {
+    "editor.tabSize": 2
+  },
+  "[json]": {
+    "editor.tabSize": 2
+  },
+  "[typescriptreact]": {
+    "editor.tabSize": 2
+  }
 }

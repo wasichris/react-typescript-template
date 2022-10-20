@@ -3,6 +3,15 @@
 @import './variables';
 @import './reset';
 
+.env-info {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    z-index: z('env-info');
+    color: #fff;
+    font-size: 12px;
+}
+
 .app-header {
     @include flex-center-vert;
     height: 50px;

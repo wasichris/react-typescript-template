@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState, useEffect } from 'react'
 import logo from './assets/images/logo.svg'
-import { APP_MODE, GENDER } from './constants/enums'
-import { GENDER_OPTIONS } from './constants/options'
+import { AppModeEnum, GenderEnum } from './constants/enums'
+import { genderOptions } from './constants/options'
 import environment from './environment'
 
 function App() {
@@ -13,10 +13,10 @@ function App() {
   }, [msg])
 
   const handleClick = () => {
-    console.log('env:', environment.APP_ENV, ' mode:', environment.APP_MODE)
+    console.log('env:', environment.appEnv, ' mode:', environment.appMode)
 
     setGender((g) => g === '1' ? '2' : '1')
-    if (gender === GENDER.FEMALE) {
+    if (gender === GenderEnum.Female) {
       console.log('female!!')
     } else {
       console.log('male!!')
@@ -32,7 +32,7 @@ function App() {
     <div className="app">
 
       {/* 識別環境 */}
-      {environment.APP_MODE !== APP_MODE.PROD && (
+      {environment.appMode !== AppModeEnum.Prod && (
         <div className="env-info">Mode: {process.env.REACT_APP_MODE}</div>
       )}
 
@@ -59,7 +59,7 @@ function App() {
 
           <div>
             <select name="gender" id="gender">
-              {GENDER_OPTIONS.map(g => <option key={g.Value} value={g.Value}>{g.Label}</option>)}
+              {genderOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
           </div>
           <div>

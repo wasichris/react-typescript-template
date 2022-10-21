@@ -3,9 +3,9 @@
  */
 export interface IOption {
   /** 數值 */
-  Value: string;
+  value: string;
   /** 顯示文字 */
-  Label: string;
+  label: string;
 }
 
 /**
@@ -13,14 +13,14 @@ export interface IOption {
  */
 export interface IEnvironment {
   /** 運行環境 (development / production) */
-  APP_ENV: string,
+  appEnv: string,
 
   /** 運行模式 (SIT / UAT / PROD) */
-  APP_MODE: string | undefined,
+  appMode: string | undefined,
 
   /** 使用的 API 中台位置 */
-  API_URL: string,
+  apiUrl: string,
 
   /** API 等待逾期時間 ms */
-  API_TIMEOUT: number
+  apiTimeout: number
 }

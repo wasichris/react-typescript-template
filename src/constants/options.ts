@@ -1,5 +1,5 @@
 import { IOption } from '../models/common'
-import { GENDER } from './enums'
+import { GenderEnum } from './enums'
 
 // ==============================
 // 定義前端固定的選單內容
@@ -8,7 +8,7 @@ import { GENDER } from './enums'
 /**
  * 性別選單
  */
-export const GENDER_OPTIONS: IOption[] = [
-  { Value: GENDER.MALE, Label: '男性' },
-  { Value: GENDER.FEMALE, Label: '女性' }
+export const genderOptions: IOption[] = [
+  { value: GenderEnum.Male, label: '男性' },
+  { value: GenderEnum.Female, label: '女性' }
 ]

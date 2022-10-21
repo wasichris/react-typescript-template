@@ -6,33 +6,33 @@
 /**
  *  APP 運行環境
  */
-export enum APP_ENV {
+export enum AppEnvEnum {
   /**  development */
-  DEVELOPMENT = 'development',
+  Development = 'development',
   /**  production */
-  PRODUCTION = 'production',
+  Production = 'production',
 }
 
 /**
  *  APP 運行模式
  */
-export enum APP_MODE {
+export enum AppModeEnum {
   /**  DEV 模式 */
-  DEV = 'DEV',
+  Dev = 'DEV',
   /**  SIT 模式 */
-  SIT = 'SIT',
+  Sit = 'SIT',
   /**  UAT 模式 */
-  UAT = 'UAT',
+  Uat = 'UAT',
   /**  PROD 模式 */
-  PROD = 'PROD',
+  Prod = 'PROD',
 }
 
 /**
  *  性別類別
  */
-export enum GENDER {
+export enum GenderEnum {
   /**  男性 */
-  MALE = '1',
+  Male = '1',
   /**  女性 */
-  FEMALE = '2',
+  Female = '2',
 }

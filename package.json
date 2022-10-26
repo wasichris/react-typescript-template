@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "REACT_APP_MODE=DEV PUBLIC_URL= react-scripts start",
-    "build": "react-scripts build",
+    "build:dev": "REACT_APP_MODE=DEV PUBLIC_URL= react-scripts build",
     "build:sit": "REACT_APP_MODE=SIT PUBLIC_URL=/sit react-scripts build",
     "build:uat": "REACT_APP_MODE=UAT PUBLIC_URL=/uat react-scripts build",
     "build:prod": "REACT_APP_MODE=PROD PUBLIC_URL= react-scripts build",

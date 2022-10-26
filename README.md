@@ -21,7 +21,22 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+According to your target environment to choose following commands:
+```
+$ npm run build:dev 
+$ npm run build:sit
+$ npm run build:uat
+$ npm run build:prod
+```
+
+Each environment variable will be setup as below:
+- NODE_ENV=production
+    - REACT_APP_MODE=DEV
+    - REACT_APP_MODE=SIT
+    - REACT_APP_MODE=UAT
+    - REACT_APP_MODE=PROD
+
+Builds the app for production(NODE_ENV=production) to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\

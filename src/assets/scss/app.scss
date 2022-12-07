@@ -3,6 +3,17 @@
 @import './variables';
 @import './reset';
 
+
+
+// 通用元件樣式
+
+.btn-link {
+    color: $color__link;
+}
+
+
+// 網站結構樣式
+
 .env-info {
     position: absolute;
     left: 5px;
@@ -51,4 +62,8 @@
         padding: 10px 20px;
     }
 
+}
+
+.dev-container {
+    margin: 20px 50px;
 }

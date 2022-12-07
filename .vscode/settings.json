@@ -1,5 +1,5 @@
 {
-  // "editor.formatOnSave": true,
+  "editor.formatOnSave": true,
   // "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
   // "typescript.format.insertSpaceAfterConstructor": true,
   "editor.codeActionsOnSave": {
@@ -18,5 +18,5 @@
   },
   "[typescriptreact]": {
     "editor.tabSize": 2
-  }
+  },
 }

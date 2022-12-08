@@ -28,6 +28,16 @@ export enum AppModeEnum {
 }
 
 /**
+ *  語系
+ */
+export enum LangEnum {
+  /**  en */
+  En = 'en',
+  /**  zh-TW */
+  ZhTw = 'zh-TW',
+}
+
+/**
  *  性別類別
  */
 export enum GenderEnum {

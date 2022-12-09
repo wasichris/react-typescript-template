@@ -4,11 +4,26 @@
 @import './reset';
 
 
+// 工具性類別
+
+.flex {
+    display: flex;
+}
+
 
 // 通用元件樣式
 
 .btn-link {
     color: $color__link;
+}
+
+.input__caption {
+    color: $color__caption;
+    font-size: smaller;
+}
+
+.input__error {
+    color: $color__error;
 }
 
 

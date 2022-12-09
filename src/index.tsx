@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import './setup/setupI18n'
+import './setup/setupYup'
 import './assets/scss/app.scss'
 
 import App from './App'

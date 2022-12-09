@@ -9,6 +9,10 @@ const KEY = {
  */
 
 export default {
+
+  /**
+   * 網站語系
+   */
   get lang() {
     return window.localStorage.getItem(KEY.LNG) || ''
   },

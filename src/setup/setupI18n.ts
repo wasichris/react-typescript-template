@@ -15,12 +15,26 @@ const resources = {
   }
 }
 
+const getInitLanguage = () => {
+  const defaultLng = storage.lang
+  if (defaultLng) return defaultLng
+
+  const browserLng = window.navigator.language
+  switch (browserLng) {
+    case LangEnum.ZhTw:
+    case LangEnum.En:
+      return browserLng
+    default:
+      return LangEnum.ZhTw
+  }
+}
+
 i18n
   .use(initReactI18next)
   .init({
     resources,
     debug: environment.appEnv === AppEnvEnum.Development,
-    lng: storage.lang || window.navigator.language,
+    lng: getInitLanguage(),
     fallbackLng: LangEnum.ZhTw,
     interpolation: {
       escapeValue: false

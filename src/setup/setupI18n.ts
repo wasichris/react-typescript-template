@@ -21,11 +21,11 @@ const getInitLanguage = () => {
 
   const browserLng = window.navigator.language
   switch (browserLng) {
-    case LangEnum.ZhTw:
-    case LangEnum.En:
+    case LangEnum.ZH_TW:
+    case LangEnum.EN:
       return browserLng
     default:
-      return LangEnum.ZhTw
+      return LangEnum.ZH_TW
   }
 }
 
@@ -33,9 +33,9 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    debug: environment.appEnv === AppEnvEnum.Development,
+    debug: environment.appEnv === AppEnvEnum.DEVELOPMENT,
     lng: getInitLanguage(),
-    fallbackLng: LangEnum.ZhTw,
+    fallbackLng: LangEnum.ZH_TW,
     interpolation: {
       escapeValue: false
     }

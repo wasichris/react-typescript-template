@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
-import { LangEnum } from '../../../constants/enums'
-import { genderOptions } from '../../../constants/options'
+import { GenderEnum, LangEnum } from '../../../constants/enums'
 import environment from '../../../environment'
 import storage from '../../../utils/storage'
 import { Formik, Form, FormikHelpers } from 'formik'
@@ -10,6 +9,7 @@ import FormTextInput from '../../../components/form/FormTextInput'
 import { useState } from 'react'
 import { requiredStrSchema, strLengthRangeSchema } from '../../../validations/schema'
 import schemaChain from '../../../validations/schemaChain'
+import { getEnumDescription, getEnumOptions } from '../../../utils/decoratorHelper'
 
 interface IProps {
 };
@@ -74,10 +74,20 @@ const Demo = (props: IProps) => {
 
     <hr />
     <div>
-      <h3>使用options常數產生選單</h3>
-      <select name="gender" id="gender">
-        {genderOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-      </select>
+      <h3>使用Enum產生選單</h3>
+      <div>
+        <p>使用 GenderEnum 產生選單</p>
+        <select name="gender" id="gender">
+          {getEnumOptions(GenderEnum).map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
+        </select>
+      </div>
+      <div>
+        可以使用 GenderEnum 值取得定義的 description 文字
+      </div>
+      <input type="button" value="get GenderEnum.MALE description" onClick={() => {
+        const description = getEnumDescription(GenderEnum, GenderEnum.MALE)
+        alert(description)
+      }} />
     </div>
 
     <hr />
@@ -88,8 +98,8 @@ const Demo = (props: IProps) => {
         <li>{t('__understand')}</li>
       </ul>
       <br />
-      <input type="button" value="en" onClick={() => { changeLang(LangEnum.En) }} />
-      <input type="button" value="zh-TW" onClick={() => { changeLang(LangEnum.ZhTw) }} />
+      <input type="button" value="en" onClick={() => { changeLang(LangEnum.EN) }} />
+      <input type="button" value="zh-TW" onClick={() => { changeLang(LangEnum.ZH_TW) }} />
     </div>
 
     <hr />

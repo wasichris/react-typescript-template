@@ -45,7 +45,7 @@ const routes: RouteObject[] = [
   },
 
   /* [開發專用頁面區] */
-  environment.appEnv === AppEnvEnum.Development
+  environment.appEnv === AppEnvEnum.DEVELOPMENT
     ? {
       path: 'dev',
       element: <Outlet />,

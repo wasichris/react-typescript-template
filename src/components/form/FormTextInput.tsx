@@ -34,9 +34,9 @@ const FormTextInput = ({ caption, ...props }: IProps & InputHTMLAttributes<HTMLI
         autoComplete="off"
       />
 
-      {caption && <div className="input__caption"> {caption} </div>}
+      {caption ? <div className="input__caption"> {caption} </div> : null}
 
-      {hasError && <div className="input__error" > {meta.error} </div>}
+      {hasError ? <div className="input__error" > {meta.error} </div> : null}
     </>
   )
 }

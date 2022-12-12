@@ -22,6 +22,8 @@ export default {
   /* ================================= */
 
   __account: `Account`,
+  __male: `Male`,
+  __female: `Female`,
   __pwd: `Password`,
   __clear: `Clear`,
   __submit: `Submit`,

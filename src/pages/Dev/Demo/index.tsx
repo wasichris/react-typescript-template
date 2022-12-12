@@ -6,10 +6,14 @@ import storage from '../../../utils/storage'
 import { Formik, Form, FormikHelpers } from 'formik'
 import * as yup from 'yup'
 import FormTextInput from '../../../components/form/FormTextInput'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { requiredStrSchema, strLengthRangeSchema } from '../../../validations/schema'
 import schemaChain from '../../../validations/schemaChain'
 import { getEnumDescription, getEnumOptions } from '../../../utils/decoratorHelper'
+import { decrement, increment, incrementAsync, selectCount } from '../../../slices/counterSlice'
+import useClickOutside from '../../../hooks/useClickOutside'
+import useAppDispatch from '../../../hooks/useAppDispatch'
+import useAppSelector from '../../../hooks/useAppSelector'
 
 interface IProps {
 };
@@ -49,12 +53,21 @@ const Demo = (props: IProps) => {
     actions.setSubmitting(false)
   }
 
+  // redux
+  const counterValue = useAppSelector(state => state.counter.value)
+  const counterValueSame = useAppSelector(selectCount)
+  const dispatch = useAppDispatch()
+
+  // hook
+  const targetDiv = useRef(null)
+  useClickOutside(targetDiv, () => console.log('clicked outside of my area!!'), true)
+
   return <div className="dev-container">
 
     <div>Dev - Demo Page</div>
 
     <hr />
-    <div>
+    <div >
       <h3>開發環境</h3>
       <ul>
         <li>env: {environment.appEnv}</li>
@@ -144,6 +157,29 @@ const Demo = (props: IProps) => {
         )}
       </Formik>
     </div>
+
+    <hr />
+
+    <div>
+      <h3>Redux Toolkit</h3>
+      <p>counter: {counterValue} = {counterValueSame}</p>
+      <br />
+      <input type="button" value="+" onClick={() => { dispatch(increment()) }} />
+      <input type="button" value="-" onClick={() => { dispatch(decrement()) }} />
+      <input type="button" value="thunk" onClick={() => { dispatch(incrementAsync(10)) }} />
+    </div>
+
+    <hr />
+
+    <div ref={targetDiv}>
+      <h3>自定義 Hook </h3>
+      <p>超過這個區域點擊時，console會有訊息</p>
+      <p>line1------</p>
+      <p>line2------</p>
+      <p>line3------</p>
+    </div>
+
+    <hr />
 
   </div>
 }

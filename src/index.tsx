@@ -6,6 +6,8 @@ import './setup/setupYup'
 import './assets/scss/app.scss'
 
 import App from './App'
+import { store } from './setup/setupStore'
+import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -14,9 +16,11 @@ const root = ReactDOM.createRoot(
 )
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 )
 

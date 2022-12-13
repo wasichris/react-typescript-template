@@ -10,6 +10,18 @@ import { store } from './setup/setupStore'
 import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
+import environment from './environment'
+import { AppEnvEnum } from './constants/enums'
+
+if (environment.appEnv === AppEnvEnum.DEVELOPMENT) {
+  const { worker } = require('./mocks/browser')
+  worker.start({
+    onUnhandledRequest: 'bypass',
+    serviceWorker: {
+      url: `${process.env.PUBLIC_URL}/mockServiceWorker.js`
+    }
+  })
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,7 +29,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <App />
       </BrowserRouter>
     </Provider>

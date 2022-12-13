@@ -63,6 +63,10 @@
   },
   "devDependencies": {
     "eslint-config-standard": "^17.0.0",
+    "msw": "^0.49.1",
     "sass": "^1.55.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

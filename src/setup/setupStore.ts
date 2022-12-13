@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import counterSlice from '../slices/counterSlice'
-import systemSlice from '../slices/systemSlice'
+import counterSlice from '../store/slices/counterSlice'
+import systemSlice from '../store/slices/systemSlice'
 
 // Reducer
 const rootReducer = combineReducers({

@@ -2,6 +2,16 @@ import { rest } from 'msw'
 import { GenderEnum } from '../../constants/enums'
 import { getApiUrl, getGuid, getRandomArrayItem, getRandomInt, getRandomIntRange } from '../mockHelper'
 
+// 會定義在 api 定義區塊，所以這邊只是暫時放置而已
+// Mock 都會使用 api 定義區塊中的 interface 來使用
+interface ISample03Req {
+  username: string
+}
+interface ISample03Resp {
+  username: string
+  firstName: string
+}
+
 const sample = [
 
   // [GET]
@@ -40,6 +50,24 @@ const sample = [
       ctx.status(200),
       ctx.delay(),
       ctx.body(imageBuffer)
+    )
+  }),
+
+  // [POST]
+  rest.post(getApiUrl('/sample/03'), async (req, res, ctx) => {
+    // get req body
+    const { username } = await req.json<ISample03Req>()
+
+    // set response
+    const response: ISample03Resp = {
+      username,
+      firstName: 'chen'
+    }
+
+    return res(
+      ctx.status(200),
+      ctx.delay(),
+      ctx.json(response)
     )
   })
 

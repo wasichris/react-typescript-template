@@ -9,7 +9,7 @@ const sampleApi = baseApiService.injectEndpoints({
 
     // [mutation]
     // 無使用快取需求時
-    SAMPLE01: builder.mutation<IBaseRes<ISample01Res>, ISample01Req>({
+    Sample01: builder.mutation<IBaseRes<ISample01Res>, ISample01Req>({
       query: (req) => ({
         url: `/sample/01?category=${req.category}`,
         method: 'GET'
@@ -18,7 +18,7 @@ const sampleApi = baseApiService.injectEndpoints({
 
     // [query]
     // 有使用快取需求時
-    SAMPLE02: builder.query<string, ISample02Req>({
+    Sample02: builder.query<string, ISample02Req>({
       query: (req) => ({
         url: '/sample/02',
         method: 'POST',
@@ -32,7 +32,7 @@ const sampleApi = baseApiService.injectEndpoints({
 
     // [mutation]
     // 無使用快取需求時
-    SAMPLE03: builder.mutation<IBaseRes<ISample03Res>, ISample03Req>({
+    Sample03: builder.mutation<IBaseRes<ISample03Res>, ISample03Req>({
       query: (req) => ({
         url: '/sample/03',
         method: 'POST',
@@ -50,11 +50,4 @@ const sampleApi = baseApiService.injectEndpoints({
   overrideExisting: true
 })
 
-export const {
-  useSAMPLE01Mutation,
-
-  useSAMPLE02Query,
-  useLazySAMPLE02Query,
-
-  useSAMPLE03Mutation
-} = sampleApi
+export default sampleApi

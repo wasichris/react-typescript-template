@@ -5,7 +5,7 @@ import { ISample01Res, ISample02Req, ISample03Req, ISample03Res } from '../../se
 import { getGuid } from '../../utils/commonHelper'
 import { getApiUrl, getRandomArrayItem, getRandomInt, getRandomIntRange } from '../mockHelper'
 
-const sample = [
+const sampleApi = [
 
   // [GET] sample
   rest.get(getApiUrl('/sample/01'), (req, res, ctx) => {
@@ -80,4 +80,4 @@ const sample = [
 
 ]
 
-export default sample
+export default sampleApi

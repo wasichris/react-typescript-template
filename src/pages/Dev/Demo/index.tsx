@@ -14,7 +14,7 @@ import { decrement, increment, incrementAsync, selectCount } from '../../../stor
 import useClickOutside from '../../../hooks/useClickOutside'
 import useAppDispatch from '../../../hooks/useAppDispatch'
 import useAppSelector from '../../../hooks/useAppSelector'
-import { useLazySAMPLE02Query, useSAMPLE01Mutation, useSAMPLE02Query, useSAMPLE03Mutation } from '../../../services/api/sample'
+import sampleApi from '../../../services/api/sampleApi'
 import { ISample03Req } from '../../../services/models/sample'
 
 interface IProps {
@@ -66,10 +66,10 @@ const Demo = (props: IProps) => {
 
   // call mutation api (no cached)
   const loadingCounter = useAppSelector(state => state.system.loadingCounter)
-  const [apiSAMPLE03] = useSAMPLE03Mutation()
+  const [apiSample03] = sampleApi.useSample03Mutation()
   const handleCallApiByPost = async () => {
     const req: ISample03Req = { username: 'chris' }
-    const response = await apiSAMPLE03(req).unwrap()
+    const response = await apiSample03(req).unwrap()
     const { header: { returnCode, returnMsg }, body } = response
     if (returnCode === '0000') {
       console.log(body)
@@ -78,9 +78,9 @@ const Demo = (props: IProps) => {
     }
   }
 
-  const [apiSAMPLE01] = useSAMPLE01Mutation()
+  const [apiSample01] = sampleApi.useSample01Mutation()
   const handleCallApiByGet = async () => {
-    const response = await apiSAMPLE01({ category: 'apple' }).unwrap()
+    const response = await apiSample01({ category: 'apple' }).unwrap()
     const { header: { returnCode, returnMsg }, body } = response
     if (returnCode === '0000') {
       console.log(body)
@@ -91,10 +91,10 @@ const Demo = (props: IProps) => {
 
   // call query api (cached)
   const [lazyBase64Img, setLazyBase64Img] = useState('')
-  const { data: base64Img } = useSAMPLE02Query({ height: 200, width: 800 }) // 直接執行api
-  const [apiSAMPLE02] = useLazySAMPLE02Query() // 自定呼叫api時間
+  const { data: base64Img } = sampleApi.useSample02Query({ height: 200, width: 800 }) // 直接執行api
+  const [apiSample02] = sampleApi.useLazySample02Query() // 自定呼叫api時間
   const handleCallLazyCachedApi = async () => {
-    const img = await apiSAMPLE02({ height: 200, width: 800 }, true /* cached */).unwrap()
+    const img = await apiSample02({ height: 200, width: 800 }, true /* cached */).unwrap()
     setLazyBase64Img(img)
   }
 

@@ -14,6 +14,8 @@ import { decrement, increment, incrementAsync, selectCount } from '../../../stor
 import useClickOutside from '../../../hooks/useClickOutside'
 import useAppDispatch from '../../../hooks/useAppDispatch'
 import useAppSelector from '../../../hooks/useAppSelector'
+import { useLazySAMPLE02Query, useSAMPLE01Mutation, useSAMPLE02Query, useSAMPLE03Mutation } from '../../../services/api/sample'
+import { ISample03Req } from '../../../services/models/sample'
 
 interface IProps {
 };
@@ -61,6 +63,40 @@ const Demo = (props: IProps) => {
   // hook
   const targetDiv = useRef(null)
   useClickOutside(targetDiv, () => console.log('clicked outside of my area!!'), true)
+
+  // call mutation api (no cached)
+  const loadingCounter = useAppSelector(state => state.system.loadingCounter)
+  const [apiSAMPLE03] = useSAMPLE03Mutation()
+  const handleCallApiByPost = async () => {
+    const req: ISample03Req = { username: 'chris' }
+    const response = await apiSAMPLE03(req).unwrap()
+    const { header: { returnCode, returnMsg }, body } = response
+    if (returnCode === '0000') {
+      console.log(body)
+    } else {
+      alert(`${returnCode}:${returnMsg}`)
+    }
+  }
+
+  const [apiSAMPLE01] = useSAMPLE01Mutation()
+  const handleCallApiByGet = async () => {
+    const response = await apiSAMPLE01({ category: 'apple' }).unwrap()
+    const { header: { returnCode, returnMsg }, body } = response
+    if (returnCode === '0000') {
+      console.log(body)
+    } else {
+      alert(`${returnCode}:${returnMsg}`)
+    }
+  }
+
+  // call query api (cached)
+  const [lazyBase64Img, setLazyBase64Img] = useState('')
+  const { data: base64Img } = useSAMPLE02Query({ height: 200, width: 800 }) // 直接執行api
+  const [apiSAMPLE02] = useLazySAMPLE02Query() // 自定呼叫api時間
+  const handleCallLazyCachedApi = async () => {
+    const img = await apiSAMPLE02({ height: 200, width: 800 }, true /* cached */).unwrap()
+    setLazyBase64Img(img)
+  }
 
   return <div className="dev-container">
 
@@ -177,6 +213,27 @@ const Demo = (props: IProps) => {
       <p>line1------</p>
       <p>line2------</p>
       <p>line3------</p>
+    </div>
+
+    <hr />
+
+    <div >
+      <h3>呼叫api</h3>
+      <p>loadingCounter: {loadingCounter}</p>
+      <div>
+        <p>mutation</p>
+        <input type="button" value="call mutation get api" onClick={handleCallApiByGet} />
+        <input type="button" value="call mutation post api" onClick={handleCallApiByPost} />
+      </div>
+      <div>
+        <p>use query to load a image directly</p>
+        <img alt="" src={base64Img} />
+      </div>
+      <div>
+        <span>use query-lazy to load a image</span>
+        <input type="button" value="get image" onClick={handleCallLazyCachedApi} />
+        <div> <img alt="" src={lazyBase64Img} /> </div>
+      </div>
     </div>
 
     <hr />

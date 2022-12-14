@@ -3,7 +3,7 @@ import { IEnvironment } from '../models/common'
 const developmentEnvironment: IEnvironment = {
   appEnv: process.env.NODE_ENV,
   appMode: process.env.REACT_APP_MODE,
-  apiUrl: '',
+  apiUrl: '/mock-api',
   apiTimeout: 180000
 }
 

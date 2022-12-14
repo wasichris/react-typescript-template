@@ -1,33 +1,31 @@
 import { rest } from 'msw'
 import { GenderEnum } from '../../constants/enums'
-import { getApiUrl, getGuid, getRandomArrayItem, getRandomInt, getRandomIntRange } from '../mockHelper'
-
-// 會定義在 api 定義區塊，所以這邊只是暫時放置而已
-// Mock 都會使用 api 定義區塊中的 interface 來使用
-interface ISample03Req {
-  username: string
-}
-interface ISample03Resp {
-  username: string
-  firstName: string
-}
+import { IBaseReq, IBaseRes } from '../../services/models/common'
+import { ISample01Res, ISample02Req, ISample03Req, ISample03Res } from '../../services/models/sample'
+import { getGuid } from '../../utils/commonHelper'
+import { getApiUrl, getRandomArrayItem, getRandomInt, getRandomIntRange } from '../mockHelper'
 
 const sample = [
 
-  // [GET]
+  // [GET] sample
   rest.get(getApiUrl('/sample/01'), (req, res, ctx) => {
     // get req header
     const urHeader = req.headers.get('ur-header') ?? ''
     // get single parameter from url
     const category = req.url.searchParams.get('category')
     // response data
-    const response = {
-      data: req,
-      category,
-      id: getGuid(),
-      age: getRandomIntRange(10, 100),
-      balance: getRandomInt(5),
-      gender: getRandomArrayItem([GenderEnum.MALE, GenderEnum.FEMALE])
+    const response: IBaseRes<ISample01Res> = {
+      header: {
+        returnCode: '0000',
+        returnMsg: ''
+      },
+      body: {
+        category,
+        id: getGuid(),
+        age: getRandomIntRange(10, 100),
+        balance: getRandomInt(5),
+        gender: getRandomArrayItem([GenderEnum.MALE, GenderEnum.FEMALE])
+      }
     }
 
     return res(
@@ -38,10 +36,13 @@ const sample = [
     )
   }),
 
-  // [POST]
+  // [POST] image
   rest.post(getApiUrl('/sample/02'), async (req, res, ctx) => {
+    // get req body
+    const { body: { width, height } } = await req.json<IBaseReq<ISample02Req>>()
+
     const imageBuffer = await fetch(
-      `https://picsum.photos/1125/468?random=${getRandomInt(6)}`
+      `https://picsum.photos/${width}/${height}?random=${getRandomInt(6)}`
     ).then(res => res.arrayBuffer())
 
     return res(
@@ -53,15 +54,21 @@ const sample = [
     )
   }),
 
-  // [POST]
+  // [POST] json
   rest.post(getApiUrl('/sample/03'), async (req, res, ctx) => {
     // get req body
-    const { username } = await req.json<ISample03Req>()
+    const { body: { username } } = await req.json<IBaseReq<ISample03Req>>()
 
     // set response
-    const response: ISample03Resp = {
-      username,
-      firstName: 'chen'
+    const response: IBaseRes<ISample03Res> = {
+      header: {
+        returnCode: '0000',
+        returnMsg: ''
+      },
+      body: {
+        username,
+        firstName: 'chen'
+      }
     }
 
     return res(

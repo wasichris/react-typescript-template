@@ -20,14 +20,14 @@ const Suspense = (component: JSX.Element) => <React.Suspense fallback={<>...</>}
 
 const routes: RouteObject[] = [
 
-  { path: '/', element: <Navigate to="public" /> },
+  { path: '/', element: <Navigate to="public" replace /> },
 
   /* [公開頁面區] */
   {
     path: 'public',
     element: Suspense(<PublicLayout />),
     children: [
-      { index: true, element: <Navigate to="landing" /> },
+      { index: true, element: <Navigate to="landing" replace /> },
       { path: 'landing', element: Suspense(<Landing />) },
       { path: 'login', element: Suspense(<Login />) }
     ]
@@ -38,7 +38,7 @@ const routes: RouteObject[] = [
     path: 'home',
     element: Suspense(<HomeLayout />),
     children: [
-      { index: true, element: <Navigate to="main" /> },
+      { index: true, element: <Navigate to="main" replace /> },
       { path: 'main', element: Suspense(<Main />) },
       { path: 'edit-profile', element: Suspense(<EditProfile />) }
     ]
@@ -50,7 +50,7 @@ const routes: RouteObject[] = [
       path: 'dev',
       element: <Outlet />,
       children: [
-        { index: true, element: <Navigate to="demo" /> },
+        { index: true, element: <Navigate to="demo" replace /> },
         { path: 'demo/:userId', element: Suspense(<Demo />) },
         { path: 'demo', element: Suspense(<Demo />) }
       ]
@@ -58,7 +58,7 @@ const routes: RouteObject[] = [
     : {},
 
   /* [預設頁面] */
-  { path: '*', element: <Navigate to="home" /> }
+  { path: '*', element: <Navigate to="home" replace /> }
 
 ]
 

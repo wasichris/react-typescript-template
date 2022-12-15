@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 import { baseApiService } from '../services/baseApiService'
-import counterSlice from '../store/slices/counterSlice'
-import systemSlice from '../store/slices/systemSlice'
+import counterSlice from './slices/counterSlice'
+import systemSlice from './slices/systemSlice'
 
 // Reducer
 const rootReducer = combineReducers({

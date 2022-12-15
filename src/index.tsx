@@ -6,7 +6,7 @@ import './setup/setupYup'
 import './assets/scss/app.scss'
 
 import App from './App'
-import { store } from './setup/setupStore'
+import { store } from './store'
 import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'

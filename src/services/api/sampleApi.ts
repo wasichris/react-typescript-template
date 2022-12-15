@@ -37,9 +37,9 @@ const sampleApi = baseApiService.injectEndpoints({
         url: '/sample/03',
         method: 'POST',
         body: baseReq(req),
-        // timeout: 1000, // 全域的可以在哪裡設定？
         responseHandler: (response: Response & IBaseRes<ISample03Res>) => {
-          // do something here. e.g. get request header info sample
+          // if you want to do something right after response, do it here.
+          // e.g. get request header info sample
           // const authToken = response.headers.get('x-auth-token')
           return response.json()
         }

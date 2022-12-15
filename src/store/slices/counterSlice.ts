@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { AppDispatch, RootState } from '../../setup/setupStore'
+import { AppDispatch, RootState } from '..'
 
 // Define the initial state
 const initialState = {

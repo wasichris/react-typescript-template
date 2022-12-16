@@ -59,8 +59,8 @@ const staggeredBaseQueryWithBailOut = retry(
  * @description 呼叫 api 的服務，透過 injectEndpoints 加入功能端點
  */
 export const baseApiService = createApi({
-  reducerPath: 'api',
+  reducerPath: 'api', // action type namespace
   baseQuery: staggeredBaseQueryWithBailOut,
   endpoints: () => ({}),
-  keepUnusedDataFor: 5 // seconds, unmount<->mount 時間內保留快取
+  keepUnusedDataFor: 10 // seconds, unmount<->mount 時間內保留快取
 })

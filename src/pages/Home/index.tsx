@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Navigate, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/logo.svg'
+import useAppDispatch from '../../hooks/useAppDispatch'
+import { logout } from '../../store/slices/systemSlice'
 
 interface IProps {
 };
@@ -9,14 +11,15 @@ const Home = (props: IProps) => {
   // TODO: 模擬 redux state
   const [isAuthenticated] = useState(true)
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   if (!isAuthenticated) {
     return <Navigate to="/landing" />
   }
 
   const handleLogout = () => {
-    // do logout process ...
-    navigate('/public/landing')
+    dispatch(logout())
+    navigate('/public/landing') // TODO: 要移到 authListener
   }
 
   return <>

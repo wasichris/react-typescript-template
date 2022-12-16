@@ -1,14 +1,17 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import useAppDispatch from '../../../hooks/useAppDispatch'
+import { login } from '../../../store/slices/systemSlice'
 
 interface IProps {
 };
 
 const Login = (props: IProps) => {
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
-
   const handleLogin = () => {
-    navigate('/home/main')
+    dispatch(login('id:pwd'))
+    navigate('/home/main') // TODO: 要移到 authListener
   }
 
   return <div>

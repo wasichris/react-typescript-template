@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 import { baseApiService } from '../services/baseApiService'
+import apiLoadingMiddleware from './middleware/apiLoadingMiddleware'
+import authListenerMiddleware from './middleware/authListenerMiddleware'
 import counterSlice from './slices/counterSlice'
-import systemSlice from './slices/systemSlice'
+import systemSlice, { appStart } from './slices/systemSlice'
 
 // Reducer
 const rootReducer = combineReducers({
@@ -14,6 +16,7 @@ const rootReducer = combineReducers({
 
 // Middleware
 const middleware = [
+  apiLoadingMiddleware,
   baseApiService.middleware
 ]
 
@@ -26,12 +29,15 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     // default middleware setting here
     // ...
-  }).concat(middleware)
+  }).prepend(authListenerMiddleware).concat(middleware)
 })
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
 // see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
 setupListeners(store.dispatch)
+
+// start listener for auth flow
+store.dispatch(appStart)
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

@@ -6,7 +6,7 @@ import storage from '../../../utils/storage'
 import { Formik, Form, FormikHelpers } from 'formik'
 import * as yup from 'yup'
 import FormTextInput from '../../../components/form/FormTextInput'
-import { useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { requiredStrSchema, strLengthRangeSchema } from '../../../validations/schema'
 import schemaChain from '../../../validations/schemaChain'
 import { getEnumDescription, getEnumOptions } from '../../../utils/decoratorHelper'
@@ -66,17 +66,6 @@ const Demo = (props: IProps) => {
 
   // call mutation api (no cached)
   const loadingCounter = useAppSelector(state => state.system.loadingCounter)
-  const [apiSample03] = sampleApi.useSample03Mutation()
-  const handleCallApiByPost = async () => {
-    const req: ISample03Req = { username: 'chris' }
-    const response = await apiSample03(req).unwrap()
-    const { header: { returnCode, returnMsg }, body } = response
-    if (returnCode === '0000') {
-      console.log(body)
-    } else {
-      alert(`${returnCode}:${returnMsg}`)
-    }
-  }
 
   const [apiSample01] = sampleApi.useSample01Mutation()
   const handleCallApiByGet = async () => {
@@ -89,14 +78,45 @@ const Demo = (props: IProps) => {
     }
   }
 
-  // call query api (cached)
+  // call query api (cached) - 直接執行api
+  const { data: base64Img/*, isLoading, isError, refetch */ } =
+    sampleApi.useSample02Query({ height: 200, width: 800 }, {
+      // pollingInterval: 60_000 // pull data every 1 minute
+    })
+
+  // call query api (cached) - 手動執行api
   const [lazyBase64Img, setLazyBase64Img] = useState('')
-  const { data: base64Img } = sampleApi.useSample02Query({ height: 200, width: 800 }) // 直接執行api
   const [apiSample02] = sampleApi.useLazySample02Query() // 自定呼叫api時間
   const handleCallLazyCachedApi = async () => {
     const img = await apiSample02({ height: 200, width: 800 }, true /* cached */).unwrap()
     setLazyBase64Img(img)
   }
+
+  // the way to use async function in useEffect
+  const [apiSample03] = sampleApi.useSample03Mutation()
+  const handleCallApiByPost = async () => {
+    const req: ISample03Req = { username: 'chris' }
+    const response = await apiSample03(req).unwrap()
+    const { header: { returnCode, returnMsg }, body } = response
+    if (returnCode === '0000') {
+      console.log(body)
+    } else {
+      alert(`${returnCode}:${returnMsg}`)
+    }
+  }
+
+  const getSampleData = useCallback(
+    async () => {
+      await apiSample03({ username: 'chris' }).unwrap()
+    },
+    [apiSample03]
+  )
+
+  useEffect(() => {
+    getSampleData()
+  }, [getSampleData])
+
+  // ===
 
   return <div className="dev-container">
 

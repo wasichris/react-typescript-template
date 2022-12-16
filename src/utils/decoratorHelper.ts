@@ -27,7 +27,7 @@ export function getEnumDescription(target: any, value: any): string {
   )
   if (prop) {
     const description = Reflect.getMetadata(ENUM_DESCRIPTION_METADATA_KEY, target, prop) as string
-    return getDescriptionI18nText(description)
+    return getI18nText(description)
   } else {
     return value.toString()
   }
@@ -47,7 +47,7 @@ export function getEnumOptions(target: any): IOption[] {
     })
     .map(prop => {
       const description = Reflect.getMetadata(ENUM_DESCRIPTION_METADATA_KEY, target, prop) as string
-      const label = description ? getDescriptionI18nText(description) : prop
+      const label = description ? getI18nText(description) : prop
       return {
         value: target[prop],
         label
@@ -61,7 +61,7 @@ export function getEnumOptions(target: any): IOption[] {
  * @param description EnumDescription 設定值
  * @returns 語系文字
  */
-const getDescriptionI18nText = (description: string) => {
+const getI18nText = (description: string) => {
   if (description) {
     return description.indexOf('__') > -1 ? i18n.t(description) : description
   }

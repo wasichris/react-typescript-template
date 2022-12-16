@@ -1,29 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '..'
 
 // Define the initial state
 const initialState = {
-  loadingCounter: 0
+  loadingCounter: 0,
+  isLogin: false
 }
 
 // Slice
-const counterSlice = createSlice({
+const systemSlice = createSlice({
   name: 'system',
   initialState,
   reducers: {
-    startLoading: (state) => {
+    increaseLoadingCounter: (state) => {
       state.loadingCounter += 1
     },
-    stopLoading: (state) => {
+    decreaseLoadingCounter: (state) => {
       if (state.loadingCounter > 0) {
         state.loadingCounter -= 1
       }
     },
-    resetLoading: (state) => {
-      state.loadingCounter = 0
+    updateLoginStatus: (state, action: PayloadAction<boolean>) => {
+      state.isLogin = action.payload
     }
   }
 })
+
+// Extra actions
+export const appStart = createAction(`${systemSlice.name}/appStart`)
+export const login = createAction<string>(`${systemSlice.name}/login`)
+export const logout = createAction(`${systemSlice.name}/logout`)
 
 // =========
 
@@ -35,5 +41,5 @@ export const selectLoadingCounter = (state: RootState) => state.system.loadingCo
 // =========
 
 // Action creators are generated for each case reducer function
-export const { startLoading, stopLoading, resetLoading } = counterSlice.actions
-export default counterSlice.reducer
+export const { increaseLoadingCounter, decreaseLoadingCounter, updateLoginStatus } = systemSlice.actions
+export default systemSlice.reducer

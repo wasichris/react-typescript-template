@@ -1,4 +1,4 @@
-import { getGuid } from '../utils/commonHelper'
+import { getGuid } from '../utils/helpers/commonHelper'
 import { IBaseReq } from './models/common'
 
 export default <T>(req: T): IBaseReq<T> => {

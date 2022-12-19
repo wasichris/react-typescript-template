@@ -3,7 +3,7 @@ import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
 import { RootState } from '..'
 import { appStart, login, logout, updateLoginStatus } from '../slices/systemSlice'
 import router from '../../router'
-import { getQueryStrValue } from '../../utils/urlHelper'
+import { getQueryStrValue } from '../../utils/helpers/urlHelper'
 
 const authListenerMiddleware = createListenerMiddleware()
 

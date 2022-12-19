@@ -1,4 +1,4 @@
-import { base64Encode } from '../../utils/encodeHelper'
+import { base64Encode } from '../../utils/helpers/encodeHelper'
 import { baseApiService } from '../baseApiService'
 import baseReq from '../baseReq'
 import { IBaseRes } from '../models/common'

@@ -2,7 +2,7 @@ import { rest } from 'msw'
 import { GenderEnum } from '../../constants/enums'
 import { IBaseReq, IBaseRes } from '../../services/models/common'
 import { ISample01Res, ISample02Req, ISample03Req, ISample03Res } from '../../services/models/sample'
-import { getGuid } from '../../utils/commonHelper'
+import { getGuid } from '../../utils/helpers/commonHelper'
 import { getApiUrl, getRandomArrayItem, getRandomInt, getRandomIntRange } from '../mockHelper'
 
 const sampleApi = [

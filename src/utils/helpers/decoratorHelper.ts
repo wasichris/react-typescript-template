@@ -1,6 +1,6 @@
 import 'reflect-metadata'
-import { IOption } from '../models/common'
-import i18n from '../setup/setupI18n'
+import { IOption } from '../../models/common'
+import i18n from '../../setup/setupI18n'
 
 const ENUM_DESCRIPTION_METADATA_KEY = Symbol('EnumDescription')
 

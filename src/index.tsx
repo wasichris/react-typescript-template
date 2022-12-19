@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-import './setup/setupI18n'
-import './setup/setupYup'
+import './i18n'
 import './assets/scss/app.scss'
 
 import { store } from './store'

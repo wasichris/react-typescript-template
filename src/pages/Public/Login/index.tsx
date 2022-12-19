@@ -1,5 +1,5 @@
 import React from 'react'
-import useAppDispatch from '../../../hooks/useAppDispatch'
+import useAppDispatch from '../../../utils/hooks/useAppDispatch'
 import { login } from '../../../store/slices/systemSlice'
 
 interface IProps {

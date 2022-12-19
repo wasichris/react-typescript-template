@@ -1,8 +1,8 @@
 import React from 'react'
 import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom'
 import logo from '../../assets/images/logo.svg'
-import useAppDispatch from '../../hooks/useAppDispatch'
-import useAppSelector from '../../hooks/useAppSelector'
+import useAppDispatch from '../../utils/hooks/useAppDispatch'
+import useAppSelector from '../../utils/hooks/useAppSelector'
 import { logout } from '../../store/slices/systemSlice'
 
 interface IProps {

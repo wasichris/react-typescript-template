@@ -11,9 +11,9 @@ import { requiredStrSchema, strLengthRangeSchema } from '../../../validations/sc
 import schemaChain from '../../../validations/schemaChain'
 import { getEnumDescription, getEnumOptions } from '../../../utils/helpers/decoratorHelper'
 import { decrement, increment, incrementAsync, selectCount } from '../../../store/slices/counterSlice'
-import useClickOutside from '../../../hooks/useClickOutside'
-import useAppDispatch from '../../../hooks/useAppDispatch'
-import useAppSelector from '../../../hooks/useAppSelector'
+import useClickOutside from '../../../utils/hooks/useClickOutside'
+import useAppDispatch from '../../../utils/hooks/useAppDispatch'
+import useAppSelector from '../../../utils/hooks/useAppSelector'
 import sampleApi from '../../../services/api/sampleApi'
 import { ISample03Req } from '../../../services/models/sample'
 

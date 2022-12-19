@@ -1,5 +1,6 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '..'
+import { AppDispatch, AppThunk, RootState } from '..'
+import sampleApi from '../../services/api/sampleApi'
 
 // Define the initial state
 const initialState = {
@@ -26,19 +27,26 @@ const systemSlice = createSlice({
   }
 })
 
+// Thunk
+export const initApp =
+  (): AppThunk =>
+    async (dispatch, getState) => {
+      // call api to get essential info (e.g. config, request token...)
+      const result = await dispatch(sampleApi.endpoints.Sample01.initiate({ category: 'c1' })).unwrap()
+      console.log('age result:', result.body.age)
+
+      // everything is ready, then
+      // start listener for auth flow
+      dispatch(startApp)
+    }
+
 // Extra actions
-export const appStart = createAction(`${systemSlice.name}/appStart`)
+export const startApp = createAction(`${systemSlice.name}/startApp`)
 export const login = createAction<string>(`${systemSlice.name}/login`)
 export const logout = createAction(`${systemSlice.name}/logout`)
 
-// =========
-
-// 可以自己封裝 select 讓外部直接使用來取得特定值
-// e.g. const loadingCounter = useAppSelector(state => state.system.loadingCounter)
-//      const loadingCounter = useAppSelector(selectLoadingCounter)
+// Selection
 export const selectLoadingCounter = (state: RootState) => state.system.loadingCounter
-
-// =========
 
 // Action creators are generated for each case reducer function
 export const { increaseLoadingCounter, decreaseLoadingCounter, updateLoginStatus } = systemSlice.actions

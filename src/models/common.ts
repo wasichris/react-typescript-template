@@ -1,3 +1,5 @@
+import { AppEnvEnum, AppModeEnum } from '../constants/enums'
+
 /**
  * 下拉選單資訊
  */
@@ -13,10 +15,10 @@ export interface IOption {
  */
 export interface IEnvironment {
   /** 運行環境 (development / production) */
-  appEnv: string,
+  appEnv: AppEnvEnum,
 
   /** 運行模式 (SIT / UAT / PROD) */
-  appMode: string | undefined,
+  appMode: AppModeEnum,
 
   /** 使用的 API 中台位置 */
   apiUrl: string,

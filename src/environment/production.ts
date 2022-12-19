@@ -4,7 +4,7 @@ let targetEnvironment = developmentEnvironment
 
 // 僅調整與 development 有差別的部分就好
 // 依據不同建置模式下使用不同的常數值
-switch (process.env.REACT_APP_MODE) {
+switch (targetEnvironment.appMode) {
   case AppModeEnum.SIT:
     targetEnvironment = { ...targetEnvironment, apiUrl: 'https://xxx.sit/tw/api/' }
     break

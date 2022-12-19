@@ -1,14 +1,14 @@
 
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
 import { RootState } from '..'
-import { appStart, login, logout, updateLoginStatus } from '../slices/systemSlice'
+import { startApp, login, logout, updateLoginStatus } from '../slices/systemSlice'
 import router from '../../router'
 import { getQueryStrValue } from '../../utils/helpers/urlHelper'
 
 const authListenerMiddleware = createListenerMiddleware()
 
 authListenerMiddleware.startListening({
-  actionCreator: appStart,
+  actionCreator: startApp,
   // matcher: isAnyOf(increment, decrement),
   effect: async (action, listenerApi) => {
     // const originalState = listenerApi.getOriginalState() as RootState

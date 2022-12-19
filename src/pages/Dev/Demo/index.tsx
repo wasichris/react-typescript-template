@@ -222,7 +222,11 @@ const Demo = (props: IProps) => {
       <br />
       <input type="button" value="+" onClick={() => { dispatch(increment()) }} />
       <input type="button" value="-" onClick={() => { dispatch(decrement()) }} />
-      <input type="button" value="thunk" onClick={() => { dispatch(incrementAsync(10)) }} />
+      <input type="button" value="thunk" onClick={async () => {
+        const result = await dispatch(incrementAsync(10))
+        console.log(result)
+      }} />
+
     </div>
 
     <hr />

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { AppDispatch, RootState } from '..'
+import { AppThunk, RootState } from '..'
+import sampleApi from '../../services/api/sampleApi'
 
 // Define the initial state
 const initialState = {
@@ -25,25 +26,31 @@ const counterSlice = createSlice({
   }
 })
 
-// =========
+// Thunk
+export const incrementAsync =
+  (amount: number): AppThunk<Promise<{ age: number }>> =>
+    async (dispatch, getState) => {
+      // call api
+      const result = await dispatch(sampleApi.endpoints.Sample01.initiate({ category: 'c1' })).unwrap()
+      console.log('age result:', result.body.age)
 
-// 可以自己封裝
-// The function below is called a thunk and allows us to perform async logic. It
-// can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
-// will call the thunk with the `dispatch` function as the first argument. Async
-// code can then be executed and other actions can be dispatched
-export const incrementAsync = (amount: number) => (dispatch: AppDispatch) => {
-  setTimeout(() => {
-    dispatch(incrementByAmount(amount))
-  }, 1000)
-}
+      // get state
+      console.log('currentCounter:', getState().counter.value)
 
-// 可以自己封裝 select 讓外部直接使用來取得特定值
+      // change other redux state
+      dispatch(incrementByAmount(amount))
+
+      // get state
+      console.log('newCounter:', getState().counter.value)
+
+      // return value
+      return { age: result.body.age }
+    }
+
+// Selection
 // e.g. const counterValue = useAppSelector(state => state.counter.value)
 //      const counterValue = useAppSelector(selectCount)
 export const selectCount = (state: RootState) => state.counter.value
-
-// ========
 
 // Action creators are generated for each case reducer function
 export const { increment, decrement, incrementByAmount } = counterSlice.actions

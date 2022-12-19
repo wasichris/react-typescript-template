@@ -5,13 +5,13 @@ import './setup/setupI18n'
 import './setup/setupYup'
 import './assets/scss/app.scss'
 
-import App from './App'
 import { store } from './store'
 import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals'
-import { BrowserRouter } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
 import environment from './environment'
 import { AppEnvEnum } from './constants/enums'
+import router from './router'
 
 if (environment.appEnv === AppEnvEnum.DEVELOPMENT) {
   const { worker } = require('./mocks/browser')
@@ -29,9 +29,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <App />
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 )

@@ -1,7 +1,7 @@
 import React from 'react'
 import { AppModeEnum } from './constants/enums'
 import environment from './environment'
-import AppRoutes from './AppRoutes'
+import { Outlet } from 'react-router-dom'
 
 function App() {
   return (
@@ -12,8 +12,8 @@ function App() {
         <div className="env-info">Mode: {process.env.REACT_APP_MODE}</div>
       )}
 
-      {/* 網站路由 */}
-      <AppRoutes />
+      {/* 子路由插入點 */}
+      <Outlet />
 
     </div>
   )

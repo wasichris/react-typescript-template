@@ -2,6 +2,8 @@
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
 import { RootState } from '..'
 import { appStart, login, logout, updateLoginStatus } from '../slices/systemSlice'
+import router from '../../router'
+import { getQueryStrValue } from '../../utils/urlHelper'
 
 const authListenerMiddleware = createListenerMiddleware()
 
@@ -15,7 +17,7 @@ authListenerMiddleware.startListening({
     // except for the one that made this call.
     listenerApi.cancelActiveListeners()
 
-    // 狀態機
+    // 系統登入狀態機
     const { take, dispatch, getState /* getOriginalState */ } = listenerApi
     try {
       while (true) {
@@ -32,7 +34,9 @@ authListenerMiddleware.startListening({
 
           // 處理登入事宜
           dispatch(updateLoginStatus(true))
-          // window.location.href = '/home/main'
+          // 回到原本欲訪問的頁面
+          const redirectUrl = getQueryStrValue('redirect_url')
+          redirectUrl ? router.navigate(redirectUrl) : router.navigate('/home/main')
         } else {
           // ### 已登入 ###
           console.log('[login status: true]')
@@ -42,15 +46,15 @@ authListenerMiddleware.startListening({
           console.log('do logout')
 
           // 處理登出事宜
-          dispatch(updateLoginStatus(true))
-          // window.location.href = '/public/landing'
+          dispatch(updateLoginStatus(false))
+          router.navigate('/public/landing')
         }
       }
     } catch (error) {
       console.error('authListenerMiddleware error:', error)
     }
 
-    // 如果 take 多個 action 時，可以用這個識別
+    // 如果 take 多個 action 時，可以這樣識別是哪個 action 符合
     // increment.match(action)
 
     // 複雜狀態，如 state 變化，可以用 condition 做條件

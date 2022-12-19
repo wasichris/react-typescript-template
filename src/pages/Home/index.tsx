@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
-import { Navigate, NavLink, Outlet, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom'
 import logo from '../../assets/images/logo.svg'
 import useAppDispatch from '../../hooks/useAppDispatch'
+import useAppSelector from '../../hooks/useAppSelector'
 import { logout } from '../../store/slices/systemSlice'
 
 interface IProps {
 };
 
 const Home = (props: IProps) => {
-  // TODO: 模擬 redux state
-  const [isAuthenticated] = useState(true)
-  const navigate = useNavigate()
+  const isLogin = useAppSelector(state => state.system.isLogin)
   const dispatch = useAppDispatch()
+  const location = useLocation()
 
-  if (!isAuthenticated) {
-    return <Navigate to="/landing" />
+  if (!isLogin) {
+    const currentPath = location.pathname
+    return <Navigate to={`/public/login?redirect_url=${currentPath}`} />
   }
 
   const handleLogout = () => {
     dispatch(logout())
-    navigate('/public/landing') // TODO: 要移到 authListener
   }
 
   return <>

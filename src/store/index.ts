@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 import { baseApiService } from '../services/baseApiService'
+import apiErrorHandleMiddleware from './middleware/apiErrorHandleMiddleware'
 import apiLoadingMiddleware from './middleware/apiLoadingMiddleware'
 import authListenerMiddleware from './middleware/authListenerMiddleware'
 import counterSlice from './slices/counterSlice'
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
 
 // Middleware
 const middleware = [
+  apiErrorHandleMiddleware,
   apiLoadingMiddleware,
   baseApiService.middleware
 ]

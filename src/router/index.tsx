@@ -45,7 +45,8 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Navigate to="main" replace /> },
           { path: 'main', element: Suspense(<Main />) },
-          { path: 'edit-profile', element: Suspense(<EditProfile />) }
+          { path: 'edit-profile', element: Suspense(<EditProfile />) },
+          { path: '*', element: <Navigate to="main" replace /> }
         ]
       },
 
@@ -63,7 +64,7 @@ const router = createBrowserRouter([
         : {},
 
       /* [預設頁面] */
-      { path: '*', element: <Navigate to="home" replace /> }
+      { path: '*', element: <Navigate to="public" replace /> }
 
     ]
   }

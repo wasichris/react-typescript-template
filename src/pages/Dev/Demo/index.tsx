@@ -71,7 +71,7 @@ const Demo = (props: IProps) => {
   const handleCallApiByGet = async () => {
     const response = await apiSample01({ category: 'apple' }).unwrap()
     const { header: { returnCode, returnMsg }, body } = response
-    if (returnCode === '0000') {
+    if (returnCode.isSuccessCode()) {
       console.log(body)
     } else {
       alert(`${returnCode}:${returnMsg}`)
@@ -98,7 +98,7 @@ const Demo = (props: IProps) => {
     const req: ISample03Req = { username: 'chris' }
     const response = await apiSample03(req).unwrap()
     const { header: { returnCode, returnMsg }, body } = response
-    if (returnCode === '0000') {
+    if (returnCode.isSuccessCode()) {
       console.log(body)
     } else {
       alert(`${returnCode}:${returnMsg}`)

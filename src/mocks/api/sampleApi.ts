@@ -1,9 +1,9 @@
 import { rest } from 'msw'
 import { GenderEnum } from '../../constants/enums'
-import { IBaseReq, IBaseRes } from '../../services/models/common'
-import { ISample01Res, ISample02Req, ISample03Req, ISample03Res } from '../../services/models/sample'
+import { IBaseReq } from '../../services/models/common'
+import { ISampleLoginReq, ISampleLoginRes, ISample01Res, ISample02Req, ISample03Req, ISample03Res } from '../../services/models/sample'
 import { getGuid } from '../../utils/helpers/commonHelper'
-import { getApiUrl, getRandomArrayItem, getRandomInt, getRandomIntRange } from '../mockHelper'
+import { createRes, getApiUrl, getRandomArrayItem, getRandomInt, getRandomIntRange } from '../mockHelper'
 
 const sampleApi = [
 
@@ -14,19 +14,13 @@ const sampleApi = [
     // get single parameter from url
     const category = req.url.searchParams.get('category')
     // response data
-    const response: IBaseRes<ISample01Res> = {
-      header: {
-        returnCode: '0000',
-        returnMsg: ''
-      },
-      body: {
-        category,
-        id: getGuid(),
-        age: getRandomIntRange(10, 100),
-        balance: getRandomInt(5),
-        gender: getRandomArrayItem([GenderEnum.MALE, GenderEnum.FEMALE])
-      }
-    }
+    const response = createRes<ISample01Res>({
+      category,
+      id: getGuid(),
+      age: getRandomIntRange(10, 100),
+      balance: getRandomInt(5),
+      gender: getRandomArrayItem([GenderEnum.MALE, GenderEnum.FEMALE])
+    })
 
     return res(
       ctx.set('my-header', urHeader),
@@ -60,16 +54,29 @@ const sampleApi = [
     const { body: { username } } = await req.json<IBaseReq<ISample03Req>>()
 
     // set response
-    const response: IBaseRes<ISample03Res> = {
-      header: {
-        returnCode: '0000',
-        returnMsg: ''
-      },
-      body: {
-        username,
-        firstName: 'chen'
-      }
-    }
+    const response = createRes<ISample03Res>({
+      username,
+      firstName: 'chen'
+    })
+
+    return res(
+      ctx.status(200),
+      ctx.delay(),
+      ctx.json(response)
+    )
+  }),
+
+  // ===
+
+  rest.post(getApiUrl('/sample/login'), async (req, res, ctx) => {
+    // get req body
+    const { body: { userId, pcode } } = await req.json<IBaseReq<ISampleLoginReq>>()
+
+    // set response
+    const response = createRes<ISampleLoginRes>({
+      authCode: 'this-is-a-auth-code' + pcode,
+      userName: 'chris-' + userId
+    })
 
     return res(
       ctx.status(200),

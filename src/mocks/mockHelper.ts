@@ -1,4 +1,5 @@
 import environment from '../environment'
+import { IBaseRes } from '../services/models/common'
 
 /**
  * 依據傳入的 api 相對路徑，取得完整 api 路徑
@@ -42,4 +43,21 @@ export const getRandomIntRange = (min: number, max: number) => {
 export const getRandomArrayItem = (items: number[] | string[] | boolean[]) => {
   const randomIndex = Math.floor(Math.random() * items.length)
   return items.slice(randomIndex, randomIndex + 1)[0]
+}
+
+/**
+ * 快速建立 response 結構
+ * @param body response body
+ * @param returnCode response returnCode
+ * @param returnMsg response returnMsg
+ * @returns response 結構
+ */
+export const createRes = <T>(body: T, returnCode: string = '0000', returnMsg: string = ''): IBaseRes<T> => {
+  return {
+    header: {
+      returnCode,
+      returnMsg
+    },
+    body
+  }
 }

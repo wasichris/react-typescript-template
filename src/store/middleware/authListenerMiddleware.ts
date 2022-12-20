@@ -1,7 +1,7 @@
 
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
 import { RootState } from '..'
-import { startApp, login, logout, updateLoginStatus } from '../slices/systemSlice'
+import { startApp, loginSuccess, logout, updateLoginInfo } from '../slices/systemSlice'
 import router from '../../router'
 import { getQueryStrValue } from '../../utils/helpers/urlHelper'
 
@@ -11,8 +11,6 @@ authListenerMiddleware.startListening({
   actionCreator: startApp,
   // matcher: isAnyOf(increment, decrement),
   effect: async (action, listenerApi) => {
-    // const originalState = listenerApi.getOriginalState() as RootState
-
     // Cancels all other running instances of this same listener
     // except for the one that made this call.
     listenerApi.cancelActiveListeners()
@@ -22,18 +20,19 @@ authListenerMiddleware.startListening({
     try {
       while (true) {
         // 檢查目前是否為已登入狀態
+
         const state = getState() as RootState
         const isLogin = state.system.isLogin
         if (isLogin === false) {
           // ### 未登入 ###
           console.log('[login status: false]')
 
-          // [阻塞] 等待登入要求訊號
-          const [{ payload: info }] = await take(isAnyOf(login.match))
-          console.log('do login,', info)
+          // [阻塞] 等待登入成功訊號
+          const [{ payload: { authToken } }] = await take(loginSuccess.match)
 
           // 處理登入事宜
-          dispatch(updateLoginStatus(true))
+          dispatch(updateLoginInfo({ authToken, isLogin: true }))
+
           // 回到原本欲訪問的頁面
           const redirectUrl = getQueryStrValue('redirect_url')
           redirectUrl ? router.navigate(redirectUrl) : router.navigate('/home/main')
@@ -42,11 +41,10 @@ authListenerMiddleware.startListening({
           console.log('[login status: true]')
 
           // [阻塞] 等待登出要求訊號
-          await take(isAnyOf(logout.match))
-          console.log('do logout')
+          await take(isAnyOf(logout))
 
           // 處理登出事宜
-          dispatch(updateLoginStatus(false))
+          dispatch(updateLoginInfo({ authToken: '', isLogin: false }))
           router.navigate('/public/landing')
         }
       }

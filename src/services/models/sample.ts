@@ -23,3 +23,14 @@ export interface ISample03Res {
   username: string
   firstName: string
 }
+
+// ===
+
+export interface ISampleLoginReq {
+  userId: string,
+  pcode: string
+}
+export interface ISampleLoginRes {
+  userName: string,
+  authCode: string,
+}

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import useAppDispatch from '../../../utils/hooks/useAppDispatch'
-import { loginSuccess } from '../../../store/slices/systemSlice'
+import { loginSuccess } from '../../../store/slices/appSlice'
 import sampleApi from '../../../services/api/sampleApi'
 import useAppSelector from '../../../utils/hooks/useAppSelector'
 import { useNavigate } from 'react-router-dom'
@@ -12,7 +12,7 @@ const Login = (props: IProps) => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [apiSampleLogin] = sampleApi.useSampleLoginMutation()
-  const isLogin = useAppSelector(s => s.system.isLogin)
+  const isLogin = useAppSelector(s => s.app.isLogin)
 
   useEffect(() => {
     // 已登入用戶，直接轉向登入後首頁

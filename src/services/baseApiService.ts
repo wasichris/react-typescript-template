@@ -32,7 +32,7 @@ const staggeredBaseQueryWithBailOut = retry(
     // ======================
 
     // get state sample:
-    // (api.getState() as RootState).system.loadingCounter
+    // (api.getState() as RootState).app.loadingCounter
 
     // dispatch sample:
     // api.dispatch()

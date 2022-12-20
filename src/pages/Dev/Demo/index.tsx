@@ -65,7 +65,7 @@ const Demo = (props: IProps) => {
   useClickOutside(targetDiv, () => console.log('clicked outside of my area!!'), true)
 
   // call mutation api (no cached)
-  const loadingCounter = useAppSelector(state => state.system.loadingCounter)
+  const loadingCounter = useAppSelector(state => state.app.loadingCounter)
 
   const [apiSample01] = sampleApi.useSample01Mutation()
   const handleCallApiByGet = async () => {

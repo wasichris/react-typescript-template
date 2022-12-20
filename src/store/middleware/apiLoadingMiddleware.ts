@@ -1,7 +1,7 @@
 
 import { isPending, isFulfilled, isRejected, Action, MiddlewareAPI } from '@reduxjs/toolkit'
 import { AppDispatch } from '..'
-import { increaseLoadingCounter, decreaseLoadingCounter } from '../slices/systemSlice'
+import { increaseLoadingCounter, decreaseLoadingCounter } from '../slices/appSlice'
 
 /**
  * 不列入 loading api 計算的清單

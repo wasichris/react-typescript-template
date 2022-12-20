@@ -1,7 +1,7 @@
 
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
 import { RootState } from '..'
-import { startApp, loginSuccess, logout, updateLoginInfo } from '../slices/systemSlice'
+import { startApp, loginSuccess, logout, updateLoginInfo } from '../slices/appSlice'
 import router from '../../router'
 import { getQueryStrValue } from '../../utils/helpers/urlHelper'
 
@@ -22,7 +22,7 @@ authListenerMiddleware.startListening({
         // 檢查目前是否為已登入狀態
 
         const state = getState() as RootState
-        const isLogin = state.system.isLogin
+        const isLogin = state.app.isLogin
         if (isLogin === false) {
           // ### 未登入 ###
           console.log('[login status: false]')
@@ -59,7 +59,7 @@ authListenerMiddleware.startListening({
     // const isLogoutDone = listenerApi.condition((action, currentState, previousState) => {
     //   const preState = previousState as RootState
     //   const curState = currentState as RootState
-    //   return preState.system.isLogin === true && curState.system.isLogin === false
+    //   return preState.app.isLogin === true && curState.app.isLogin === false
     // })
 
     // Spawn "child tasks" that can do more work and return results

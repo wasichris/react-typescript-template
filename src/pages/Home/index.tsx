@@ -3,13 +3,13 @@ import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom'
 import logo from '../../assets/images/logo.svg'
 import useAppDispatch from '../../utils/hooks/useAppDispatch'
 import useAppSelector from '../../utils/hooks/useAppSelector'
-import { logout } from '../../store/slices/systemSlice'
+import { logout } from '../../store/slices/appSlice'
 
 interface IProps {
 };
 
 const Home = (props: IProps) => {
-  const isLogin = useAppSelector(state => state.system.isLogin)
+  const isLogin = useAppSelector(state => state.app.isLogin)
   const dispatch = useAppDispatch()
   const location = useLocation()
 

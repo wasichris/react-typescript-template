@@ -10,8 +10,8 @@ const initialState = {
 }
 
 // Slice
-const systemSlice = createSlice({
-  name: 'system',
+const appSlice = createSlice({
+  name: 'app',
   initialState,
   reducers: {
     increaseLoadingCounter: (state) => {
@@ -42,13 +42,13 @@ export const initApp =
     }
 
 // Extra actions
-export const startApp = createAction(`${systemSlice.name}/startApp`)
-export const loginSuccess = createAction<{ authToken: string }>(`${systemSlice.name}/loginSuccess`)
-export const logout = createAction(`${systemSlice.name}/logout`)
+export const startApp = createAction(`${appSlice.name}/startApp`)
+export const loginSuccess = createAction<{ authToken: string }>(`${appSlice.name}/loginSuccess`)
+export const logout = createAction(`${appSlice.name}/logout`)
 
 // Selection
-export const selectLoadingCounter = (state: RootState) => state.system.loadingCounter
+export const selectLoadingCounter = (state: RootState) => state.app.loadingCounter
 
 // Action creators are generated for each case reducer function
-export const { increaseLoadingCounter, decreaseLoadingCounter, updateLoginInfo } = systemSlice.actions
-export default systemSlice.reducer
+export const { increaseLoadingCounter, decreaseLoadingCounter, updateLoginInfo } = appSlice.actions
+export default appSlice.reducer

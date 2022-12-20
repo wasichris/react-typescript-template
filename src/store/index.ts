@@ -7,12 +7,12 @@ import apiErrorHandleMiddleware from './middleware/apiErrorHandleMiddleware'
 import apiLoadingMiddleware from './middleware/apiLoadingMiddleware'
 import authListenerMiddleware from './middleware/authListenerMiddleware'
 import counterSlice from './slices/counterSlice'
-import systemSlice, { initApp } from './slices/systemSlice'
+import appSlice, { initApp } from './slices/appSlice'
 
 // Reducer
 const rootReducer = combineReducers({
+  app: appSlice,
   counter: counterSlice,
-  system: systemSlice,
   // Add the generated reducer as a specific top-level slice
   [baseApiService.reducerPath]: baseApiService.reducer
 })

@@ -26,6 +26,11 @@ export interface ISample03Res {
 
 // ===
 
+export interface ISampleGetConfigRes {
+  clientId: string,
+  config: Record<string, string>
+}
+
 export interface ISampleLoginReq {
   userId: string,
   pcode: string

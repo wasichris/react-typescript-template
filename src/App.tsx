@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { AppModeEnum } from './constants/enums'
 import environment from './environment'
 import { Outlet } from 'react-router-dom'
 import useAppSelector from './utils/hooks/useAppSelector'
-import { selectLoadingCounter } from './store/slices/appSlice'
+import { initApp, selectLoadingCounter } from './store/slices/appSlice'
 import Loader from './components/common/Loader'
+import useAppDispatch from './utils/hooks/useAppDispatch'
 
 function App() {
   const loadingCounter = useAppSelector(selectLoadingCounter)
@@ -13,6 +14,21 @@ function App() {
       ? document && document.body.classList.add('blocked')
       : document && document.body.classList.remove('blocked')
   }, [loadingCounter])
+
+  const dispatch = useAppDispatch()
+  const isInitApp = useRef(false)
+  const [isInitAppSuccess, setIsInitAppSuccess] = useState<boolean | null>(null)
+  const initApplication = useCallback(
+    async () => {
+      if (isInitApp.current === false) {
+        isInitApp.current = true
+        const isSuccess = await dispatch(initApp())
+        setIsInitAppSuccess(isSuccess)
+      }
+    },
+    [dispatch]
+  )
+  useEffect(() => { initApplication() }, [initApplication])
 
   return (
     <div className="app">
@@ -27,7 +43,7 @@ function App() {
       )}
 
       {/* 子路由插入點 */}
-      <Outlet />
+      {isInitAppSuccess && <Outlet />}
 
     </div>
   )

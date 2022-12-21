@@ -1,7 +1,7 @@
 import { rest } from 'msw'
 import { GenderEnum } from '../../constants/enums'
 import { IBaseReq } from '../../services/models/common'
-import { ISampleLoginReq, ISampleLoginRes, ISample01Res, ISample02Req, ISample03Req, ISample03Res } from '../../services/models/sample'
+import { ISampleLoginReq, ISampleLoginRes, ISample01Res, ISample02Req, ISample03Req, ISample03Res, ISampleGetConfigRes } from '../../services/models/sample'
 import { getGuid } from '../../utils/helpers/commonHelper'
 import { createRes, getApiUrl, getRandomArrayItem, getRandomInt, getRandomIntRange } from '../mockHelper'
 
@@ -67,6 +67,20 @@ const sampleApi = [
   }),
 
   // ===
+
+  rest.post(getApiUrl('/sample/get-config'), async (req, res, ctx) => {
+    // set response
+    const response = createRes<ISampleGetConfigRes>({
+      clientId: 'my-client-id',
+      config: { k1: 'k1-value', k2: 'k2-value' }
+    })
+
+    return res(
+      ctx.status(200),
+      ctx.delay(),
+      ctx.json(response)
+    )
+  }),
 
   rest.post(getApiUrl('/sample/login'), async (req, res, ctx) => {
     // get req body

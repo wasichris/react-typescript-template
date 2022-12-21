@@ -2,7 +2,7 @@ import { base64Encode } from '../../utils/helpers/encodeHelper'
 import { baseApiService } from '../baseApiService'
 import baseReq from '../baseReq'
 import { IBaseRes } from '../models/common'
-import { ISampleLoginReq, ISampleLoginRes, ISample01Req, ISample01Res, ISample02Req, ISample03Req, ISample03Res } from '../models/sample'
+import { ISampleLoginReq, ISampleLoginRes, ISample01Req, ISample01Res, ISample02Req, ISample03Req, ISample03Res, ISampleGetConfigRes } from '../models/sample'
 
 const sampleApi = baseApiService.injectEndpoints({
   endpoints: (builder) => ({
@@ -47,6 +47,14 @@ const sampleApi = baseApiService.injectEndpoints({
     }),
 
     // ===
+
+    SampleGetConfig: builder.mutation<IBaseRes<ISampleGetConfigRes>, null>({
+      query: (req) => ({
+        url: '/sample/get-config',
+        method: 'POST',
+        body: baseReq(req)
+      })
+    }),
 
     SampleLogin: builder.mutation<IBaseRes<ISampleLoginRes>, ISampleLoginReq>({
       query: (req) => ({

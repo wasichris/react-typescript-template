@@ -33,14 +33,29 @@ const appSlice = createSlice({
 
 // Thunk
 export const initApp =
-  (): AppThunk =>
+  (): AppThunk<Promise<boolean>> =>
     async (dispatch, getState) => {
-      // call api to get essential info (e.g. config, request token...)
-      const result = await dispatch(sampleApi.endpoints.Sample01.initiate({ category: 'c1' })).unwrap()
-      console.log('age result:', result.body.age)
+      let isInitAppSuccess = true
 
-      // start listening auth flow (authListenerMiddleware)
-      dispatch(startApp())
+      // get essential info (e.g. config, request token...)
+      const response = await dispatch(sampleApi.endpoints.SampleGetConfig.initiate(null)).unwrap()
+      const { header: { returnCode, returnMsg }/*, body */ } = response
+      if (returnCode.isSuccessCode()) {
+        // success
+
+        // keep response body for further use
+        // ...
+
+        // start listening auth flow (authListenerMiddleware)
+        dispatch(startApp())
+        isInitAppSuccess = true
+      } else {
+        // fail
+        console.error(`init app fail, ${returnCode}:${returnMsg}`)
+        isInitAppSuccess = false
+      }
+
+      return isInitAppSuccess
     }
 
 // Extra actions

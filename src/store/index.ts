@@ -57,9 +57,6 @@ export const persistor = persistStore(store)
 // see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
 setupListeners(store.dispatch)
 
-// init app
-store.dispatch(initApp())
-
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {counter: counterState}

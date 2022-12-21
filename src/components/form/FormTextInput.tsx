@@ -2,7 +2,7 @@ import { FieldHookConfig, useField } from 'formik'
 import { ChangeEvent, ClassAttributes, FocusEvent, InputHTMLAttributes } from 'react'
 
 interface IProps {
-  caption?: string
+  caption?: string | null
 }
 
 const FormTextInput = ({ caption, ...props }: IProps & InputHTMLAttributes<HTMLInputElement> &

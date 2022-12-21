@@ -28,6 +28,7 @@ export default {
   __clear: `清除`,
   __submit: `送出`,
   __understand: `知道了`,
-  __salary: `月薪`
+  __salary: `月薪`,
+  __useTwd: `使用臺幣為單位`
 
 }

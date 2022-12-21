@@ -68,8 +68,20 @@ const Demo = (props: IProps) => {
   const loadingCounter = useAppSelector(state => state.app.loadingCounter)
 
   const [apiSample01] = sampleApi.useSample01Mutation()
-  const handleCallApiByGet = async () => {
+  const handleCallSample01Api = async () => {
     const response = await apiSample01({ category: 'apple' }).unwrap()
+    const { header: { returnCode, returnMsg }, body } = response
+    if (returnCode.isSuccessCode()) {
+      console.log(body)
+    } else {
+      alert(`${returnCode}:${returnMsg}`)
+    }
+  }
+
+  const [apiSample03] = sampleApi.useSample03Mutation()
+  const handleCallSample03Api = async () => {
+    const req: ISample03Req = { username: 'chris' }
+    const response = await apiSample03(req).unwrap()
     const { header: { returnCode, returnMsg }, body } = response
     if (returnCode.isSuccessCode()) {
       console.log(body)
@@ -91,30 +103,6 @@ const Demo = (props: IProps) => {
     const img = await apiSample02({ height: 200, width: 800 }, true /* cached */).unwrap()
     setLazyBase64Img(img)
   }
-
-  // the way to use async function in useEffect
-  const [apiSample03] = sampleApi.useSample03Mutation()
-  const handleCallApiByPost = async () => {
-    const req: ISample03Req = { username: 'chris' }
-    const response = await apiSample03(req).unwrap()
-    const { header: { returnCode, returnMsg }, body } = response
-    if (returnCode.isSuccessCode()) {
-      console.log(body)
-    } else {
-      alert(`${returnCode}:${returnMsg}`)
-    }
-  }
-
-  const getSampleData = useCallback(
-    async () => {
-      await apiSample03({ username: 'chris' }).unwrap()
-    },
-    [apiSample03]
-  )
-
-  useEffect(() => {
-    getSampleData()
-  }, [getSampleData])
 
   // ===
 
@@ -196,7 +184,7 @@ const Demo = (props: IProps) => {
 
             <div>
               <label htmlFor='salary' > {t('__salary' /* 月薪 */)} </label>
-              <FormTextInput id="salary" name="salary" type="text" caption='使用臺幣為單位' />
+              <FormTextInput id="salary" name="salary" type="text" caption={t('__useTwd' /* 使用臺幣為單位 */)} />
             </div>
 
             <input
@@ -244,17 +232,20 @@ const Demo = (props: IProps) => {
     <div >
       <h3>呼叫api</h3>
       <p>loadingCounter: {loadingCounter}</p>
+      <br />
       <div>
-        <p>mutation</p>
-        <input type="button" value="call mutation get api" onClick={handleCallApiByGet} />
-        <input type="button" value="call mutation post api" onClick={handleCallApiByPost} />
+        <p>mutation(無快取)</p>
+        <input type="button" value="call Sample01 api(不列入loader)" onClick={handleCallSample01Api} /> <br />
+        <input type="button" value="call Sample03 api(有列入loader)" onClick={handleCallSample03Api} />
       </div>
+      <br />
       <div>
-        <p>use query to load a image directly</p>
+        <p>  query(有快取)</p>
+        <p>使用 query 直接執行 Sample02 api 取得圖片</p>
         <img alt="" src={base64Img} />
       </div>
       <div>
-        <span>use query-lazy to load a image</span>
+        <span>使用 query-lazy 手動執行 Sample02 api 取得圖片</span>
         <input type="button" value="get image" onClick={handleCallLazyCachedApi} />
         <div> <img alt="" src={lazyBase64Img} /> </div>
       </div>

@@ -28,6 +28,7 @@ export default {
   __clear: `Clear`,
   __submit: `Submit`,
   __understand: `Understand`,
-  __salary: `Salary`
+  __salary: `Salary`,
+  __useTwd: `Please use TWD`
 
 }

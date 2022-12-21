@@ -80,7 +80,7 @@ const sampleApi = [
 
     return res(
       ctx.status(200),
-      ctx.delay(),
+      ctx.delay(1000),
       ctx.json(response)
     )
   })

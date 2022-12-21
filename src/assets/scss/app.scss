@@ -2,32 +2,28 @@
 @import './mixins';
 @import './variables';
 @import './reset';
+@import './components';
 
 
-// 工具性類別
+// =================== 工具性類別 ======================
 
 .flex {
     display: flex;
 }
 
+.blocked {
+    overflow: hidden;
+}
 
-// 通用元件樣式
+
+// =================== 通用樣式 ======================
 
 .btn-link {
     color: $color__link;
 }
 
-.input__caption {
-    color: $color__caption;
-    font-size: smaller;
-}
 
-.input__error {
-    color: $color__error;
-}
-
-
-// 網站結構樣式
+// =================== 網站樣式 ======================
 
 .env-info {
     position: absolute;
@@ -76,7 +72,19 @@
         min-height: calc(100vh - 50px);
         padding: 10px 20px;
     }
+}
 
+.app-mask {
+    z-index: z(mask);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    top: 0;
+    height: 100vh;
+    background-color: rgb(224 224 224 / 70%);
+    backdrop-filter: blur(1px);
 }
 
 .dev-container {

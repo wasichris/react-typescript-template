@@ -29,14 +29,15 @@ const FormTextInput = ({ caption, ...props }: IProps & InputHTMLAttributes<HTMLI
       <input
         {...field}
         {...props}
+        className="form-text-input"
         onChange={handleChange}
         onBlur={handleBlur}
         autoComplete="off"
       />
 
-      {caption ? <div className="input__caption"> {caption} </div> : null}
+      {caption ? <div className="form-text-input__caption"> {caption} </div> : null}
 
-      {hasError ? <div className="input__error" > {meta.error} </div> : null}
+      {hasError ? <div className="form-text-input__error" > {meta.error} </div> : null}
     </>
   )
 }

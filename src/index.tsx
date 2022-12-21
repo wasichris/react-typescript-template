@@ -5,13 +5,14 @@ import './utils/extensions/stringExtensions'
 import './i18n'
 import './assets/scss/app.scss'
 
-import { store } from './store'
+import { persistor, store } from './store'
 import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals'
 import { RouterProvider } from 'react-router-dom'
 import environment from './environment'
 import { AppEnvEnum } from './constants/enums'
 import router from './router'
+import { PersistGate } from 'redux-persist/integration/react'
 
 if (environment.appEnv === AppEnvEnum.DEVELOPMENT) {
   const { worker } = require('./mocks/browser')
@@ -29,7 +30,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 )

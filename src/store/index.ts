@@ -8,11 +8,20 @@ import apiLoadingMiddleware from './middleware/apiLoadingMiddleware'
 import authListenerMiddleware from './middleware/authListenerMiddleware'
 import counterSlice from './slices/counterSlice'
 import appSlice, { initApp } from './slices/appSlice'
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // default to localStorage
+
+// Persist state for app reducer
+const appPersistConfig = {
+  key: appSlice.name,
+  storage,
+  whitelist: ['isLogin', 'authToken']
+}
 
 // Reducer
 const rootReducer = combineReducers({
-  app: appSlice,
-  counter: counterSlice,
+  app: persistReducer(appPersistConfig, appSlice.reducer),
+  counter: counterSlice.reducer,
   // Add the generated reducer as a specific top-level slice
   [baseApiService.reducerPath]: baseApiService.reducer
 })
@@ -32,12 +41,17 @@ export const store = configureStore({
   // and other useful features of `rtk-query`.
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     // default middleware setting here
-    // ...
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+    }
   }).prepend(authListenerMiddleware).concat(middleware),
 
   // dev tools only for development
   devTools: environment.appEnv === AppEnvEnum.DEVELOPMENT
 })
+
+// Persist Store
+export const persistor = persistStore(store)
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
 // see `setupListeners` docs - takes an optional callback as the 2nd arg for customization

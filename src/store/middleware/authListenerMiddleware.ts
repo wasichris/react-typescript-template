@@ -15,16 +15,18 @@ authListenerMiddleware.startListening({
     // except for the one that made this call.
     listenerApi.cancelActiveListeners()
 
-    // 系統登入狀態機
+    // State Machines for auth
     const { take, dispatch, getState /* getOriginalState */ } = listenerApi
     try {
       while (true) {
         // 檢查目前是否為已登入狀態
-
         const state = getState() as RootState
         const isLogin = state.app.isLogin
         if (isLogin === false) {
+          // #############
           // ### 未登入 ###
+          // #############
+
           console.log('[login status: false]')
 
           // [阻塞] 等待登入成功訊號
@@ -37,7 +39,10 @@ authListenerMiddleware.startListening({
           const redirectUrl = getQueryStrValue('redirect_url')
           redirectUrl ? router.navigate(redirectUrl) : router.navigate('/home/main')
         } else {
+          // #############
           // ### 已登入 ###
+          // #############
+
           console.log('[login status: true]')
 
           // [阻塞] 等待登出要求訊號

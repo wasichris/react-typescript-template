@@ -9,13 +9,26 @@
     }
 }
 
-.loader {
-    display: inline-block;
-    position: relative;
-    width: 40px;
-    height: 10px;
+.loading-mask {
+    z-index: z(mask);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    top: 0;
+    height: 100vh;
+    background-color: rgb(224 224 224 / 70%);
+    backdrop-filter: blur(1px);
 
-    &__item {
+    &__loader {
+        display: inline-block;
+        position: relative;
+        width: 40px;
+        height: 10px;
+    }
+
+    &__loader-item {
         position: absolute;
         top: 2px;
         width: 8px;

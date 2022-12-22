@@ -74,19 +74,6 @@
     }
 }
 
-.app-mask {
-    z-index: z(mask);
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    top: 0;
-    height: 100vh;
-    background-color: rgb(224 224 224 / 70%);
-    backdrop-filter: blur(1px);
-}
-
 .dev-container {
     margin: 20px 50px;
 }

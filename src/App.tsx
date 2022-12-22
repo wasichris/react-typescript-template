@@ -3,17 +3,17 @@ import { AppModeEnum } from './constants/enums'
 import environment from './environment'
 import { Outlet } from 'react-router-dom'
 import useAppSelector from './utils/hooks/useAppSelector'
-import { initApp, selectLoadingCounter } from './store/slices/appSlice'
+import { initApp, selectLoadingApiCounter } from './store/slices/appSlice'
 import Loader from './components/common/Loader'
 import useAppDispatch from './utils/hooks/useAppDispatch'
 
 function App() {
-  const loadingCounter = useAppSelector(selectLoadingCounter)
+  const loadingApiCounter = useAppSelector(selectLoadingApiCounter)
   useEffect(() => {
-    loadingCounter > 0
+    loadingApiCounter > 0
       ? document && document.body.classList.add('blocked')
       : document && document.body.classList.remove('blocked')
-  }, [loadingCounter])
+  }, [loadingApiCounter])
 
   const dispatch = useAppDispatch()
   const isInitApp = useRef(false)
@@ -34,7 +34,7 @@ function App() {
     <div className="app">
 
       {/* api loader */}
-      {loadingCounter > 0 &&
+      {loadingApiCounter > 0 &&
         <div className="app-mask"> <Loader /> </div>}
 
       {/* 識別環境 */}

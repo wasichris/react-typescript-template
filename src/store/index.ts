@@ -7,7 +7,7 @@ import apiErrorHandleMiddleware from './middleware/apiErrorHandleMiddleware'
 import apiLoadingMiddleware from './middleware/apiLoadingMiddleware'
 import authListenerMiddleware from './middleware/authListenerMiddleware'
 import counterSlice from './slices/counterSlice'
-import appSlice, { initApp } from './slices/appSlice'
+import appSlice from './slices/appSlice'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // default to localStorage
 

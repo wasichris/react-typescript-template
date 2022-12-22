@@ -4,9 +4,9 @@ import sampleApi from '../../services/api/sampleApi'
 
 // Define the initial state
 const initialState = {
-  loadingCounter: 0,
   isLogin: false,
-  authToken: ''
+  authToken: '',
+  loadingApiList: [] as string[]
 }
 
 // Slice
@@ -16,13 +16,13 @@ const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    increaseLoadingCounter: (state) => {
-      state.loadingCounter += 1
+    addLoadingApi: (state, action: PayloadAction<string>) => {
+      const { payload: apiRequestId } = action
+      state.loadingApiList.push(apiRequestId)
     },
-    decreaseLoadingCounter: (state) => {
-      if (state.loadingCounter > 0) {
-        state.loadingCounter -= 1
-      }
+    removeLoadingApi: (state, action: PayloadAction<string>) => {
+      const { payload: apiRequestId } = action
+      state.loadingApiList = state.loadingApiList.filter(api => api !== apiRequestId)
     },
     updateLoginInfo: (state, action: PayloadAction<{ isLogin: boolean, authToken: string }>) => {
       state.isLogin = action.payload.isLogin
@@ -65,8 +65,8 @@ export const logout = createAction(`${appSlice.name}/logout`)
 
 // Selection
 // plz prefixing selector function names with 'select'
-export const selectLoadingCounter = (state: RootState) => state.app.loadingCounter
+export const selectLoadingApiCounter = (state: RootState) => state.app.loadingApiList.length
 
 // Action creators are generated for each case reducer function
-export const { increaseLoadingCounter, decreaseLoadingCounter, updateLoginInfo } = appSlice.actions
+export const { updateLoginInfo, addLoadingApi, removeLoadingApi } = appSlice.actions
 export default appSlice

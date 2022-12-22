@@ -1,12 +1,13 @@
 
-import { Action, MiddlewareAPI, isRejectedWithValue } from '@reduxjs/toolkit'
-import router from '../../router'
+import { Action, MiddlewareAPI, isRejectedWithValue, Middleware } from '@reduxjs/toolkit'
+import { AppDispatch, RootState } from '..'
+import { logout } from '../slices/appSlice'
 
 /**
  * 攔截 api 回應異常的狀況來進行統一的邏輯處置
  */
 const apiErrorHandleMiddleware =
-  (api: MiddlewareAPI) =>
+  ({ dispatch, getState }: MiddlewareAPI<AppDispatch, RootState>) =>
     (next: (action: Action) => void) =>
       (action: any) => {
         // only fetch when http code !== 200
@@ -22,7 +23,10 @@ const apiErrorHandleMiddleware =
               case 401:
                 // 無權限訪問站台
                 alert('無權限訪問站台，請重新登入')
-                router.navigate('/public/login')
+                if (getState().app.isLogin) {
+                  dispatch(logout())
+                }
+
                 break
 
               default:
@@ -35,4 +39,5 @@ const apiErrorHandleMiddleware =
         return next(action)
       }
 
-export default apiErrorHandleMiddleware
+const middleware = apiErrorHandleMiddleware as Middleware
+export default middleware

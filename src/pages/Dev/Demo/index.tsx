@@ -6,7 +6,7 @@ import storage from '../../../utils/storage'
 import { Formik, Form, FormikHelpers } from 'formik'
 import * as yup from 'yup'
 import FormTextInput from '../../../components/form/FormTextInput'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { requiredStrSchema, strLengthRangeSchema } from '../../../validations/schema'
 import schemaChain from '../../../validations/schemaChain'
 import { getEnumDescription, getEnumOptions } from '../../../utils/helpers/decoratorHelper'
@@ -16,6 +16,7 @@ import useAppDispatch from '../../../utils/hooks/useAppDispatch'
 import useAppSelector from '../../../utils/hooks/useAppSelector'
 import sampleApi from '../../../services/api/sampleApi'
 import { ISample03Req } from '../../../services/models/sample'
+import { selectLoadingApiCounter } from '../../../store/slices/appSlice'
 
 interface IProps {
 };
@@ -65,7 +66,7 @@ const Demo = (props: IProps) => {
   useClickOutside(targetDiv, () => console.log('clicked outside of my area!!'), true)
 
   // call mutation api (no cached)
-  const loadingCounter = useAppSelector(state => state.app.loadingCounter)
+  const loadingApiCounter = useAppSelector(selectLoadingApiCounter)
 
   const [apiSample01] = sampleApi.useSample01Mutation()
   const handleCallSample01Api = async () => {
@@ -231,7 +232,7 @@ const Demo = (props: IProps) => {
 
     <div >
       <h3>呼叫api</h3>
-      <p>loadingCounter: {loadingCounter}</p>
+      <p>loadingApiCounter: {loadingApiCounter}</p>
       <br />
       <div>
         <p>mutation(無快取)</p>

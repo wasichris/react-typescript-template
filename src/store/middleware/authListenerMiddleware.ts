@@ -20,14 +20,12 @@ authListenerMiddleware.startListening({
     try {
       while (true) {
         // 檢查目前是否為已登入狀態
-        const state = getState() as RootState
-        const isLogin = state.app.isLogin
+        const getRootState = getState as () => RootState
+        const isLogin = getRootState().app.isLogin
         if (isLogin === false) {
           // #############
           // ### 未登入 ###
           // #############
-
-          console.log('[login status: false]')
 
           // [阻塞] 等待登入成功訊號
           const [{ payload: { authToken } }] = await take(loginSuccess.match)
@@ -43,14 +41,12 @@ authListenerMiddleware.startListening({
           // ### 已登入 ###
           // #############
 
-          console.log('[login status: true]')
-
           // [阻塞] 等待登出要求訊號
           await take(isAnyOf(logout))
 
           // 處理登出事宜
           dispatch(updateLoginInfo({ authToken: '', isLogin: false }))
-          router.navigate('/public/landing')
+          router.navigate('/public/login')
         }
       }
     } catch (error) {

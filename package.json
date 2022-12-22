@@ -12,6 +12,7 @@
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
     "@types/redux-persist": "^4.3.1",
+    "clsx": "^1.2.1",
     "formik": "^2.2.9",
     "i18next": "^22.0.8",
     "react": "^18.2.0",

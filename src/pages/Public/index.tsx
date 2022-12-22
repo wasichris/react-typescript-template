@@ -3,7 +3,6 @@ import { NavLink, Outlet } from 'react-router-dom'
 import logo from '../../assets/images/logo.svg'
 
 interface IProps {
-  counter?: number;
 };
 
 const Public = (props: IProps) => {

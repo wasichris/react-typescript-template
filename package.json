@@ -1,5 +1,6 @@
 {
   "name": "react-typescript-template",
+  "description": "react v18 typescript template with router, redux toolkit, formik(yup), i18n",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

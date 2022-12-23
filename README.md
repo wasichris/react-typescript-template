@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Getting Started with <%= projectName %>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [generator-react-typescript-template](https://github.com/wasichris/generator-react-typescript-template).
 
 ## Available Scripts
 

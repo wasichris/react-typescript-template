@@ -1,6 +1,6 @@
 import { base64Encode } from '../../utils/helpers/encodeHelper'
 import { baseApiService } from '../baseApiService'
-import baseReq from '../baseReq'
+import baseReqCreator from '../baseReqCreator'
 import { IBaseRes } from '../models/common'
 import { ISampleLoginReq, ISampleLoginRes, ISampleGetProductsReq, ISampleGetProductsRes, ISampleGetImgReq, ISampleGetUserReq, ISampleGetUserRes, ISampleGetConfigRes } from '../models/sample'
 
@@ -12,7 +12,7 @@ const sampleApi = baseApiService.injectEndpoints({
       query: (req) => ({
         url: '/sample/get-img',
         method: 'POST',
-        body: baseReq(req),
+        body: baseReqCreator(req),
         responseHandler: async (response: Response) => {
           const arrayBuffer = await response.arrayBuffer()
           return 'data:image/png;base64,' + base64Encode(arrayBuffer)
@@ -33,7 +33,7 @@ const sampleApi = baseApiService.injectEndpoints({
       query: (req) => ({
         url: '/sample/get-user',
         method: 'POST',
-        body: baseReq(req),
+        body: baseReqCreator(req),
         responseHandler: (response: Response & IBaseRes<ISampleGetUserRes>) => {
           // if you want to do something right after response, do it here.
           // e.g. get request header info sample
@@ -49,7 +49,7 @@ const sampleApi = baseApiService.injectEndpoints({
       query: (req) => ({
         url: '/sample/get-config',
         method: 'POST',
-        body: baseReq(req)
+        body: baseReqCreator(req)
       })
     }),
 
@@ -57,7 +57,7 @@ const sampleApi = baseApiService.injectEndpoints({
       query: (req) => ({
         url: '/sample/login',
         method: 'POST',
-        body: baseReq(req)
+        body: baseReqCreator(req)
       })
     })
 

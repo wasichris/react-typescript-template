@@ -1,19 +1,15 @@
 
-export interface IReqHeader {
-  ctxSn: string;
-}
-
 export interface IBaseReq<T> {
-  header: IReqHeader;
+  header: {
+    ctxSn: string;
+  };
   body: T;
 };
 
-export interface IResHeader {
-  returnCode: string;
-  returnMsg?: string;
-}
-
 export interface IBaseRes<T> {
-  header: IResHeader;
+  header: {
+    returnCode: string;
+    returnMsg?: string;
+  };
   body: T;
 };

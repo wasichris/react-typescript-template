@@ -1,40 +1,15 @@
 import { rest } from 'msw'
 import { GenderEnum } from '../../constants/enums'
 import { IBaseReq } from '../../services/models/common'
-import { ISampleLoginReq, ISampleLoginRes, ISample01Res, ISample02Req, ISample03Req, ISample03Res, ISampleGetConfigRes } from '../../services/models/sample'
+import { ISampleLoginReq, ISampleLoginRes, ISampleGetProductsRes, ISampleGetImgReq, ISampleGetUserReq, ISampleGetUserRes, ISampleGetConfigRes } from '../../services/models/sample'
 import { getGuid } from '../../utils/helpers/commonHelper'
-import { createRes, getApiUrl, getRandomArrayItem, getRandomInt, getRandomIntRange } from '../mockHelper'
+import { createRes, getApiUrl, getRandomArray, getRandomArrayItem, getRandomInt, getRandomIntRange } from '../mockHelper'
 
 const sampleApi = [
 
-  // [GET] sample
-  rest.get(getApiUrl('/sample/01'), (req, res, ctx) => {
-    // get req header
-    const urHeader = req.headers.get('ur-header') ?? ''
-    // get single parameter from url
-    const category = req.url.searchParams.get('category')
-    // response data
-    const response = createRes<ISample01Res>({
-      category,
-      id: getGuid(),
-      age: getRandomIntRange(10, 100),
-      balance: getRandomInt(5),
-      gender: getRandomArrayItem([GenderEnum.MALE, GenderEnum.FEMALE])
-    })
-
-    return res(
-      ctx.set('my-header', urHeader),
-      ctx.status(200),
-      ctx.delay(),
-      ctx.json(response)
-    )
-  }),
-
-  // [POST] image
-  rest.post(getApiUrl('/sample/02'), async (req, res, ctx) => {
-    // get req body
-    const { body: { width, height } } = await req.json<IBaseReq<ISample02Req>>()
-
+  // 範例：處理 POST API 並回傳 Image
+  rest.post(getApiUrl('/sample/get-img'), async (req, res, ctx) => {
+    const { body: { width, height } } = await req.json<IBaseReq<ISampleGetImgReq>>()
     const imageBuffer = await fetch(
       `https://picsum.photos/${width}/${height}?random=${getRandomInt(6)}`
     ).then(res => res.arrayBuffer())
@@ -48,14 +23,33 @@ const sampleApi = [
     )
   }),
 
-  // [POST] json
-  rest.post(getApiUrl('/sample/03'), async (req, res, ctx) => {
-    // get req body
-    const { body: { username } } = await req.json<IBaseReq<ISample03Req>>()
+  // 範例：處理 GET API 並回傳 JSON
+  rest.get(getApiUrl('/sample/get-products'), (req, res, ctx) => {
+    const urHeader = req.headers.get('ur-header') ?? ''
+    const category = req.url.searchParams.get('category')
+    const response = createRes<ISampleGetProductsRes>({
+      products: getRandomArray(3, () => ({
+        category,
+        id: getGuid(),
+        stock: getRandomIntRange(10, 100),
+        price: getRandomInt(5),
+        gender: getRandomArrayItem([GenderEnum.MALE, GenderEnum.FEMALE])
+      }))
+    })
 
-    // set response
-    const response = createRes<ISample03Res>({
-      username,
+    return res(
+      ctx.set('my-header', urHeader),
+      ctx.status(200),
+      ctx.delay(),
+      ctx.json(response)
+    )
+  }),
+
+  // 範例：處理 POST API 並回傳 JSON
+  rest.post(getApiUrl('/sample/get-user'), async (req, res, ctx) => {
+    const { body: { userId } } = await req.json<IBaseReq<ISampleGetUserReq>>()
+    const response = createRes<ISampleGetUserRes>({
+      username: userId,
       firstName: 'chen'
     })
 
@@ -69,7 +63,6 @@ const sampleApi = [
   // ===
 
   rest.post(getApiUrl('/sample/get-config'), async (req, res, ctx) => {
-    // set response
     const response = createRes<ISampleGetConfigRes>({
       clientId: 'my-client-id',
       config: { k1: 'k1-value', k2: 'k2-value' }
@@ -83,9 +76,7 @@ const sampleApi = [
   }),
 
   rest.post(getApiUrl('/sample/login'), async (req, res, ctx) => {
-    // get req body
     const { body: { userId, pcode } } = await req.json<IBaseReq<ISampleLoginReq>>()
-
     // set response
     const response = createRes<ISampleLoginRes>({
       authCode: 'this-is-a-auth-code' + pcode,

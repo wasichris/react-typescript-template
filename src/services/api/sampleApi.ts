@@ -2,25 +2,15 @@ import { base64Encode } from '../../utils/helpers/encodeHelper'
 import { baseApiService } from '../baseApiService'
 import baseReq from '../baseReq'
 import { IBaseRes } from '../models/common'
-import { ISampleLoginReq, ISampleLoginRes, ISample01Req, ISample01Res, ISample02Req, ISample03Req, ISample03Res, ISampleGetConfigRes } from '../models/sample'
+import { ISampleLoginReq, ISampleLoginRes, ISampleGetProductsReq, ISampleGetProductsRes, ISampleGetImgReq, ISampleGetUserReq, ISampleGetUserRes, ISampleGetConfigRes } from '../models/sample'
 
 const sampleApi = baseApiService.injectEndpoints({
   endpoints: (builder) => ({
 
-    // [mutation]
-    // 無使用快取需求時
-    Sample01: builder.mutation<IBaseRes<ISample01Res>, ISample01Req>({
+    // 範例：發出 POST API 並取得 Image (快取:builder.query)
+    SampleGetImg: builder.query<string, ISampleGetImgReq>({
       query: (req) => ({
-        url: `/sample/01?category=${req.category}`,
-        method: 'GET'
-      })
-    }),
-
-    // [query]
-    // 有使用快取需求時
-    Sample02: builder.query<string, ISample02Req>({
-      query: (req) => ({
-        url: '/sample/02',
+        url: '/sample/get-img',
         method: 'POST',
         body: baseReq(req),
         responseHandler: async (response: Response) => {
@@ -30,14 +20,21 @@ const sampleApi = baseApiService.injectEndpoints({
       })
     }),
 
-    // [mutation]
-    // 無使用快取需求時
-    Sample03: builder.mutation<IBaseRes<ISample03Res>, ISample03Req>({
+    // 範例：發出 GET API 並取得 JSON (無快取:builder.mutation)
+    SampleGetProducts: builder.mutation<IBaseRes<ISampleGetProductsRes>, ISampleGetProductsReq>({
       query: (req) => ({
-        url: '/sample/03',
+        url: `/sample/get-products?category=${req.category}`,
+        method: 'GET'
+      })
+    }),
+
+    // 範例：發出 POST API 並取得 JSON (無快取:builder.mutation)
+    SampleGetUser: builder.mutation<IBaseRes<ISampleGetUserRes>, ISampleGetUserReq>({
+      query: (req) => ({
+        url: '/sample/get-user',
         method: 'POST',
         body: baseReq(req),
-        responseHandler: (response: Response & IBaseRes<ISample03Res>) => {
+        responseHandler: (response: Response & IBaseRes<ISampleGetUserRes>) => {
           // if you want to do something right after response, do it here.
           // e.g. get request header info sample
           // const authToken = response.headers.get('x-auth-token')

@@ -46,6 +46,20 @@ export const getRandomArrayItem = (items: number[] | string[] | boolean[]) => {
 }
 
 /**
+ * 隨機產生陣列
+ * @param arraySize 陣列大小
+ * @param createItem 產生陣列項目的方法
+ * @returns
+ */
+export const getRandomArray = (arraySize: number, createItem: () => any) => {
+  const array: any[] = []
+  for (let index = 0; index < arraySize; index++) {
+    array.push(createItem())
+  }
+  return array
+}
+
+/**
  * 快速建立 response 結構
  * @param body response body
  * @param returnCode response returnCode

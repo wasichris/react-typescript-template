@@ -15,7 +15,7 @@ import useClickOutside from '../../../utils/hooks/useClickOutside'
 import useAppDispatch from '../../../utils/hooks/useAppDispatch'
 import useAppSelector from '../../../utils/hooks/useAppSelector'
 import sampleApi from '../../../services/api/sampleApi'
-import { ISample03Req } from '../../../services/models/sample'
+import { ISampleGetUserReq } from '../../../services/models/sample'
 import { selectLoadingApiCounter } from '../../../store/slices/appSlice'
 
 interface IProps {
@@ -68,9 +68,9 @@ const Sample = (props: IProps) => {
   // call mutation api (no cached)
   const loadingApiCounter = useAppSelector(selectLoadingApiCounter)
 
-  const [apiSample01] = sampleApi.useSample01Mutation()
-  const handleCallSample01Api = async () => {
-    const response = await apiSample01({ category: 'apple' }).unwrap()
+  const [apiSampleGetProducts] = sampleApi.useSampleGetProductsMutation()
+  const handleCallSampleGetProductsApi = async () => {
+    const response = await apiSampleGetProducts({ category: 'pc' }).unwrap()
     const { header: { returnCode, returnMsg }, body } = response
     if (returnCode.isSuccessCode()) {
       console.log(body)
@@ -79,10 +79,10 @@ const Sample = (props: IProps) => {
     }
   }
 
-  const [apiSample03] = sampleApi.useSample03Mutation()
-  const handleCallSample03Api = async () => {
-    const req: ISample03Req = { username: 'chris' }
-    const response = await apiSample03(req).unwrap()
+  const [apiSampleGetUser] = sampleApi.useSampleGetUserMutation()
+  const handleCallSampleGetUserApi = async () => {
+    const req: ISampleGetUserReq = { userId: 'chris' }
+    const response = await apiSampleGetUser(req).unwrap()
     const { header: { returnCode, returnMsg }, body } = response
     if (returnCode.isSuccessCode()) {
       console.log(body)
@@ -91,17 +91,17 @@ const Sample = (props: IProps) => {
     }
   }
 
-  // call query api (cached) - 直接執行api
+  // call query api (cached) - 直接執行
   const { data: base64Img/*, isLoading, isError, refetch */ } =
-    sampleApi.useSample02Query({ height: 200, width: 800 }, {
+    sampleApi.useSampleGetImgQuery({ height: 200, width: 800 }, {
       // pollingInterval: 60_000 // pull data every 1 minute
     })
 
-  // call query api (cached) - 手動執行api
+  // call query api (cached) - 手動執行
   const [lazyBase64Img, setLazyBase64Img] = useState('')
-  const [apiSample02] = sampleApi.useLazySample02Query() // 自定呼叫api時間
+  const [apiSampleGetImg] = sampleApi.useLazySampleGetImgQuery() // 自定呼叫api時間
   const handleCallLazyCachedApi = async () => {
-    const img = await apiSample02({ height: 200, width: 800 }, true /* cached */).unwrap()
+    const img = await apiSampleGetImg({ height: 200, width: 800 }, true /* cached */).unwrap()
     setLazyBase64Img(img)
   }
 
@@ -236,17 +236,17 @@ const Sample = (props: IProps) => {
       <br />
       <div>
         <p>mutation(無快取)</p>
-        <input type="button" value="call Sample01 api(不列入loader)" onClick={handleCallSample01Api} /> <br />
-        <input type="button" value="call Sample03 api(有列入loader)" onClick={handleCallSample03Api} />
+        <input type="button" value="call SampleGetProducts api(不列入loader)" onClick={handleCallSampleGetProductsApi} /> <br />
+        <input type="button" value="call SampleGetUser api(有列入loader)" onClick={handleCallSampleGetUserApi} />
       </div>
       <br />
       <div>
         <p>  query(有快取)</p>
-        <p>使用 query 直接執行 Sample02 api 取得圖片</p>
+        <p>使用 query 直接執行 SampleGetImg api 取得圖片</p>
         <img alt="" src={base64Img} />
       </div>
       <div>
-        <span>使用 query-lazy 手動執行 Sample02 api 取得圖片</span>
+        <span>使用 query-lazy 手動執行 SampleGetImg api 取得圖片</span>
         <input type="button" value="get image" onClick={handleCallLazyCachedApi} />
         <div> <img alt="" src={lazyBase64Img} /> </div>
       </div>

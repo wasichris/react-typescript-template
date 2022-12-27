@@ -7,7 +7,7 @@ import { addLoadingApi, removeLoadingApi } from '../slices/appSlice'
  * 不列入 loading api 計算的清單
  */
 const ignoreLoadingList = [
-  'Sample01'
+  'SampleGetProducts'
 ]
 
 /**

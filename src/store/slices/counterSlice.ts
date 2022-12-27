@@ -28,11 +28,11 @@ const counterSlice = createSlice({
 
 // Thunk
 export const incrementAsync =
-  (amount: number): AppThunk<Promise<{ age: number }>> =>
+  (amount: number): AppThunk<Promise<{ counter: number }>> =>
     async (dispatch, getState) => {
       // call api
-      const result = await dispatch(sampleApi.endpoints.Sample01.initiate({ category: 'c1' })).unwrap()
-      console.log('age result:', result.body.age)
+      const response = await dispatch(sampleApi.endpoints.SampleGetProducts.initiate({ category: 'c1' })).unwrap()
+      console.log('response:', response.body)
 
       // get state
       console.log('currentCounter:', getState().counter.value)
@@ -44,7 +44,7 @@ export const incrementAsync =
       console.log('newCounter:', getState().counter.value)
 
       // return value
-      return { age: result.body.age }
+      return { counter: getState().counter.value }
     }
 
 // Selection

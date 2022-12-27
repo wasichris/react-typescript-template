@@ -8,6 +8,7 @@ interface IProps {
 const Public = (props: IProps) => {
   return <>
     <header className="app-header">
+
       <img src={logo} alt="logo" className="app-header__logo" />
       <span className="app-header__title">REACT</span>
 
@@ -20,6 +21,7 @@ const Public = (props: IProps) => {
           <NavLink to={'/public/login'}>Login</NavLink>
         </li>
       </ul>
+
     </header>
 
     <div className="app-body">

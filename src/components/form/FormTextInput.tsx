@@ -35,8 +35,10 @@ const FormTextInput = ({ caption, ...props }: IProps & InputHTMLAttributes<HTMLI
         autoComplete="off"
       />
 
+      {/* 提示文字 */}
       {caption ? <div className="form-text-input__caption"> {caption} </div> : null}
 
+      {/* 檢核錯誤提示 */}
       {hasError ? <div className="form-text-input__error" > {meta.error} </div> : null}
     </>
   )

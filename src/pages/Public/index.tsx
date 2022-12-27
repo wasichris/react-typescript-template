@@ -13,6 +13,10 @@ const Public = (props: IProps) => {
 
       <ul className="app-header__nav">
         <li className="app-header__nav-item">
+          <NavLink to={'/dev/sample'}>Dev Sample</NavLink>
+        </li>
+
+        <li className="app-header__nav-item">
           <NavLink to={'/public/login'}>Login</NavLink>
         </li>
       </ul>

@@ -14,7 +14,7 @@ const Main = lazy(() => import(/* webpackChunkName: "home" */ '../pages/Home/Mai
 const PublicLayout = lazy(() => import(/* webpackChunkName: "public" */ '../pages/Public'))
 const Landing = lazy(() => import(/* webpackChunkName: "public" */ '../pages/Public/Landing'))
 const Login = lazy(() => import(/* webpackChunkName: "public" */ '../pages/Public/Login'))
-const Demo = lazy(() => import(/* webpackChunkName: "dev" */ '../pages/Dev/Demo'))
+const Sample = lazy(() => import(/* webpackChunkName: "dev" */ '../pages/Dev/Sample'))
 
 const Suspense = (component: JSX.Element) => <React.Suspense fallback={<>...</>}>
   {component}
@@ -56,9 +56,9 @@ const router = createBrowserRouter([
           path: 'dev',
           element: <Outlet />,
           children: [
-            { index: true, element: <Navigate to="demo" replace /> },
-            { path: 'demo/:userId', element: Suspense(<Demo />) },
-            { path: 'demo', element: Suspense(<Demo />) }
+            { index: true, element: <Navigate to="sample" replace /> },
+            { path: 'sample/:userId', element: Suspense(<Sample />) },
+            { path: 'sample', element: Suspense(<Sample />) }
           ]
         }
         : {},

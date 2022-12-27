@@ -21,7 +21,7 @@ import { selectLoadingApiCounter } from '../../../store/slices/appSlice'
 interface IProps {
 };
 
-const Demo = (props: IProps) => {
+const Sample = (props: IProps) => {
   // route
   const navigate = useNavigate()
   const { userId } = useParams() // get params from url
@@ -109,7 +109,7 @@ const Demo = (props: IProps) => {
 
   return <div className="dev-container">
 
-    <div>Dev - Demo Page</div>
+    <div>Dev - Sample Page</div>
 
     <hr />
     <div >
@@ -125,9 +125,9 @@ const Demo = (props: IProps) => {
       <h3>使用導航</h3>
       user id from url: {userId}
       <br />
-      <input type="button" value="go to /dev/demo/user01" onClick={() => { navigate('/dev/demo/user01') }} />
+      <input type="button" value="go to /dev/sample/user01" onClick={() => { navigate('/dev/sample/user01') }} />
       <br />
-      <input type="button" value="go to /dev/demo/user02" onClick={() => { navigate('/dev/demo/user02') }} />
+      <input type="button" value="go to /dev/sample/user02" onClick={() => { navigate('/dev/sample/user02') }} />
     </div>
 
     <hr />
@@ -257,4 +257,4 @@ const Demo = (props: IProps) => {
   </div>
 }
 
-export default Demo
+export default Sample

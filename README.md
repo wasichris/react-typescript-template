@@ -65,16 +65,16 @@ $ npm run build:prod
 
 Each environment variable will be setup as below:
 
-| Build Script  | Environment Variable  |
-|--------------------------|--------------------------------------------------------------------|
-| `npm run build:dev`  | NODE_ENV=<kbd>production</kbd> <br> REACT_APP_MODE=<kbd>DEV</kbd>  |
-| `npm run build:sit`  | NODE_ENV=<kbd>production</kbd> <br> REACT_APP_MODE=<kbd>SIT</kbd>  |
-| `npm run build:uat`  | NODE_ENV=<kbd>production</kbd> <br> REACT_APP_MODE=<kbd>UAT</kbd>  |
-| `npm run build:prod` | NODE_ENV=<kbd>production</kbd> <br> REACT_APP_MODE=<kbd>PROD</kbd> |
+|     Build Script     |              Environment Variable             |
+|----------------------|-----------------------------------------------|
+| `npm run build:dev`  | NODE_ENV=`production`,  REACT_APP_MODE=`DEV`  |
+| `npm run build:sit`  | NODE_ENV=`production`,  REACT_APP_MODE=`SIT`  |
+| `npm run build:uat`  | NODE_ENV=`production`,  REACT_APP_MODE=`UAT`  |
+| `npm run build:prod` | NODE_ENV=`production`,  REACT_APP_MODE=`PROD` |
 
 
 Builds the app for production in each mode to the `build` folder.
 
 Your app is ready to be deployed!
 
-> If your website is not located in the root directory, you should modify the PUBLIC_URL information in the build script in your package.json file. If you do not set PUBLIC_URL to match the location of your sub-directory, the path for your static resources may not be correct.
+> If your website is not located in the root directory, you should modify the `PUBLIC_URL` information in the build script in your package.json file. If you do not set `PUBLIC_URL` to match the location of your sub-directory, the path for your static resources may not be correct.

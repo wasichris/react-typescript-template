@@ -1,4 +1,4 @@
-# 建立給 generator-react-typescript-template 的 npm publish 使用，因為 .gitignore 會遺失無法取得
+# 因在 generator-react-typescript-template npm publish 後要產生樣板專案時，會有 .gitignore 遺失無法取得的狀況，所以使用此檔案保留資訊
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies

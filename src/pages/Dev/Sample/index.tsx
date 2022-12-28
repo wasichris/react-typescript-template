@@ -3,12 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { GenderEnum, LangEnum } from '../../../constants/enums'
 import environment from '../../../environment'
 import storage from '../../../utils/storage'
-import { Formik, Form, FormikHelpers } from 'formik'
-import * as yup from 'yup'
+import { Formik, Form } from 'formik'
 import FormTextInput from '../../../components/form/FormTextInput'
 import { useRef, useState } from 'react'
-import { requiredStrSchema, strLengthRangeSchema } from '../../../utils/validations/schema'
-import schemaChain from '../../../utils/validations/schemaChain'
 import { getEnumDescription, getEnumOptions } from '../../../utils/helpers/decoratorHelper'
 import { decrement, increment, incrementAsync, selectCount } from '../../../store/slices/counterSlice'
 import useClickOutside from '../../../utils/hooks/useClickOutside'
@@ -17,57 +14,39 @@ import useAppSelector from '../../../utils/hooks/useAppSelector'
 import sampleApi from '../../../services/api/sampleApi'
 import { ISampleGetUserReq } from '../../../services/models/sample'
 import { selectLoadingApiCounter } from '../../../store/slices/appSlice'
+import useFormValidation from './hooks/useFormValidation'
+import SampleImg from './components/SampleImg'
 
 interface IProps {
 };
 
 const Sample = (props: IProps) => {
-  // route
+  // 範例：route
   const navigate = useNavigate()
   const { userId } = useParams() // get params from url
 
-  // language
+  // 範例：i18n
   const { t, i18n } = useTranslation()
   const changeLang = (lang: string) => {
     i18n.changeLanguage(lang)
     storage.lang = lang
   }
 
-  // formik
-  const [initFormValues] = useState({ account: '', password: '', salary: 0 })
-  const validationSchema = () =>
-    yup.object().shape({
-      account:
-        yup.string()
-          .concat(requiredStrSchema(t('__account' /* 帳號 */))) // 自定邏輯
-          .max(5), // 內建邏輯
-      password:
-        yup.string()
-          .concat(requiredStrSchema(t('__pwd' /* 密碼 */)))
-          .concat(strLengthRangeSchema(2, 10)),
-      salary:
-        schemaChain
-          .twMoneyAmt(true, t('__salary' /* 月薪 */)) // 自定邏輯串(針對通用且有意義性的資料類型)
-    })
+  // 範例：formik
+  const { initFormValues, setInitFormValues, validationSchema, onFormSubmit } =
+    useFormValidation({ account: '', password: '', salary: 0 })
 
-  type FormValues = typeof initFormValues
-  const onFormSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
-    alert(JSON.stringify(values, null, 2))
-    actions.setSubmitting(false)
-  }
-
-  // redux
+  // 範例：redux
   const counterValue = useAppSelector(state => state.counter.value)
   const counterValueSame = useAppSelector(selectCount)
   const dispatch = useAppDispatch()
 
-  // hook
+  // 範例：hook
   const targetDiv = useRef(null)
   useClickOutside(targetDiv, () => console.log('clicked outside of my area!!'), true)
 
-  // call mutation api (no cached)
+  // 範例：call mutation api (no cached)
   const loadingApiCounter = useAppSelector(selectLoadingApiCounter)
-
   const [apiSampleGetProducts] = sampleApi.useSampleGetProductsMutation()
   const handleCallSampleGetProductsApi = async () => {
     const response = await apiSampleGetProducts({ category: 'pc' }).unwrap()
@@ -91,13 +70,10 @@ const Sample = (props: IProps) => {
     }
   }
 
-  // call query api (cached) - 直接執行
-  const { data: base64Img/*, isLoading, isError, refetch */ } =
-    sampleApi.useSampleGetImgQuery({ height: 200, width: 800 }, {
-      // pollingInterval: 60_000 // pull data every 1 minute
-    })
+  // 範例：call query api (cached) - 直接執行
+  // => 請參考 <SampleImg /> 組件內容，載入即執行圖片下載並快取
 
-  // call query api (cached) - 手動執行
+  // 範例：call query api (cached) - 手動執行
   const [lazyBase64Img, setLazyBase64Img] = useState('')
   const [apiSampleGetImg] = sampleApi.useLazySampleGetImgQuery() // 自定呼叫api時間
   const handleCallLazyCachedApi = async () => {
@@ -170,7 +146,7 @@ const Sample = (props: IProps) => {
         onSubmit={onFormSubmit}
         validateOnMount
       >
-        {({ dirty, isValid, resetForm }) => (
+        {({ dirty, isValid, resetForm, values }) => (
           <Form >
 
             <div>
@@ -197,6 +173,13 @@ const Sample = (props: IProps) => {
               type="submit"
               disabled={!(dirty && isValid)}
               value={t('__submit' /* 送出 */) || ''} />
+
+            <br />
+
+            <input
+              type="button"
+              onClick={() => setInitFormValues({ ...initFormValues, salary: values.salary + 1 })}
+              value={'搭配 enableReinitialize 重新給予初始值來 re-init 表單（可能是從遠端來的資料）'} />
 
           </Form>
         )}
@@ -243,7 +226,7 @@ const Sample = (props: IProps) => {
       <div>
         <p>  query(有快取)</p>
         <p>使用 query 直接執行 SampleGetImg api 取得圖片</p>
-        <img alt="" src={base64Img} />
+        <SampleImg width={800} height={200} />
       </div>
       <div>
         <span>使用 query-lazy 手動執行 SampleGetImg api 取得圖片</span>

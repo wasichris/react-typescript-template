@@ -1,10 +1,38 @@
 # Getting Started with <%= projectName %>
 
-This project was bootstrapped with [generator-react-typescript-template](https://github.com/wasichris/generator-react-typescript-template).
+This react v18 project was bootstrapped with [generator-react-typescript-template](https://github.com/wasichris/generator-react-typescript-template).
+
+<br>
+
+## Developing Environment
+
+It is recommended to use [Visual Studio Code](https://code.visualstudio.com/) for development. Some useful extensions you might need as below:
+* [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+* [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+* [SCSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=mrmlnc.vscode-scss)
+
+<br>
+
+## Related Packages
+
+The project is using several packages to take care of each requirement as below:
+* [React Router](https://reactrouter.com/en/main) : route control
+* [React i18n](https://react.i18next.com/) : internationalization framework
+* [Redux Toolkit](https://redux-toolkit.js.org/) : global state control and api client (RTK Query)
+* [Redux Persist](https://github.com/rt2zz/redux-persist) : persist global state
+* [Formik](https://formik.org/) : form validation control
+* [Yup](https://github.com/jquense/yup) : validation rules
+* [clsx](https://github.com/lukeed/clsx) : conditional classname control
+* [msw](https://mswjs.io/) : mock service worker
+* [sass](https://github.com/sass/dart-sass) : sass
+
+
+<br>
 
 ## Available Scripts
 
 In the project directory, you can run:
+
 
 ### `npm start`
 
@@ -14,48 +42,39 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+<br>
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+
+<br> 
+
+
+### `npm run build:[env]`
 
 According to your target environment to choose following commands:
 ```
-$ npm run build:dev 
+$ npm run build:dev
 $ npm run build:sit
 $ npm run build:uat
 $ npm run build:prod
 ```
 
 Each environment variable will be setup as below:
-- NODE_ENV=production
-    - REACT_APP_MODE=DEV
-    - REACT_APP_MODE=SIT
-    - REACT_APP_MODE=UAT
-    - REACT_APP_MODE=PROD
 
-Builds the app for production(NODE_ENV=production) to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Build Script  | Environment Variable  |
+|--------------------------|--------------------------------------------------------------------|
+| `npm run build:dev`  | NODE_ENV=<kbd>production</kbd> <br> REACT_APP_MODE=<kbd>DEV</kbd>  |
+| `npm run build:sit`  | NODE_ENV=<kbd>production</kbd> <br> REACT_APP_MODE=<kbd>SIT</kbd>  |
+| `npm run build:uat`  | NODE_ENV=<kbd>production</kbd> <br> REACT_APP_MODE=<kbd>UAT</kbd>  |
+| `npm run build:prod` | NODE_ENV=<kbd>production</kbd> <br> REACT_APP_MODE=<kbd>PROD</kbd> |
 
-The build is minified and the filenames include the hashes.\
+
+Builds the app for production in each mode to the `build` folder.
+
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+> If your website is not located in the root directory, you should modify the PUBLIC_URL information in the build script in your package.json file. If you do not set PUBLIC_URL to match the location of your sub-directory, the path for your static resources may not be correct.

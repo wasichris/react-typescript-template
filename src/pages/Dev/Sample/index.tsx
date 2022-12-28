@@ -109,7 +109,7 @@ const Sample = (props: IProps) => {
 
   return <div className="dev-container">
 
-    <div>Dev - Sample Page</div>
+    <h1>Dev - Sample Page</h1>
 
     <hr />
     <div >

@@ -29,6 +29,22 @@ The project is using several packages to take care of each requirement as below:
 
 <br>
 
+
+## Code Snippets
+
+There are some useful code snippets will help you save time and create a consistent coding style of components, form hook... etc., Please take a look at the workspace code snippet file located in `.vscode/react.code-snippets` . You can also add some useful snippets for all team member use.
+
+Example:
+* fc: create `functional component` 
+* fcf: create `functional component by filename` 
+* af: create `arrow function` 
+* uf: create `useForm` hook
+* b: create BEM `block` in scss file
+* e: create BEM `element` in scss file
+* m: create BEM `modifier` in scss file
+
+<br>
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -78,3 +94,5 @@ Builds the app for production in each mode to the `build` folder.
 Your app is ready to be deployed!
 
 > If your website is not located in the root directory, you should modify the `PUBLIC_URL` information in the build script in your package.json file. If you do not set `PUBLIC_URL` to match the location of your sub-directory, the path for your static resources may not be correct.
+
+<br>

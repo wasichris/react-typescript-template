@@ -1,0 +1,132 @@
+{
+  // ## 定義此 workspace 專案所使用的 code snippets 集合 ##
+  // 1. 減少重複代碼撰寫時間及保持代碼結構的一致性
+  // 2. 確實定義 scope 來表示在哪種類型的檔案生效
+  //    (javascript,javascriptreact,typescript,typescriptreact,scss ...)
+  // 3. 可使用參數 $1,$2... 並給予預設值。 e.g. ${1:ComponentName}
+  // 4. 可使用內建參數。 e.g. ${1:$TM_FILENAME_BASE} 表示此參數預設值是用檔案名稱為值
+  // 5. 最後需定義 $0 表示游標最終停止位置，方便接續撰寫代碼
+  // 6. prefix 盡量貼近 snippet key 值的首位字母，以增加記憶點
+  //    e.g. "functional component" => fc
+  //
+  //
+  // ========================================================================
+  // all (typescript,typescriptreact)
+  // ========================================================================
+  "arrow function": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "af",
+    "body": [
+      "const ${1:funcName} = () => {",
+      "  $0",
+      "}"
+    ],
+    "description": "產生箭頭方法"
+  },
+  // ========================================================================
+  // typescriptreact
+  // ========================================================================
+  "functional component": {
+    "scope": "typescriptreact",
+    "prefix": "fc",
+    "body": [
+      "interface IProps { }",
+      "",
+      "const ${1:ComponentName} = (props: IProps) => {",
+      "  return (",
+      "    <div> ${1:ComponentName}$0 </div>",
+      "  )",
+      "}",
+      "",
+      "export default ${1:ComponentName}",
+      "",
+    ],
+    "description": "產生組件(預設使用檔案名稱作為組件名)"
+  },
+  "functional component by filename": {
+    "scope": "typescriptreact",
+    "prefix": "fcf",
+    "body": [
+      "interface IProps { }",
+      "",
+      "const ${1:$TM_FILENAME_BASE} = (props: IProps) => {",
+      "  return (",
+      "    <div> ${1:$TM_FILENAME_BASE}$0 </div>",
+      "  )",
+      "}",
+      "",
+      "export default ${1:$TM_FILENAME_BASE}",
+      "",
+    ],
+    "description": "產生組件(預設使用檔案名稱作為組件名)"
+  },
+  // ========================================================================
+  // typescript
+  // ========================================================================
+  "use form": {
+    "scope": "typescript",
+    "prefix": "uf",
+    "body": [
+      "import { FormikHelpers } from 'formik'",
+      "import { useState } from 'react'",
+      "import * as yup from 'yup'",
+      "",
+      "interface IFormValues {",
+      "  $0",
+      "}",
+      "",
+      "const ${1:$TM_FILENAME_BASE} = (initValues: IFormValues) => {",
+      "  const [initFormValues, setInitFormValues] = useState(initValues)",
+      "",
+      "  const validationSchema = () =>",
+      "    yup.object({",
+      "",
+      "    })",
+      "",
+      "  const onFormSubmit = (values: IFormValues, actions: FormikHelpers<IFormValues>) => {",
+      "    console.log(JSON.stringify(values, null, 2))",
+      "    actions.setSubmitting(false)",
+      "  }",
+      "",
+      "  return { initFormValues, setInitFormValues, validationSchema, onFormSubmit }",
+      "}",
+      "",
+      "export default ${1:$TM_FILENAME_BASE}",
+      "",
+    ],
+    "description": "產生抽離邏輯的表單hook樣板"
+  },
+  // ========================================================================
+  // scss
+  // ========================================================================
+  "block": {
+    "scope": "scss",
+    "prefix": "b",
+    "body": [
+      ".${1:block-name} {",
+      "  $0",
+      "}"
+    ],
+    "description": "產生BEM Block"
+  },
+  "element": {
+    "scope": "scss",
+    "prefix": "e",
+    "body": [
+      "&__${1:element-name} {",
+      "  $0",
+      "}"
+    ],
+    "description": "產生BEM Element"
+  },
+  "modifier": {
+    "scope": "scss",
+    "prefix": "m",
+    "body": [
+      "&--${1:modifier-name} {",
+      "  $0",
+      "}"
+    ],
+    "description": "產生BEM Modifier"
+  },
+}

@@ -14,7 +14,7 @@ import useAppSelector from '../../../utils/hooks/useAppSelector'
 import sampleApi from '../../../services/api/sampleApi'
 import { ISampleGetUserReq } from '../../../services/models/sample'
 import { selectLoadingApiCounter } from '../../../store/slices/appSlice'
-import useFormValidation from './hooks/useFormValidation'
+import useSampleForm from './hooks/useSampleForm'
 import SampleImg from './components/SampleImg'
 
 interface IProps {
@@ -32,9 +32,9 @@ const Sample = (props: IProps) => {
     storage.lang = lang
   }
 
-  // 範例：formik
+  // 範例：formik (邏輯抽出至 hook 來降低此組件的複雜度)
   const { initFormValues, setInitFormValues, validationSchema, onFormSubmit } =
-    useFormValidation({ account: '', password: '', salary: 0 })
+    useSampleForm({ account: '', password: '', salary: 0 })
 
   // 範例：redux
   const counterValue = useAppSelector(state => state.counter.value)

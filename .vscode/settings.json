@@ -1,12 +1,10 @@
 {
   "editor.formatOnSave": true,
-  // "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
-  // "typescript.format.insertSpaceAfterConstructor": true,
+  "editor.detectIndentation": false,
+  "editor.suggestSelection": "recentlyUsed",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  // indent spaces settings
-  "editor.detectIndentation": false,
   "[typescript]": {
     "editor.tabSize": 2
   },
@@ -20,6 +18,7 @@
     "editor.tabSize": 2
   },
   "cSpell.words": [
+    "Formik",
     "clsx",
     "pcode",
     "persistor",

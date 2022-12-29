@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 
-const LoadingMask = () => {
+interface IProps { }
+
+const LoadingMask = (props: IProps) => {
   useEffect(() => {
     document && document.body.classList.add('blocked')
     return () => {
@@ -8,14 +10,16 @@ const LoadingMask = () => {
     }
   }, [])
 
-  return <div className="loading-mask">
-    <div className="loading-mask__loader">
-      <div className="loading-mask__loader-item"></div>
-      <div className="loading-mask__loader-item"></div>
-      <div className="loading-mask__loader-item"></div>
-      <div className="loading-mask__loader-item"></div>
+  return (
+    <div className="loading-mask">
+      <div className="loading-mask__loader">
+        <div className="loading-mask__loader-item"></div>
+        <div className="loading-mask__loader-item"></div>
+        <div className="loading-mask__loader-item"></div>
+        <div className="loading-mask__loader-item"></div>
+      </div>
     </div>
-  </div>
+  )
 }
 
 export default LoadingMask

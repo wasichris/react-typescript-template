@@ -9,18 +9,18 @@ import schemaChain from '../../../../utils/validations/schemaChain'
 // - 不是只有因為需要共用才需要拆 Hook 出來
 // - 當頁面邏輯太複雜，也可以拆出 Hook 降低頁面複雜度
 
-type FormValues = {
+interface IFormValues {
   account: string,
   password: string,
   salary: number
 }
 
-const useFormValidation = (initValues: FormValues) => {
+const useSampleForm = (initValues: IFormValues) => {
   const { t } = useTranslation()
   const [initFormValues, setInitFormValues] = useState(initValues)
 
   const validationSchema = () =>
-    yup.object().shape({
+    yup.object({
       account:
         yup.string()
           .concat(requiredStrSchema(t('__account' /* 帳號 */))) // 自定邏輯
@@ -34,7 +34,7 @@ const useFormValidation = (initValues: FormValues) => {
           .twMoneyAmt(true, t('__salary' /* 月薪 */)) // 自定邏輯串(針對通用且有意義性的資料類型)
     })
 
-  const onFormSubmit = (values: FormValues, actions: FormikHelpers<FormValues>) => {
+  const onFormSubmit = (values: IFormValues, actions: FormikHelpers<IFormValues>) => {
     alert(JSON.stringify(values, null, 2))
     actions.setSubmitting(false)
   }
@@ -42,4 +42,4 @@ const useFormValidation = (initValues: FormValues) => {
   return { initFormValues, setInitFormValues, validationSchema, onFormSubmit }
 }
 
-export default useFormValidation
+export default useSampleForm

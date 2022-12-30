@@ -38,7 +38,7 @@ const Home = (props: IProps) => {
         </li>
 
         <li className="app-header__nav-item">
-          <button className='btn-link' onClick={handleLogout}>Logout</button>
+          <button onClick={handleLogout}>Logout</button>
         </li>
 
       </ul>

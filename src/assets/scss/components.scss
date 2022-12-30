@@ -1,13 +1,19 @@
 // 使用 component name 作為頂層 class name
 
 .form-text-input {
+    line-height: 30px;
+    padding: 2px 10px;
+    width: 100%;
+
     &__caption {
         color: $color__caption;
         font-size: smaller;
+        text-align: right;
     }
 
     &__error {
         color: $color__error;
+        text-align: right;
     }
 }
 
@@ -36,7 +42,7 @@
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        background: rgb(61 78 196);
+        background: #51b9d6;
         animation-timing-function: cubic-bezier(0, 1, 1, 0);
 
         &:nth-child(1) {

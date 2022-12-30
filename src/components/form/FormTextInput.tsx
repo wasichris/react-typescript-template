@@ -5,7 +5,7 @@ interface IProps {
   caption?: string | null
 }
 
-const FormTextInput = ({ caption, ...props }: IProps & InputHTMLAttributes<HTMLInputElement> &
+const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttributes<HTMLInputElement> &
   ClassAttributes<HTMLInputElement> & FieldHookConfig<string>) => {
   const [field, meta, helpers] = useField(props)
 
@@ -25,7 +25,7 @@ const FormTextInput = ({ caption, ...props }: IProps & InputHTMLAttributes<HTMLI
   }
 
   return (
-    <>
+    <div className={className}>
       <input
         {...field}
         {...props}
@@ -40,7 +40,7 @@ const FormTextInput = ({ caption, ...props }: IProps & InputHTMLAttributes<HTMLI
 
       {/* 檢核錯誤提示 */}
       {hasError ? <div className="form-text-input__error" > {meta.error} </div> : null}
-    </>
+    </div>
   )
 }
 

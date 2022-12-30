@@ -86,7 +86,7 @@ const Sample = (props: IProps) => {
 
   // ===
 
-  return <div className="dev-container">
+  return <div className="dev">
 
     <h1>Dev - Sample Page</h1>
 
@@ -153,19 +153,19 @@ const Sample = (props: IProps) => {
         {({ dirty, isValid, resetForm, values }) => (
           <Form >
 
-            <div>
-              <label htmlFor='account' > {t('__account' /* 帳號 */)}</label>
-              <FormTextInput id="account" name="account" type="text" />
+            <div className='input-group'>
+              <label className='input-group__label' htmlFor='account' > {t('__account' /* 帳號 */)}</label>
+              <FormTextInput className='input-group__input' id="account" name="account" type="text" />
             </div>
 
-            <div>
-              <label htmlFor='password' > {t('__pwd' /* 密碼 */)} </label>
-              <FormTextInput id="password" name="password" type="password" />
+            <div className='input-group'>
+              <label className='input-group__label' htmlFor='password' > {t('__pwd' /* 密碼 */)} </label>
+              <FormTextInput className='input-group__input' id="password" name="password" type="password" />
             </div>
 
-            <div>
-              <label htmlFor='salary' > {t('__salary' /* 月薪 */)} </label>
-              <FormTextInput id="salary" name="salary" type="text" caption={t('__useTwd' /* 使用臺幣為單位 */)} />
+            <div className='input-group'>
+              <label className='input-group__label' htmlFor='salary' > {t('__salary' /* 月薪 */)} </label>
+              <FormTextInput className='input-group__input' id="salary" name="salary" type="text" caption={t('__useTwd' /* 使用臺幣為單位 */)} />
             </div>
 
             <input

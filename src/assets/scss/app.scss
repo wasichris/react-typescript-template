@@ -16,27 +16,24 @@
 }
 
 
-// =================== 通用樣式 ======================
-
-.btn-link {
-    color: $color__link;
-}
+// =============== 通用樣式(未收成組件) ===================
 
 
-// =================== 網站樣式 ======================
+
+// =================== 網站主體樣式 ======================
 
 .env-info {
     position: absolute;
     left: 5px;
     top: 5px;
     z-index: z(env-info);
-    color: #fff;
+    color: $color__caption;
     font-size: 12px;
 }
 
 .app-header {
     @include flex-center-vert;
-    height: 50px;
+    height: 55px;
     background: black;
     color: white;
     padding: 0 15px 0 5px;
@@ -60,6 +57,15 @@
 
     &__nav-item {
         margin: 0 10px;
+
+        >a,
+        button {
+            color: #FFFFFF;
+
+            &:hover {
+                color: $color__link;
+            }
+        }
     }
 }
 
@@ -68,12 +74,130 @@
     &__container {
         max-width: 1024px;
         margin: 0 auto;
-        background-color: #fff;
-        min-height: calc(100vh - 50px);
+        background-color: $color__bg-content;
+        min-height: calc(100vh - 55px);
         padding: 10px 20px;
+        position: relative;
     }
 }
 
-.dev-container {
-    margin: 20px 50px;
+
+// =================== 頁面樣式 ======================
+
+.dev {
+    padding: 20px 50px;
+    background-color: $color__bg-content;
+
+    .input-group {
+
+        &__label {
+            display: inline-block;
+            vertical-align: top;
+            line-height: 40px;
+            padding-right: 10px;
+        }
+
+        &__input {
+            display: inline-block;
+        }
+
+    }
+}
+
+
+.login {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+
+    $box__radius: 10px;
+
+    .box {
+        display: flex;
+        min-height: 400px;
+        width: 100%;
+
+        @include respond-above(sm) {
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        &__left {
+            padding: 15px;
+            display: none;
+
+            @include respond-above(sm) {
+                display: block;
+                min-width: 40%;
+                background-color: $color__main;
+                border-radius: $box__radius 0 0 $box__radius ;
+            }
+
+        }
+
+        &__right {
+            background-color: white;
+            padding: 15px 30px;
+            width: 100%;
+            border-radius: $box__radius;
+
+            @include respond-above(sm) {
+                width: 60%;
+                border-radius: 0 $box__radius $box__radius 0;
+            }
+        }
+    }
+
+    .form {
+        &__title {
+            font-weight: bolder;
+            padding-bottom: 20px;
+        }
+
+        &__desc {
+            font-size: $base__fontSize_12;
+            color: $color__caption;
+            padding-bottom: 40px;
+        }
+
+        &__input-group {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 10px;
+
+            >label {
+                padding-bottom: 5px;
+            }
+        }
+
+        // 會收在組件內！！！ 稍後移除！！
+        // 會收在組件內！！！ 稍後移除！！
+        // 會收在組件內！！！ 稍後移除！！
+        // 會收在組件內！！！ 稍後移除！！
+        // 會收在組件內！！！ 稍後移除！！
+        // 會收在組件內！！！ 稍後移除！！
+        // 會收在組件內！！！ 稍後移除！！
+        // 會收在組件內！！！ 稍後移除！！
+        &__input {
+            line-height: 30px;
+            padding: 2px 10px;
+        }
+
+        &__btn {
+            margin-top: 20px;
+            line-height: 30px;
+            background-color: $color__main;
+            border: 0;
+            border-radius: 5px;
+            padding: 5px 20px;
+            color: #FFFFFF;
+        }
+    }
+
 }

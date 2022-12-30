@@ -4,7 +4,7 @@ interface IProps {
 };
 
 const Landing = (props: IProps) => {
-  return <div> Public - Landing Page </div>
+  return <h1> Public - Landing Page </h1>
 }
 
 export default Landing

@@ -4,6 +4,7 @@ import { loginSuccess } from '../../../store/slices/appSlice'
 import sampleApi from '../../../services/api/sampleApi'
 import useAppSelector from '../../../utils/hooks/useAppSelector'
 import { useNavigate } from 'react-router-dom'
+import FormTextInput from '../../../components/form/FormTextInput'
 
 interface IProps {
 };
@@ -30,9 +31,43 @@ const Login = (props: IProps) => {
     }
   }
 
-  return <div>
-    <div> Public - Login Page </div> <br />
-    <input type="button" onClick={handleLogin} value={'Click me to Login'} />
+  return <div className='login'>
+
+    <div className="box">
+
+      <div className="box__left">
+
+      </div>
+
+      <div className="box__right ">
+
+        <form className='form' >
+
+          <h1 className='form__title'>Login</h1>
+
+          <p className='form__desc'>
+            This is a login page that you can enter your user id and password to login system.
+          </p>
+
+          <div className="form__input-group">
+            <label htmlFor="userId">User Id</label>
+            <input type="text" id="userId" className="form__input" />
+            {/* TODO: 要加入Formik表單
+            <FormTextInput id="userId" name="userId" type="text" caption="僅能使用英文" /> */}
+          </div>
+
+          <div className="form__input-group">
+            <label htmlFor="password">password</label>
+            <input type="text" id="password" className="form__input" />
+          </div>
+
+          <input type="button" className="form__btn" onClick={handleLogin} value={'Login System'} />
+        </form>
+
+      </div>
+
+    </div>
+
   </div>
 }
 

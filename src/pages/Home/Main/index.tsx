@@ -4,7 +4,7 @@ interface IProps {
 };
 
 const Main = (props: IProps) => {
-  return <div>Private - Main Page</div>
+  return <h1>Private - Main Page</h1>
 }
 
 export default Main

@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 
 /**
- * do something as clicking outside of the DOM
- * @param {array | object} refs references of the DOM that you intend to bind the hook
- * @param {function} callback action when clicking outside of the DOM
- * @param {boolean} isTriggered trigger binding
+ * Observe clicks outside of the DOM
+ * @param refs references of the DOM that you intend to bind the hook
+ * @param callback action when clicking outside of the DOM
+ * @param isEnable is enable observe or not
  */
-export default (refs: React.RefObject<any>, callback: () => void, isTriggered: boolean) => {
+export default (refs: React.RefObject<any>, callback: () => void, isEnable: boolean) => {
   useEffect(() => {
     const touchOutSideHandler = (event: TouchEvent | MouseEvent) => {
       if (Array.isArray(refs)) {
@@ -14,10 +14,10 @@ export default (refs: React.RefObject<any>, callback: () => void, isTriggered: b
         const isClickInside = refs.some(
           (ref) => ref.current && ref.current.contains(event.target)
         )
-        if (isTriggered && callback && !isClickInside) callback()
+        if (isEnable && callback && !isClickInside) callback()
       } else if (refs.current && !refs.current.contains(event.target)) {
         // single target
-        if (isTriggered && callback) callback()
+        if (isEnable && callback) callback()
       }
     }
 
@@ -27,5 +27,5 @@ export default (refs: React.RefObject<any>, callback: () => void, isTriggered: b
       document.removeEventListener('mousedown', touchOutSideHandler)
       document.removeEventListener('touchstart', touchOutSideHandler)
     }
-  }, [refs, callback, isTriggered])
+  }, [refs, callback, isEnable])
 }

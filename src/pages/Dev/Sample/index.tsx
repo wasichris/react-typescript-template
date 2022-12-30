@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { GenderEnum, LangEnum } from '../../../constants/enums'
 import environment from '../../../environment'
 import storage from '../../../utils/storage'
@@ -18,6 +18,8 @@ import useSampleForm from './hooks/useSampleForm'
 import SampleImg from './components/SampleImg'
 
 interface IProps {
+  title?: string,
+  onSomethingDone?: () => void
 };
 
 const Sample = (props: IProps) => {
@@ -59,12 +61,13 @@ const Sample = (props: IProps) => {
   }
 
   const [apiSampleGetUser] = sampleApi.useSampleGetUserMutation()
+  const [username, setUsername] = useState('')
   const handleCallSampleGetUserApi = async () => {
     const req: ISampleGetUserReq = { userId: 'chris' }
     const response = await apiSampleGetUser(req).unwrap()
     const { header: { returnCode, returnMsg }, body } = response
     if (returnCode.isSuccessCode()) {
-      console.log(body)
+      setUsername(`${body.username} ${body.firstName}`)
     } else {
       alert(`${returnCode}:${returnMsg}`)
     }
@@ -101,9 +104,11 @@ const Sample = (props: IProps) => {
       <h3>使用導航</h3>
       user id from url: {userId}
       <br />
-      <input type="button" value="go to /dev/sample/user01" onClick={() => { navigate('/dev/sample/user01') }} />
+      <input type="button" value="go to /dev/sample/user01" onClick={() => { navigate('/dev/sample/user01') }} data-testid="goUser01Btn" />
       <br />
       <input type="button" value="go to /dev/sample/user02" onClick={() => { navigate('/dev/sample/user02') }} />
+      <br />
+      <Link data-testid="goUser03Link" to="/dev/sample/user03?id=1234">go to /dev/sample/user03 by link</Link>
     </div>
 
     <hr />
@@ -144,7 +149,6 @@ const Sample = (props: IProps) => {
         initialValues={initFormValues}
         validationSchema={validationSchema()}
         onSubmit={onFormSubmit}
-        validateOnMount
       >
         {({ dirty, isValid, resetForm, values }) => (
           <Form >
@@ -192,7 +196,7 @@ const Sample = (props: IProps) => {
       <h3>Redux Toolkit</h3>
       <p>counter: {counterValue} = {counterValueSame}</p>
       <br />
-      <input type="button" value="+" onClick={() => { dispatch(increment()) }} />
+      <input type="button" value="+" onClick={() => { dispatch(increment()) }} data-testid="addCounterBtn" />
       <input type="button" value="-" onClick={() => { dispatch(decrement()) }} />
       <input type="button" value="thunk" onClick={async () => {
         const result = await dispatch(incrementAsync(10))
@@ -220,7 +224,8 @@ const Sample = (props: IProps) => {
       <div>
         <p>mutation(無快取)</p>
         <input type="button" value="call SampleGetProducts api(不列入loader)" onClick={handleCallSampleGetProductsApi} /> <br />
-        <input type="button" value="call SampleGetUser api(有列入loader)" onClick={handleCallSampleGetUserApi} />
+        <input type="button" value="call SampleGetUser api(有列入loader)" onClick={handleCallSampleGetUserApi} data-testid="callSampleGetUserApiBtn" />
+        {username && <p data-testid="username">username : {username}</p>}
       </div>
       <br />
       <div>
@@ -236,6 +241,17 @@ const Sample = (props: IProps) => {
     </div>
 
     <hr />
+
+    <div >
+      <h3>單元測試的附加情境</h3>
+      <br />
+      <div>
+        <input data-testid="doSomethingBtn" type="button" value="呼叫組件傳入的callback"
+          onClick={() => { props?.onSomethingDone && props.onSomethingDone() }} /> <br />
+        <p data-testid="title">{props.title}</p>
+      </div>
+
+    </div>
 
   </div>
 }

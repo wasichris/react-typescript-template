@@ -18,10 +18,11 @@
     "editor.tabSize": 2
   },
   "cSpell.words": [
-    "Formik",
     "clsx",
+    "Formik",
     "pcode",
     "persistor",
-    "reduxjs"
+    "reduxjs",
+    "testid"
   ]
 }

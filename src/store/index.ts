@@ -1,4 +1,4 @@
-import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit'
+import { Action, combineReducers, configureStore, DeepPartial, ThunkAction } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 import { AppEnvEnum } from '../constants/enums'
 import environment from '../environment'
@@ -36,7 +36,7 @@ const middleware = [
 // Store
 export type RootState = ReturnType<typeof rootReducer>
 export const initStore =
-  (preloadedState?: RootState) => configureStore({
+  (preloadedState?: DeepPartial<RootState>) => configureStore({
     reducer: rootReducer,
 
     // Adding the api middleware enables caching, invalidation, polling,
@@ -52,7 +52,7 @@ export const initStore =
     devTools: environment.appEnv === AppEnvEnum.DEVELOPMENT,
 
     // preloaded state for unit test use
-    preloadedState
+    preloadedState: preloadedState as RootState
   })
 export const store = initStore()
 

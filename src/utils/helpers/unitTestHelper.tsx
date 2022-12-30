@@ -18,7 +18,7 @@ export const renderWithProviders = (
     preloadedState = {},
     // 當呼叫端不將 store 傳入時，可以自動建立預設 store 來使用
     // 且依照傳入特定 slice 的 state 來取代 init state 進行測試
-    store = initStore(preloadedState as RootState),
+    store = initStore(preloadedState),
     // 傳入特定 route path 作為初始位置
     route = '/',
     ...renderOptions

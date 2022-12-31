@@ -11,10 +11,18 @@ import { setLocale } from 'yup'
 setLocale({
   mixed: {
     default: t('__validation_invalid') || '',
+    required: ({ type, path }) => {
+      switch (type) {
+        case 'number':
+          return t('__validation_numOnly')
+        default:
+          return t('__validation_required', { name: path })
+      }
+    },
     notType: ({ type }) => {
       switch (type) {
         case 'number':
-          return t('__validation_numOnly'/* 請輸入數字 */)
+          return t('__validation_numOnly')
         default:
           return t('__validation_invalid')
       }

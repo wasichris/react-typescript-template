@@ -190,18 +190,6 @@
             }
         }
 
-        // 會收在組件內！！！ 稍後移除！！
-        // 會收在組件內！！！ 稍後移除！！
-        // 會收在組件內！！！ 稍後移除！！
-        // 會收在組件內！！！ 稍後移除！！
-        // 會收在組件內！！！ 稍後移除！！
-        // 會收在組件內！！！ 稍後移除！！
-        // 會收在組件內！！！ 稍後移除！！
-        // 會收在組件內！！！ 稍後移除！！
-        &__input {
-            line-height: 30px;
-            padding: 2px 10px;
-        }
 
         &__btn {
             margin-top: 20px;
@@ -211,6 +199,10 @@
             border-radius: 5px;
             padding: 5px 20px;
             color: #FFFFFF;
+
+            &:disabled {
+                background-color: #cccccc;
+            }
         }
     }
 

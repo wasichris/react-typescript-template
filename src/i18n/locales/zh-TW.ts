@@ -6,7 +6,8 @@ export default {
   /* ================================= */
 
   __validation_invalid: `欄位檢核錯誤`,
-  __validation_required: `請輸入{{name}}`,
+  __validation_required: `請輸入資訊`,
+  __validation_required_with_name: `請輸入{{name}}`,
   __validation_maxLength: `請勿輸入超過{{max}}個字`,
   __validation_strLengthRange: `長度須為{{min}}~{{max}}碼`,
   __validation_maxDigitNumber: `最多輸入{{max}}位數值`,

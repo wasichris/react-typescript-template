@@ -1,5 +1,7 @@
+import { t } from 'i18next'
+
 /**
- * @description 產生 guid
+ * 產生 guid
  * @returns guid
  */
 export const getGuid = () => {
@@ -8,4 +10,13 @@ export const getGuid = () => {
     const v = c === 'x' ? r : (r & 0x3) | 0x8
     return v.toString(16)
   })
+}
+
+/**
+ * 產生包含欄位名稱的必填欄位錯誤訊息文字
+ * @param fieldName 欄位名稱
+ * @returns 包含欄位名稱的必填欄位錯誤訊息
+ */
+export const getRequiredMsg = (fieldName: string) => {
+  return t('__validation_required_with_name', { name: fieldName })
 }

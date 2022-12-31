@@ -2,7 +2,8 @@ import { FormikHelpers } from 'formik'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
-import { requiredStrSchema, strLengthRangeSchema } from '../../../../utils/validations/schema'
+import { getRequiredMsg } from '../../../../utils/helpers/commonHelper'
+import { strLengthRangeSchema } from '../../../../utils/validations/schema'
 import schemaChain from '../../../../utils/validations/schemaChain'
 
 // 說明 Hook 使用時機：
@@ -22,16 +23,16 @@ const useSampleForm = (initValues: IFormValues) => {
   const validationSchema = () =>
     yup.object({
       account:
-        yup.string()
-          .concat(requiredStrSchema(t('__account' /* 帳號 */))) // 自定邏輯
+        // 如果必填錯誤訊息需要欄位名稱，就這樣覆寫訊息，只需傳入欄位名稱
+        yup.string().required(getRequiredMsg(t('__account' /* 帳號 */)))
           .max(5), // 內建邏輯
       password:
-        yup.string()
-          .concat(requiredStrSchema(t('__pwd' /* 密碼 */)))
-          .concat(strLengthRangeSchema(2, 10)),
+        // 如果必填錯誤訊息不需要欄位名稱，就回應預設通用訊息"請輸入資訊"
+        yup.string().required()
+          .concat(strLengthRangeSchema(2, 10)), // 自定邏輯
       salary:
         schemaChain
-          .twMoneyAmt(true, t('__salary' /* 月薪 */)) // 自定邏輯串(針對通用且有意義性的資料類型)
+          .twMoneyAmt(true, t('__salary' /* 月薪 */)!) // 自定邏輯串(針對通用且有意義性的資料類型)
     })
 
   const onFormSubmit = (values: IFormValues, actions: FormikHelpers<IFormValues>) => {

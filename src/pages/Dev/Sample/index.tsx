@@ -166,12 +166,12 @@ const Sample = (props: IProps) => {
             <input
               type="button"
               onClick={() => resetForm({ values: initFormValues })}
-              value={t('__clear' /* 清除 */) || ''} />
+              value={t('__clear' /* 清除 */)!} />
 
             <input
               type="submit"
               disabled={!(dirty && isValid)}
-              value={t('__submit' /* 送出 */) || ''} />
+              value={t('__submit' /* 送出 */)!} />
 
             <br />
 

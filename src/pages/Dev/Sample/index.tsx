@@ -90,17 +90,15 @@ const Sample = (props: IProps) => {
 
     <h1>Dev - Sample Page</h1>
 
-    <hr />
-    <div >
+    <section className='section'>
       <h3>開發環境</h3>
       <ul>
         <li>env: {environment.appEnv}</li>
         <li>mode: {environment.appMode}</li>
       </ul>
-    </div>
+    </section>
 
-    <hr />
-    <div>
+    <section className='section'>
       <h3>使用導航</h3>
       user id from url: {userId}
       <br />
@@ -109,10 +107,9 @@ const Sample = (props: IProps) => {
       <input type="button" value="go to /dev/sample/user02" onClick={() => { navigate('/dev/sample/user02') }} />
       <br />
       <Link data-testid="goUser03Link" to="/dev/sample/user03?id=1234">go to /dev/sample/user03 by link</Link>
-    </div>
+    </section>
 
-    <hr />
-    <div>
+    <section className='section' >
       <h3>使用Enum產生選單</h3>
       <div>
         <p>使用 GenderEnum 產生選單</p>
@@ -127,10 +124,9 @@ const Sample = (props: IProps) => {
         const description = getEnumDescription(GenderEnum, GenderEnum.MALE)
         alert(description)
       }} />
-    </div>
+    </section>
 
-    <hr />
-    <div>
+    <section className='section'>
       <h3>多國語系</h3>
       <ul>
         <li>Current Language: {i18n.language}</li>
@@ -139,10 +135,9 @@ const Sample = (props: IProps) => {
       <br />
       <input type="button" value="en" onClick={() => { changeLang(LangEnum.EN) }} />
       <input type="button" value="zh-TW" onClick={() => { changeLang(LangEnum.ZH_TW) }} />
-    </div>
+    </section>
 
-    <hr />
-    <div>
+    <section className='section'>
       <h3>表單檢核</h3>
       <Formik
         enableReinitialize
@@ -188,11 +183,9 @@ const Sample = (props: IProps) => {
           </Form>
         )}
       </Formik>
-    </div>
+    </section>
 
-    <hr />
-
-    <div>
+    <section className='section'>
       <h3>Redux Toolkit</h3>
       <p>counter: {counterValue} = {counterValueSame}</p>
       <br />
@@ -203,21 +196,17 @@ const Sample = (props: IProps) => {
         console.log(result)
       }} />
 
-    </div>
+    </section>
 
-    <hr />
-
-    <div ref={targetDiv}>
+    <section className='section' ref={targetDiv}>
       <h3>自定義 Hook </h3>
       <p>超過這個區域點擊時，console會有訊息</p>
       <p>line1------</p>
       <p>line2------</p>
       <p>line3------</p>
-    </div>
+    </section>
 
-    <hr />
-
-    <div >
+    <section className='section'>
       <h3>呼叫api</h3>
       <p>loadingApiCounter: {loadingApiCounter}</p>
       <br />
@@ -238,11 +227,9 @@ const Sample = (props: IProps) => {
         <input type="button" value="get image" onClick={handleCallLazyCachedApi} />
         <div> <img alt="" src={lazyBase64Img} /> </div>
       </div>
-    </div>
+    </section>
 
-    <hr />
-
-    <div >
+    <section className='section'>
       <h3>單元測試的附加情境</h3>
       <br />
       <div>
@@ -251,7 +238,7 @@ const Sample = (props: IProps) => {
         <p data-testid="title">{props.title}</p>
       </div>
 
-    </div>
+    </section>
 
   </div>
 }

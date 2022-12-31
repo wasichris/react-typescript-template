@@ -58,7 +58,7 @@ const Login = (props: IProps) => {
 
           <div className="form__input-group">
             <label htmlFor="password">password</label>
-            <input type="text" id="password" className="form__input" />
+            <input type="password" id="password" className="form__input" />
           </div>
 
           <input type="button" className="form__btn" onClick={handleLogin} value={'Login System'} />

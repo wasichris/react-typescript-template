@@ -31,7 +31,7 @@ $breakpoints: (
     "xxl": 90em
 );
 
-@mixin respond-above($breakpoint) {
+@mixin respond-above($breakpoint: sm) {
 
     // If the breakpoint exists in the map.
     @if map-has-key($breakpoints, $breakpoint) {
@@ -43,10 +43,10 @@ $breakpoints: (
             @content;
         }
 
-        // If the breakpoint doesn't exist in the map.
     }
 
     @else {
+        // If the breakpoint doesn't exist in the map.
         // Log a warning.
         @warn 'Invalid breakpoint: #{$breakpoint}.';
     }

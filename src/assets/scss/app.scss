@@ -137,7 +137,7 @@
         min-height: 400px;
         width: 100%;
 
-        @include respond-above(sm) {
+        @include respond-above() {
             width: 800px;
             margin: 0 auto;
         }
@@ -146,7 +146,7 @@
             padding: 15px;
             display: none;
 
-            @include respond-above(sm) {
+            @include respond-above() {
                 display: block;
                 min-width: 40%;
                 background-color: $color__main;
@@ -161,7 +161,7 @@
             width: 100%;
             border-radius: $box__radius;
 
-            @include respond-above(sm) {
+            @include respond-above() {
                 width: 60%;
                 border-radius: 0 $box__radius $box__radius 0;
             }

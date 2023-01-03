@@ -2,8 +2,8 @@
 @import "./utils/functions";
 @import "./utils/mixins";
 @import "./utils/variables";
-@import "./reset/reset";
-@import "./reset/reset_custom";
+@import "./normalize/normalize";
+@import "./normalize/normalize_custom";
 @import "./components";
 
 // =================================================================
@@ -17,6 +17,12 @@
 // =================================================================
 // =================== 通用樣式(尚未建立成組件) ========================
 // =================================================================
+
+.btn-link {
+    padding: 0;
+    background: transparent;
+    border: none;
+}
 
 // =================================================================
 // ===================== 主體樣式(網站主結構) =========================
@@ -55,6 +61,8 @@
 
     &__nav {
         display: flex;
+        padding-left: 0;
+        list-style: none;
     }
 
     &__nav-item {
@@ -63,6 +71,7 @@
         >a,
         button {
             color: #fff;
+            cursor: pointer;
 
             &:hover {
                 color: $color-link;
@@ -161,12 +170,13 @@
 
     .form {
         &__title {
-            padding-bottom: 20px;
+            margin-top: 10px;
+            font-size: $base-font-size-32;
             font-weight: bolder;
         }
 
         &__desc {
-            padding-bottom: 40px;
+            padding-bottom: 30px;
             font-size: $base-font-size-12;
             color: $color-caption;
         }

@@ -85,7 +85,8 @@
     ],
     "rules": {
       "indentation": 4,
-      "max-line-length": null
+      "max-line-length": null,
+      "scss/comment-no-empty": null
     }
   }
 }

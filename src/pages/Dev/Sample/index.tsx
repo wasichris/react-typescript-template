@@ -91,7 +91,7 @@ const Sample = (props: IProps) => {
     <h1>Dev - Sample Page</h1>
 
     <section className='section'>
-      <h3>開發環境</h3>
+      <h2>開發環境</h2>
       <ul>
         <li>env: {environment.appEnv}</li>
         <li>mode: {environment.appMode}</li>
@@ -99,7 +99,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h3>使用導航</h3>
+      <h2>使用導航</h2>
       user id from url: {userId}
       <br />
       <input type="button" value="go to /dev/sample/user01" onClick={() => { navigate('/dev/sample/user01') }} data-testid="goUser01Btn" />
@@ -110,7 +110,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section' >
-      <h3>使用Enum產生選單</h3>
+      <h2>使用Enum產生選單</h2>
       <div>
         <p>使用 GenderEnum 產生選單</p>
         <select name="gender" id="gender">
@@ -127,7 +127,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h3>多國語系</h3>
+      <h2>多國語系</h2>
       <ul>
         <li>Current Language: {i18n.language}</li>
         <li>{t('__understand')}</li>
@@ -138,7 +138,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h3>表單檢核</h3>
+      <h2>表單檢核</h2>
       <Formik
         enableReinitialize
         initialValues={initFormValues}
@@ -186,7 +186,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h3>Redux Toolkit</h3>
+      <h2>Redux Toolkit</h2>
       <p>counter: {counterValue} = {counterValueSame}</p>
       <br />
       <input type="button" value="+" onClick={() => { dispatch(increment()) }} data-testid="addCounterBtn" />
@@ -199,7 +199,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section' ref={targetDiv}>
-      <h3>自定義 Hook </h3>
+      <h2>自定義 Hook </h2>
       <p>超過這個區域點擊時，console會有訊息</p>
       <p>line1------</p>
       <p>line2------</p>
@@ -207,18 +207,16 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h3>呼叫api</h3>
+      <h2>呼叫api</h2>
       <p>loadingApiCounter: {loadingApiCounter}</p>
-      <br />
       <div>
-        <p>mutation(無快取)</p>
+        <h3>mutation(無快取)</h3>
         <input type="button" value="call SampleGetProducts api(不列入loader)" onClick={handleCallSampleGetProductsApi} /> <br />
         <input type="button" value="call SampleGetUser api(有列入loader)" onClick={handleCallSampleGetUserApi} data-testid="callSampleGetUserApiBtn" />
         {username && <p data-testid="username">username : {username}</p>}
       </div>
-      <br />
       <div>
-        <p>  query(有快取)</p>
+        <h3> query(有快取)</h3>
         <p>使用 query 直接執行 SampleGetImg api 取得圖片</p>
         <SampleImg width={800} height={200} />
       </div>
@@ -230,8 +228,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h3>單元測試的附加情境</h3>
-      <br />
+      <h2>單元測試的附加情境</h2>
       <div>
         <input data-testid="doSomethingBtn" type="button" value="呼叫組件傳入的callback"
           onClick={() => { props?.onSomethingDone && props.onSomethingDone() }} /> <br />

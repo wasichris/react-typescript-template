@@ -1,0 +1,75 @@
+// ================================================================================
+// Custom Normalize
+// https://www.joshwcomeau.com/css/custom-css-reset/
+// ================================================================================
+
+@import "https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap&subset=chinese-traditional";
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Allow percentage-based heights in the application */
+html,
+body {
+    height: 100%;
+}
+
+/* Set core root defaults */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    font-family: $base-font-family;
+    font-size: $base-font-size_14;
+    line-height: 1.5;
+    color: $base-font-color;
+    background-color: $color-bg-body;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizespeed;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+/* Default element style */
+a {
+    color: $color-link;
+    text-decoration: none;
+
+    &:hover {
+        color: $color-link;
+    }
+}

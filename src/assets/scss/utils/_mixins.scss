@@ -2,23 +2,22 @@
 @use "sass:math";
 
 // Media queries for mobile-first design
-// ==
+//
 // ## example of usage ##
 // .container {
 //     // mobile first
 //     background-color: #fff;
-
+//
 //     // tablet
 //     @include respond-above(xs) {
 //         background-color: gray;
 //     }
-
+//
 //     // pc
 //     @include respond-above(md) {
 //         background-color: red;
 //     }
 // }
-
 $breakpoints: (
     // 400px
     "xs": 25em,
@@ -52,7 +51,7 @@ $breakpoints: (
 }
 
 // Text shortening
-// ==
+//
 // ## example of usage ##
 // multi-lines: @include text-shorten(3);
 // single-line: @include text-shorten();
@@ -71,36 +70,10 @@ $breakpoints: (
     }
 }
 
-// Placeholders - support for all browsers
-@mixin placeholder {
-    &.placeholder {
-        @content;
-    }
-
-    &:placeholder {
-        @content;
-    }
-
-    &::placeholder {
-        @content;
-    }
-
-    /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
-    &:input-placeholder {
-        @content;
-    }
-
-    /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
-    &::input-placeholder {
-        @content;
-    }
-}
-
 // Flexbox Toolkit
-// ==
+//
 // ## example of usage ##
 // @include flex-center-vert;
-
 @mixin flex-column {
     display: flex;
     flex-direction: column;
@@ -129,12 +102,11 @@ $breakpoints: (
 }
 
 // Responsive ratio
-// ==
+//
 // ## example of usage ##
 // img {
 //     @include ratio(16, 9);
 // }
-
 @mixin ratio($x, $y, $pseudo: false) {
     $padding: ($y / $x ) * 100 + "%";
 
@@ -165,7 +137,7 @@ $breakpoints: (
 }
 
 // triangle
-// ==
+//
 // ## example of usage ##
 // .parent {
 //     position: relative;

@@ -1,3 +1,4 @@
+/* stylelint-disable */
 html,
 body,
 div,
@@ -293,77 +294,4 @@ textarea {
 table {
     border-collapse: collapse;
     border-spacing: 0;
-}
-
-// ================================================================================
-// Customize Reset
-// ================================================================================
-
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap&subset=chinese-traditional');
-
-* {
-    box-sizing: border-box;
-    -webkit-overflow-scrolling: touch;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    color: $base__fontColor;
-    font-size: $base__fontSize_14;
-    font-family: $base__fontFamily;
-    background-color: $color__bg-body;
-}
-
-a {
-    color: $color__link;
-    text-decoration: none;
-
-    &:hover {
-        color: $color__link;
-    }
-}
-
-button {
-    background: transparent;
-    border: none;
-    padding: 0;
-}
-
-h1 {
-    font-size: $base__fontSize_32;
-}
-
-h2 {
-    font-size: $base__fontSize_28;
-}
-
-h3 {
-    font-size: $base__fontSize_24;
-}
-
-h4 {
-    font-size: $base__fontSize_18;
-}
-
-h5 {
-    font-size: $base__fontSize_16;
-}
-
-
-
-::-webkit-input-placeholder {
-    /* Edge */
-    color: #BEBEBE;
-}
-
-:-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: #BEBEBE;
-}
-
-::placeholder {
-    color: #BEBEBE;
 }

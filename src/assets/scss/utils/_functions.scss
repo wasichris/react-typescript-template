@@ -1,5 +1,5 @@
 // Z-index (避免隨意設定出多種index)
-//
+// ==
 // ## example of usage ##
 // z-index: z(header);
 
@@ -14,10 +14,8 @@ $z-indexes: (
 
 @function z($name) {
     @if index($z-indexes, $name) {
-        @return (length($z-indexes) - index($z-indexes, $name))+1;
-    }
-
-    @else {
+        @return (length($z-indexes) - index($z-indexes, $name)) + 1;
+    } @else {
         @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
         @return null;
     }

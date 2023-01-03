@@ -8,6 +8,7 @@ This react v18 project was bootstrapped with [generator-react-typescript-templat
 
 It is recommended to use [Visual Studio Code](https://code.visualstudio.com/) for development. Some useful extensions you might need as below:
 * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+* [StyleLint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
 * [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
 * [SCSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=mrmlnc.vscode-scss)
 

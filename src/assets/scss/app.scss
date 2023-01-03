@@ -1,16 +1,14 @@
-@import './functions';
-@import './mixins';
-@import './variables';
-@import './reset';
-@import './components';
+@use "sass:math";
+@import "./utils/functions";
+@import "./utils/mixins";
+@import "./utils/variables";
+@import "./reset/reset";
+@import "./reset/reset_custom";
+@import "./components";
 
 // =================================================================
-// ========================== 工具性類別 ============================
+// =========== 工具性類別(可選用一組通用庫 e.g. tailwind ===============
 // =================================================================
-
-.flex {
-    display: flex;
-}
 
 .blocked {
     overflow: hidden;
@@ -20,32 +18,31 @@
 // =================== 通用樣式(尚未建立成組件) ========================
 // =================================================================
 
-
-
-
 // =================================================================
 // ===================== 主體樣式(網站主結構) =========================
 // =================================================================
 
 .env-info {
     position: absolute;
-    left: 5px;
     top: 5px;
+    left: 5px;
     z-index: z(env-info);
-    color: $color__caption;
     font-size: 12px;
+    color: $color-caption;
 }
 
 .app-header {
     @include flex-center-vert;
-    height: 55px;
-    background: black;
-    color: white;
-    padding: 0 15px 0 5px;
+
     position: relative;
-    max-width: 1024px;
-    margin: 0 auto;
     z-index: z(header);
+    width: 0 - math.round(20);
+    max-width: 1024px;
+    height: 55px;
+    padding: 0 15px 0 5px;
+    margin: 0 auto;
+    color: white;
+    background: black;
 
     &__logo {
         width: 50px;
@@ -65,24 +62,23 @@
 
         >a,
         button {
-            color: #FFFFFF;
+            color: #fff;
 
             &:hover {
-                color: $color__link;
+                color: $color-link;
             }
         }
     }
 }
 
 .app-body {
-
     &__container {
+        position: relative;
         max-width: 1024px;
-        margin: 0 auto;
-        background-color: $color__bg-content;
         min-height: calc(100vh - 55px);
         padding: 10px 20px;
-        position: relative;
+        margin: 0 auto;
+        background-color: $color-bg-content;
     }
 }
 
@@ -92,92 +88,87 @@
 
 .dev {
     padding: 20px 50px;
-    background-color: $color__bg-content;
+    background-color: $color-bg-content;
 
     .section {
-        border: 1px solid black;
-        border-radius: 5px;
         padding: 15px;
         margin: 20px 0;
+        border: 1px solid black;
+        border-radius: 5px;
     }
 
     .input-group {
-
         &__label {
             display: inline-block;
-            vertical-align: top;
-            line-height: 40px;
-            padding-right: 10px;
             width: 75px;
+            padding-right: 10px;
+            line-height: 40px;
+            vertical-align: top;
         }
 
         &__input {
             display: inline-block;
         }
-
     }
 }
-
 
 .login {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 100%;
-    padding: 20px;
     display: flex;
     align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
 
-
-    $box__radius: 10px;
+    $box-radius: 10px;
 
     .box {
         display: flex;
-        min-height: 400px;
         width: 100%;
+        min-height: 400px;
 
-        @include respond-above() {
+        @include respond-above {
             width: 800px;
             margin: 0 auto;
         }
 
         &__left {
-            padding: 15px;
             display: none;
+            padding: 15px;
 
-            @include respond-above() {
+            @include respond-above {
                 display: block;
                 min-width: 40%;
-                background-color: $color__main;
-                border-radius: $box__radius 0 0 $box__radius ;
+                background-color: $color-main;
+                border-radius: $box-radius 0 0 $box-radius;
             }
-
         }
 
         &__right {
-            background-color: white;
-            padding: 15px 30px;
             width: 100%;
-            border-radius: $box__radius;
+            padding: 15px 30px;
+            background-color: white;
+            border-radius: $box-radius;
 
-            @include respond-above() {
+            @include respond-above {
                 width: 60%;
-                border-radius: 0 $box__radius $box__radius 0;
+                border-radius: 0 $box-radius $box-radius 0;
             }
         }
     }
 
     .form {
         &__title {
-            font-weight: bolder;
             padding-bottom: 20px;
+            font-weight: bolder;
         }
 
         &__desc {
-            font-size: $base__fontSize_12;
-            color: $color__caption;
             padding-bottom: 40px;
+            font-size: $base-font-size-12;
+            color: $color-caption;
         }
 
         &__input-group {
@@ -190,20 +181,18 @@
             }
         }
 
-
         &__btn {
+            padding: 5px 20px;
             margin-top: 20px;
             line-height: 30px;
-            background-color: $color__main;
+            color: #fff;
+            background-color: $color-main;
             border: 0;
             border-radius: 5px;
-            padding: 5px 20px;
-            color: #FFFFFF;
 
             &:disabled {
-                background-color: #cccccc;
+                background-color: #ccc;
             }
         }
     }
-
 }

@@ -35,7 +35,9 @@
     "build:uat": "REACT_APP_MODE=UAT PUBLIC_URL=/uat react-scripts build",
     "build:prod": "REACT_APP_MODE=PROD PUBLIC_URL= react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "lint": "npm run lint:ts && npm run lint:style",
+    "lint:ts": "eslint . --ext .js,.jsx,.ts,.tsx, --ignore-path .gitignore",
+    "lint:style": "stylelint src/**/*.{scss,css}"
   },
   "eslintConfig": {
     "extends": [
@@ -68,9 +70,22 @@
   "devDependencies": {
     "eslint-config-standard": "^17.0.0",
     "msw": "^0.49.1",
-    "sass": "^1.55.0"
+    "sass": "^1.55.0",
+    "stylelint": "^14.16.1",
+    "stylelint-config-recess-order": "^3.1.0",
+    "stylelint-config-standard-scss": "^6.1.0"
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-standard-scss",
+      "stylelint-config-recess-order"
+    ],
+    "rules": {
+      "indentation": 4,
+      "max-line-length": null
+    }
   }
 }

@@ -1,0 +1,72 @@
+// ================================================================================
+// Customize Reset
+// ================================================================================
+
+@import "https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap&subset=chinese-traditional";
+
+* {
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: $base-font-family;
+    font-size: $base-font-size_14;
+    color: $base-font-color;
+    background-color: $color-bg-body;
+}
+
+a {
+    color: $color-link;
+    text-decoration: none;
+
+    &:hover {
+        color: $color-link;
+    }
+}
+
+button {
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+h1 {
+    font-size: $base-font-size-32;
+}
+
+h2 {
+    font-size: $base-font-size-28;
+}
+
+h3 {
+    font-size: $base-font-size-24;
+}
+
+h4 {
+    font-size: $base-font-size-18;
+}
+
+h5 {
+    font-size: $base-font-size-16;
+}
+
+/* stylelint-disable-next-line selector-pseudo-element-no-unknown */
+::input-placeholder {
+    /* Edge */
+    color: #bebebe;
+}
+
+/* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+:input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #bebebe;
+}
+
+::placeholder {
+    color: #bebebe;
+}

@@ -3,7 +3,8 @@
   "editor.detectIndentation": false,
   "editor.suggestSelection": "recentlyUsed",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
   },
   "[typescript]": {
     "editor.tabSize": 2
@@ -23,6 +24,13 @@
     "pcode",
     "persistor",
     "reduxjs",
+    "stylelint",
     "testid"
+  ],
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "scss"
   ]
 }

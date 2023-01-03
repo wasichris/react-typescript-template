@@ -1,5 +1,8 @@
+@use "sass:map";
+@use "sass:math";
+
 // Media queries for mobile-first design
-// 
+// ==
 // ## example of usage ##
 // .container {
 //     // mobile first
@@ -32,42 +35,37 @@ $breakpoints: (
 );
 
 @mixin respond-above($breakpoint: sm) {
-
     // If the breakpoint exists in the map.
     @if map-has-key($breakpoints, $breakpoint) {
         // Get the breakpoint value.
-        $breakpoint-value: map-get($breakpoints, $breakpoint);
+        $breakpoint-value: map.get($breakpoints, $breakpoint);
 
         // Write the media query.
         @media (min-width: $breakpoint-value) {
             @content;
         }
-
-    }
-
-    @else {
+    } @else {
         // If the breakpoint doesn't exist in the map.
         // Log a warning.
-        @warn 'Invalid breakpoint: #{$breakpoint}.';
+        @warn "Invalid breakpoint: #{$breakpoint}.";
     }
 }
 
-
 // Text shortening
-//
+// ==
 // ## example of usage ##
 // multi-lines: @include text-shorten(3);
 // single-line: @include text-shorten();
 @mixin text-shorten($numLines: 1) {
-    white-space: nowrap;
-    text-overflow: ellipsis;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     @supports (-webkit-line-clamp: $numLines) {
+        display: -webkit-box;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: initial;
-        display: -webkit-box;
         -webkit-line-clamp: $numLines;
         -webkit-box-orient: vertical;
     }
@@ -79,26 +77,27 @@ $breakpoints: (
         @content;
     }
 
-    &:-moz-placeholder {
+    &:placeholder {
         @content;
     }
 
-    &::-moz-placeholder {
+    &::placeholder {
         @content;
     }
 
-    &:-ms-input-placeholder {
+    /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+    &:input-placeholder {
         @content;
     }
 
-    &::-webkit-input-placeholder {
+    /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
+    &::input-placeholder {
         @content;
     }
 }
 
-
 // Flexbox Toolkit
-//
+// ==
 // ## example of usage ##
 // @include flex-center-vert;
 
@@ -115,6 +114,7 @@ $breakpoints: (
 
 @mixin flex-center-column {
     @include flex-center;
+
     flex-direction: column;
 }
 
@@ -123,31 +123,29 @@ $breakpoints: (
     align-items: center;
 }
 
-@mixin flex-center-horiz {
+@mixin flex-center-hor {
     display: flex;
     justify-content: center;
 }
 
-
 // Responsive ratio
-//
+// ==
 // ## example of usage ##
 // img {
 //     @include ratio(16, 9);
 // }
 
 @mixin ratio($x, $y, $pseudo: false) {
-    $padding: unquote(($y / $x ) * 100 + '%');
+    $padding: ($y / $x ) * 100 + "%";
 
     @if $pseudo {
-        &:before {
+        &::before {
             @include pseudo($pos: relative);
+
             width: 100%;
             padding-top: $padding;
         }
-    }
-
-    @else {
+    } @else {
         padding-top: $padding;
     }
 }
@@ -155,20 +153,19 @@ $breakpoints: (
 // Cover Background
 @mixin cover-background {
     background-repeat: no-repeat;
-    background-size: cover;
     background-position: center;
+    background-size: cover;
 }
 
-
 // pseudo
-@mixin pseudo($display: block, $pos: absolute, $content: '') {
-    content: $content;
-    display: $display;
+@mixin pseudo($display: block, $pos: absolute, $content: "") {
     position: $pos;
+    display: $display;
+    content: $content;
 }
 
 // triangle
-//
+// ==
 // ## example of usage ##
 // .parent {
 //     position: relative;
@@ -180,6 +177,7 @@ $breakpoints: (
 // }
 @mixin triangle($color, $direction, $size: 6px, $position: absolute, $round: false) {
     @include pseudo($pos: $position);
+
     width: 0;
     height: 0;
 
@@ -187,31 +185,25 @@ $breakpoints: (
         border-radius: 3px;
     }
 
-    @if $direction ==down {
-        border-left: $size solid transparent;
-        border-right: $size solid transparent;
+    @if $direction == down {
+        margin-top: 0 - math.round($size / 2.5);
         border-top: $size solid $color;
-        margin-top: 0 - round($size / 2.5);
-    }
-
-    @else if $direction ==up {
+        border-right: $size solid transparent;
         border-left: $size solid transparent;
+    } @else if $direction == up {
+        margin-bottom: 0 - math.round($size / 2.5);
         border-right: $size solid transparent;
         border-bottom: $size solid $color;
-        margin-bottom: 0 - round($size / 2.5);
-    }
-
-    @else if $direction ==right {
+        border-left: $size solid transparent;
+    } @else if $direction == right {
+        margin-right: -$size;
         border-top: $size solid transparent;
         border-bottom: $size solid transparent;
         border-left: $size solid $color;
-        margin-right: -$size;
-    }
-
-    @else if $direction ==left {
-        border-top: $size solid transparent;
-        border-bottom: $size solid transparent;
-        border-right: $size solid $color;
+    } @else if $direction == left {
         margin-left: -$size;
+        border-top: $size solid transparent;
+        border-right: $size solid $color;
+        border-bottom: $size solid transparent;
     }
 }

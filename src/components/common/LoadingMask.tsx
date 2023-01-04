@@ -11,12 +11,12 @@ const LoadingMask = (props: IProps) => {
   }, [])
 
   return (
-    <div className="loading-mask">
-      <div className="loading-mask__loader">
-        <div className="loading-mask__loader-item"></div>
-        <div className="loading-mask__loader-item"></div>
-        <div className="loading-mask__loader-item"></div>
-        <div className="loading-mask__loader-item"></div>
+    <div className="c-loading-mask">
+      <div className="c-loading-mask__loader">
+        <div className="c-loading-mask__loader-item"></div>
+        <div className="c-loading-mask__loader-item"></div>
+        <div className="c-loading-mask__loader-item"></div>
+        <div className="c-loading-mask__loader-item"></div>
       </div>
     </div>
   )

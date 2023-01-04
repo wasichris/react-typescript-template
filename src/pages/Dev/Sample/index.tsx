@@ -86,7 +86,7 @@ const Sample = (props: IProps) => {
 
   // ===
 
-  return <div className="dev">
+  return <div className="pg-dev">
 
     <h1>Dev - Sample Page</h1>
 

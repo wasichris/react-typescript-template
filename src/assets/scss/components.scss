@@ -1,9 +1,11 @@
-// 使用 component name 作為頂層 class name
+// 使用 c prefix 的 component name 作為頂層 class name
 
-.form-text-input {
-    width: 100%;
-    padding: 2px 10px;
-    line-height: 30px;
+.c-form-text-input {
+    &__input {
+        width: 100%;
+        padding: 2px 10px;
+        line-height: 30px;
+    }
 
     &__caption {
         font-size: smaller;
@@ -17,7 +19,7 @@
     }
 }
 
-.loading-mask {
+.c-loading-mask {
     position: fixed;
     top: 0;
     z-index: z(mask);

@@ -21,7 +21,7 @@ const Login = (props: IProps) => {
     if (isLogin) navigate('/home')
   }, [isLogin, navigate])
 
-  return <div className='login'>
+  return <div className='pg-login'>
 
     <div className="box">
 

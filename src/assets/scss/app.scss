@@ -92,10 +92,10 @@
 }
 
 // =================================================================
-// ============ 頁面樣式 (使用page作為 root class name) ===============
+// ==== 頁面樣式 (使用 pg prefix 的 page name 作為頂層 class name) =====
 // =================================================================
 
-.dev {
+.pg-dev {
     padding: 20px 50px;
     background-color: $color-bg-content;
 
@@ -121,7 +121,7 @@
     }
 }
 
-.login {
+.pg-login {
     position: absolute;
     top: 0;
     left: 0;

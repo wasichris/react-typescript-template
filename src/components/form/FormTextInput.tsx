@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { FieldHookConfig, useField } from 'formik'
 import { ChangeEvent, ClassAttributes, FocusEvent, InputHTMLAttributes } from 'react'
 
@@ -25,21 +26,21 @@ const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttri
   }
 
   return (
-    <div className={className}>
+    <div className={clsx('c-form-text-input', className)}>
       <input
         {...field}
         {...props}
-        className="form-text-input"
+        className="c-form-text-input__input"
         onChange={handleChange}
         onBlur={handleBlur}
         autoComplete="off"
       />
 
       {/* 提示文字 */}
-      {caption ? <div className="form-text-input__caption"> {caption} </div> : null}
+      {caption ? <div className="c-form-text-input__caption"> {caption} </div> : null}
 
       {/* 檢核錯誤提示 */}
-      {hasError ? <div className="form-text-input__error" > {meta.error} </div> : null}
+      {hasError ? <div className="c-form-text-input__error" > {meta.error} </div> : null}
     </div>
   )
 }

@@ -8,6 +8,9 @@ import { logout } from '../../store/slices/appSlice'
 interface IProps {
 };
 
+/**
+ * 私有頁面的共用樣板
+ */
 const Home = (props: IProps) => {
   const isLogin = useAppSelector(state => state.app.isLogin)
   const dispatch = useAppDispatch()

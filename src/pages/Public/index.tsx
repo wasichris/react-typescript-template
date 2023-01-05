@@ -5,6 +5,9 @@ import logo from '../../assets/images/logo.svg'
 interface IProps {
 };
 
+/**
+ * 公開頁面的共用樣板
+ */
 const Public = (props: IProps) => {
   return <>
     <header className="app-header">

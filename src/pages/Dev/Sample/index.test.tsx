@@ -11,9 +11,11 @@ import { createRes, getApiUrl } from '../../../mocks/mockHelper'
 import { ISampleGetUserRes } from '../../../services/models/sample'
 
 describe('測試 Sample 範例頁面', () => {
-  // 每次test測試前都會執行此區塊代碼
+  // =========================
+  // Lifecycle for testing
+  // =========================
   beforeEach(() => {
-    // 因 Sample 頁面載入時就會馬上呼叫以下 api，所以統一在這邊定義
+    // 因 Sample 頁面載入時就會馬上呼叫以下 api，所以統一在這邊定義 api mock
     mswServer.use(
       rest.post(getApiUrl('/sample/get-img'), (req, res, ctx) => {
         const imageBuffer = new ArrayBuffer(20)
@@ -29,7 +31,7 @@ describe('測試 Sample 範例頁面', () => {
   })
 
   // =========================
-  // DOM
+  // Testing DOM
   // =========================
 
   test('傳入 props 顯示在對應 DOM 位置', async () => {
@@ -60,7 +62,7 @@ describe('測試 Sample 範例頁面', () => {
   })
 
   // =========================
-  // Function
+  // Testing Function
   // =========================
 
   test('測試 callback function 是否被執行', async () => {
@@ -77,7 +79,7 @@ describe('測試 Sample 範例頁面', () => {
   })
 
   // =========================
-  // Navigate
+  // Testing Navigate
   // =========================
 
   test('測試 useNavigate 導頁', async () => {
@@ -108,7 +110,7 @@ describe('測試 Sample 範例頁面', () => {
   })
 
   // =========================
-  // Redux Only
+  // Testing Redux Only
   // =========================
 
   test('操作 store 執行 dispatch 變更 redux 狀態', () => {
@@ -128,7 +130,7 @@ describe('測試 Sample 範例頁面', () => {
   })
 
   // =========================
-  // Redux with Component
+  // Testing Redux with Component
   // =========================
 
   test('操作 component 執行 dispatch 變更 redux 狀態', async () => {
@@ -150,7 +152,7 @@ describe('測試 Sample 範例頁面', () => {
   })
 
   // =========================
-  // API(整合測試)
+  // Testing API(整合測試)
   // =========================
 
   test('測試呼叫 API 並把結果顯示在畫面', async () => {

@@ -1,5 +1,6 @@
 @use "sass:map";
 @use "sass:math";
+@use "sass:string";
 
 // Media queries for mobile-first design
 //
@@ -102,13 +103,16 @@ $breakpoints: (
 }
 
 // Responsive ratio
+// creating scalable elements,
+// usually images / background images that maintain a ratio.
 //
 // ## example of usage ##
-// img {
+// div {
 //     @include ratio(16, 9);
+//     background-color: gray;
 // }
 @mixin ratio($x, $y, $pseudo: false) {
-    $padding: ($y / $x ) * 100 + "%";
+    $padding: string.unquote(( $y / $x ) * 100 + "%");
 
     @if $pseudo {
         &::before {
@@ -123,6 +127,12 @@ $breakpoints: (
 }
 
 // Cover Background
+//
+// ## example of usage ##
+// div {
+//     @include cover-background;
+//     background-image: url(../images/banner.svg);
+// }
 @mixin cover-background {
     background-repeat: no-repeat;
     background-position: center;
@@ -130,6 +140,14 @@ $breakpoints: (
 }
 
 // pseudo
+//
+// ## example of usage ##
+// div::after {
+//     @include pseudo;
+//     top: -1rem; left: -1rem;
+//     width: 1rem; height: 1rem;
+//     background-color: red;
+// }
 @mixin pseudo($display: block, $pos: absolute, $content: "") {
     position: $pos;
     display: $display;

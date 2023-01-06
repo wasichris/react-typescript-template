@@ -34,11 +34,6 @@ const getAppVersionInfo = () => {
 
 module.exports = {
   webpack: {
-    alias: {},
-    plugins: {
-      add: [],
-      remove: []
-    },
     configure: (webpackConfig: Configuration, { env, paths }: any) => {
       // 加入 process.env 額外的環境變數
       addDefinePluginEnvValue({

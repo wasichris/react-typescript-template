@@ -1,19 +1,21 @@
 import { AppModeEnum } from '../constants/enums'
 import developmentEnvironment from './development'
-let targetEnvironment = developmentEnvironment
+
+// 全部皆以 development 設置為基礎
+let productionEnvironment = developmentEnvironment
 
 // 僅調整與 development 有差別的部分就好
 // 依據不同建置模式下使用不同的常數值
-switch (targetEnvironment.appMode) {
+switch (productionEnvironment.appMode) {
   case AppModeEnum.SIT:
-    targetEnvironment = { ...targetEnvironment, apiUrl: 'https://xxx.sit/tw/api/' }
+    productionEnvironment = { ...productionEnvironment, apiUrl: 'https://xxx.sit/tw/api/' }
     break
   case AppModeEnum.UAT:
-    targetEnvironment = { ...targetEnvironment, apiUrl: 'https://xxx.uat/tw/api/' }
+    productionEnvironment = { ...productionEnvironment, apiUrl: 'https://xxx.uat/tw/api/' }
     break
   case AppModeEnum.PROD:
-    targetEnvironment = { ...targetEnvironment, apiUrl: 'https://react-lab-mock-api.herokuapp.com/api/' }
+    productionEnvironment = { ...productionEnvironment, apiUrl: 'https://react-lab-mock-api.herokuapp.com/api/' }
     break
 }
 
-export default targetEnvironment
+export default productionEnvironment

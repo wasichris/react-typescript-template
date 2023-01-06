@@ -28,9 +28,9 @@
 // =================================================================
 
 .env-info {
-    position: absolute;
-    top: 5px;
-    left: 5px;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
     z-index: z(env-info);
     font-size: 12px;
     color: $color-caption;

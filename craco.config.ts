@@ -23,17 +23,26 @@ const addDefinePluginEnvValue = (value: object, webpackConfig: Configuration) =>
   }
 }
 
+const getAppVersionInfo = () => {
+  try {
+    // use git commit hash as version info
+    return `${gitRevisionPlugin.version()}@${gitRevisionPlugin.lastcommitdatetime()}@${Date.now()}`
+  } catch (error) {
+    return '[NO GIT INFO AS REFERENCE]'
+  }
+}
+
 module.exports = {
   webpack: {
     alias: {},
     plugins: {
-      add: [gitRevisionPlugin],
+      add: [],
       remove: []
     },
     configure: (webpackConfig: Configuration, { env, paths }: any) => {
       // 加入 process.env 額外的環境變數
       addDefinePluginEnvValue({
-        APP_VERSION: JSON.stringify(`${gitRevisionPlugin.version()}@${gitRevisionPlugin.lastcommitdatetime()}@${Date.now()}`)
+        APP_VERSION: JSON.stringify(getAppVersionInfo())
       }, webpackConfig)
 
       return webpackConfig

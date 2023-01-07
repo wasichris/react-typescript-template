@@ -6,12 +6,12 @@ import useAppSelector from './utils/hooks/useAppSelector'
 import { initApp, selectLoadingApiCounter } from './store/slices/appSlice'
 import LoadingMask from './components/common/LoadingMask'
 import useAppDispatch from './utils/hooks/useAppDispatch'
-import { removeMsgBox, selectCurrentMsgBox } from './store/slices/msgSlice'
+import { removeCurrentGlobalMsg, selectCurrentGlobalMsg } from './store/slices/msgSlice'
 import MsgBox from './components/MsgBox'
 
 function App() {
   const loadingApiCounter = useAppSelector(selectLoadingApiCounter)
-  const msgBox = useAppSelector(selectCurrentMsgBox)
+  const currentGlobalMsg = useAppSelector(selectCurrentGlobalMsg)
   const dispatch = useAppDispatch()
   const isInitApp = useRef(false)
   const [isInitAppSuccess, setIsInitAppSuccess] = useState<boolean | null>(null)
@@ -40,7 +40,10 @@ function App() {
       )}
 
       {/* 全域文字訊息彈跳視窗 */}
-      {msgBox && <MsgBox {...msgBox} isVisible onRequestClose={() => { dispatch(removeMsgBox()) }}></MsgBox>}
+      {currentGlobalMsg && <MsgBox
+        {...currentGlobalMsg}
+        isVisible
+        onRequestClose={() => { dispatch(removeCurrentGlobalMsg()) }} />}
 
       {/* 子路由插入點 */}
       {isInitAppSuccess && <Outlet />}

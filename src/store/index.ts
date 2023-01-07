@@ -8,7 +8,7 @@ import apiLoadingMiddleware from './middleware/apiLoadingMiddleware'
 import authListenerMiddleware from './middleware/authListenerMiddleware'
 import counterSlice from './slices/counterSlice'
 import appSlice from './slices/appSlice'
-import msgSlice, { addMsgBox } from './slices/msgSlice'
+import msgSlice, { addGlobalMsg } from './slices/msgSlice'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // default to localStorage
 
@@ -46,7 +46,7 @@ export const initStore =
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
       // default middleware setting here
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, addMsgBox.type],
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, addGlobalMsg.type],
         ignoredPaths: [msgSlice.name]
       }
     }).prepend(authListenerMiddleware).concat(middleware),

@@ -1,6 +1,6 @@
 import { t } from 'i18next'
 import { store } from '../../store'
-import { addMsgBox, GlobalMsgBoxProps } from '../../store/slices/msgSlice'
+import { addGlobalMsg, GlobalMsg } from '../../store/slices/msgSlice'
 
 /**
  * 產生 guid
@@ -25,6 +25,6 @@ export const getRequiredMsg = (fieldName: string) => {
 
 /**
  * 顯示文字訊息彈跳視窗(加入訊息佇列)
- * @param msgBoxProps 文字訊息參數
+ * @param globalMsg 文字訊息參數
  */
-export const showMsgBox = (msgBoxProps: GlobalMsgBoxProps) => store.dispatch(addMsgBox(msgBoxProps))
+export const showMsgBox = (globalMsg: GlobalMsg) => store.dispatch(addGlobalMsg(globalMsg))

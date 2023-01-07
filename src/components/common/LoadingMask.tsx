@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
+import { freezeBody, unfreezeBody } from '../../utils/helpers/domHelper'
 
 interface IProps { }
 
 const LoadingMask = (props: IProps) => {
   useEffect(() => {
-    document && document.body.classList.add('blocked')
+    freezeBody()
     return () => {
-      document && document.body.classList.remove('blocked')
+      unfreezeBody()
     }
   }, [])
 

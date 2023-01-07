@@ -9,7 +9,7 @@
 // =========== 工具性類別(可選用一組通用庫 e.g. tailwind ===============
 // =================================================================
 
-.blocked {
+.freezed {
     overflow: hidden;
 }
 
@@ -102,6 +102,14 @@
         margin: 20px 0;
         border: 1px solid black;
         border-radius: 5px;
+
+        &__title {
+            margin-top: 5px;
+        }
+
+        input {
+            max-width: 100%;
+        }
     }
 
     .input-group {

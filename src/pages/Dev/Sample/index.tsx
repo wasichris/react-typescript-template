@@ -16,6 +16,9 @@ import { ISampleGetUserReq } from '../../../services/models/sample'
 import { selectLoadingApiCounter } from '../../../store/slices/appSlice'
 import useSampleForm from './hooks/useSampleForm'
 import SampleImg from './components/SampleImg'
+import MsgBox from '../../../components/MsgBox'
+import { showMsgBox } from '../../../utils/helpers/commonHelper'
+import Modal from '../../../components/common/Modal'
 
 interface IProps {
   title?: string,
@@ -44,7 +47,7 @@ const Sample = (props: IProps) => {
   const dispatch = useAppDispatch()
 
   // 範例：hook
-  const targetDiv = useRef(null)
+  const targetDiv = useRef<HTMLElement>(null)
   useClickOutside(targetDiv, () => console.log('clicked outside of my area!!'), true)
 
   // 範例：call mutation api (no cached)
@@ -84,6 +87,10 @@ const Sample = (props: IProps) => {
     setLazyBase64Img(img)
   }
 
+  // 範例：彈跳視窗樣板設計＆通用文字訊息彈跳視窗呼叫方式
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isLocalMsgBoxVisible, setIsLocalMsgBoxVisible] = useState(false)
+
   // ===
 
   return <div className="pg-dev">
@@ -91,7 +98,7 @@ const Sample = (props: IProps) => {
     <h1>Dev - Sample Page</h1>
 
     <section className='section'>
-      <h2>開發環境</h2>
+      <h2 className='section__title'>開發環境</h2>
       <ul>
         <li>env: {environment.appEnv}</li>
         <li>mode: {environment.appMode}</li>
@@ -99,7 +106,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h2>使用導航</h2>
+      <h2 className='section__title'>使用導航</h2>
       user id from url: {userId}
       <br />
       <input type="button" value="go to /dev/sample/user01" onClick={() => { navigate('/dev/sample/user01') }} data-testid="goUser01Btn" />
@@ -110,7 +117,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section' >
-      <h2>使用Enum產生選單</h2>
+      <h2 className='section__title'>使用Enum產生選單</h2>
       <div>
         <p>使用 GenderEnum 產生選單</p>
         <select name="gender" id="gender">
@@ -127,7 +134,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h2>多國語系</h2>
+      <h2 className='section__title'>多國語系</h2>
       <ul>
         <li>Current Language: {i18n.language}</li>
         <li>{t('__understand')}</li>
@@ -138,7 +145,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h2>表單檢核</h2>
+      <h2 className='section__title'>表單檢核</h2>
       <Formik
         enableReinitialize
         initialValues={initFormValues}
@@ -186,7 +193,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h2>Redux Toolkit</h2>
+      <h2 className='section__title'>Redux Toolkit</h2>
       <p>counter: {counterValue} = {counterValueSame}</p>
       <br />
       <input type="button" value="+" onClick={() => { dispatch(increment()) }} data-testid="addCounterBtn" />
@@ -199,7 +206,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section' ref={targetDiv}>
-      <h2>自定義 Hook </h2>
+      <h2 className='section__title'>自定義 Hook </h2>
       <p>超過這個區域點擊時，console會有訊息</p>
       <p>line1------</p>
       <p>line2------</p>
@@ -207,7 +214,7 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h2>呼叫api</h2>
+      <h2 className='section__title'>呼叫api</h2>
       <p>loadingApiCounter: {loadingApiCounter}</p>
       <div>
         <h3>mutation(無快取)</h3>
@@ -228,11 +235,52 @@ const Sample = (props: IProps) => {
     </section>
 
     <section className='section'>
-      <h2>單元測試的附加情境</h2>
+      <h2 className='section__title'>單元測試的附加情境</h2>
       <div>
         <input data-testid="doSomethingBtn" type="button" value="呼叫組件傳入的callback"
           onClick={() => { props?.onSomethingDone && props.onSomethingDone() }} /> <br />
         <p data-testid="title">{props.title}</p>
+      </div>
+
+    </section>
+
+    <section className='section'>
+      <h2 className='section__title'>彈跳視窗樣板設計＆通用文字訊息彈跳視窗呼叫方式</h2>
+      <div>
+        <input type="button" value="顯示基礎 Modal 彈跳視窗" onClick={() => { setIsModalVisible(true) }} />
+        <input type="button" value="顯示組裝 Modal 後的 MsgBox 彈跳視窗" onClick={() => { setIsLocalMsgBoxVisible(true) }} />
+        <input type="button" value="使用 App 通用訊息佇列來顯示訊息" onClick={() => {
+          showMsgBox({
+            content: 'content1',
+            title: 'App Msg Queue',
+            mainBtn: { label: 'OK', onClick: () => console.log('yo1') },
+            hasCloseBtn: true
+          })
+          showMsgBox({
+            content: 'content2',
+            title: 'App Msg Queue',
+            mainBtn: { label: 'Done', onClick: () => console.log('yo2') },
+            hasCloseBtn: true
+          })
+        }} />
+
+        <Modal
+          isVisible={isModalVisible}
+          isCloseByBackdrop
+          isCloseByEsc
+          onRequestClose={() => setIsModalVisible(false)} >
+          <div>這是 Modal 組件，只有外框，提供基礎功能</div>
+          <div>可以自行組裝出需要的視窗內容組件</div>
+        </Modal>
+
+        <MsgBox
+          title='Information'
+          content='這是使用 Modal 組件組裝後的 MsgBox 組件'
+          isVisible={isLocalMsgBoxVisible}
+          mainBtn={{ label: 'Ok', onClick: () => console.log('ok clicked') }}
+          minorBtn={{ label: 'Cancel' }}
+          onRequestClose={() => setIsLocalMsgBoxVisible(false)} />
+
       </div>
 
     </section>

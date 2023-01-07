@@ -1,4 +1,6 @@
 import { t } from 'i18next'
+import { store } from '../../store'
+import { addMsgBox, GlobalMsgBoxProps } from '../../store/slices/msgSlice'
 
 /**
  * 產生 guid
@@ -20,3 +22,9 @@ export const getGuid = () => {
 export const getRequiredMsg = (fieldName: string) => {
   return t('__validation_required_with_name', { name: fieldName })
 }
+
+/**
+ * 顯示文字訊息彈跳視窗(加入訊息佇列)
+ * @param msgBoxProps 文字訊息參數
+ */
+export const showMsgBox = (msgBoxProps: GlobalMsgBoxProps) => store.dispatch(addMsgBox(msgBoxProps))

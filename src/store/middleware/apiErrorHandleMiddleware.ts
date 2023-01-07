@@ -1,6 +1,7 @@
 
 import { Action, MiddlewareAPI, isRejectedWithValue, Middleware } from '@reduxjs/toolkit'
 import { AppDispatch, RootState } from '..'
+import { showMsgBox } from '../../utils/helpers/commonHelper'
 import { logout } from '../slices/appSlice'
 
 /**
@@ -17,21 +18,39 @@ const apiErrorHandleMiddleware =
             switch (httpCode) {
               case 'FETCH_ERROR':
                 // 用戶端網路異常，連不到伺服器
-                alert('網路連線不穩定，請稍候再試')
+                showMsgBox({
+                  title: '錯誤',
+                  content: '網路連線不穩定，請稍候再試',
+                  hasCloseBtn: true
+                })
+
                 break
 
               case 401:
                 // 無權限訪問站台
-                alert('無權限訪問站台，請重新登入')
-                if (getState().app.isLogin) {
-                  dispatch(logout())
-                }
+                showMsgBox({
+                  title: '錯誤',
+                  content: '無權限訪問站台，請重新登入',
+                  mainBtn: {
+                    label: 'Ok',
+                    onClick: () => {
+                      if (getState().app.isLogin) {
+                        dispatch(logout())
+                      }
+                    }
+                  }
+                })
 
                 break
 
               default:
                 // 伺服器回應非200的狀態碼
-                alert(`目前系統忙碌中，請稍後再試！(${httpCode})`)
+                showMsgBox({
+                  title: '錯誤',
+                  content: `目前系統忙碌中，請稍後再試！(${httpCode})`,
+                  hasCloseBtn: true
+                })
+
                 break
             }
           }

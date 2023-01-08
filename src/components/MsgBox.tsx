@@ -26,7 +26,12 @@ const MsgBox = (props: IMsgBoxProps) => {
   }
 
   return (
-    <Modal className='c-msg-box' {...props} >
+    <Modal
+      {...props}
+      className='c-msg-box'
+      isCloseByEsc={props.hasCloseBtn}
+      isCloseByBackdrop={props.hasCloseBtn}
+    >
 
       {/* Header */}
       <div className='c-msg-box__header'>

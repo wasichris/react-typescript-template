@@ -56,8 +56,8 @@ const Modal = ({ className, isVisible, isCloseByBackdrop, isCloseByEsc, children
 
   return isVisible
     ? ReactDOM.createPortal(
-      <div className={clsx('c-modal c-modal__backdrop', className)}>
-        <div className='c-modal__box' ref={modalRef} style={{ maxWidth }} >
+      <div className='c-modal c-modal__backdrop'>
+        <div className={clsx('c-modal__box', className)} ref={modalRef} style={{ maxWidth }} >
 
           {children}
 

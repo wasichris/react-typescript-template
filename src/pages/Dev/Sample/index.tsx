@@ -249,17 +249,16 @@ const Sample = (props: IProps) => {
       <div>
         <input type="button" value="顯示基礎 Modal 彈跳視窗" onClick={() => { setIsModalVisible(true) }} />
         <input type="button" value="顯示組裝 Modal 後的 MsgBox 彈跳視窗" onClick={() => { setIsLocalMsgBoxVisible(true) }} />
-        <input type="button" value="使用 App 通用訊息佇列來顯示訊息" onClick={() => {
+        <input type="button" value="使用 App 通用訊息佇列來顯示訊息(發兩則)" onClick={() => {
           showMsgBox({
-            content: 'content1',
-            title: 'App Msg Queue',
-            mainBtn: { label: 'OK', onClick: () => console.log('yo1') },
-            hasCloseBtn: true
+            content: '這是第一個訊息。',
+            title: '訊息佇列',
+            mainBtn: { label: '我知道了', onClick: () => console.log('我知道了') }
           })
           showMsgBox({
-            content: 'content2',
-            title: 'App Msg Queue',
-            mainBtn: { label: 'Done', onClick: () => console.log('yo2') },
+            content: '這是第二個訊息，多了右上 x 關閉鈕，可以點擊關閉，亦可按下 Esc 或點擊非彈跳視窗區域關閉。',
+            title: '訊息佇列',
+            mainBtn: { label: '確定' },
             hasCloseBtn: true
           })
         }} />

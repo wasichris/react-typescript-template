@@ -1,6 +1,6 @@
 import Modal, { IBaseModalProps } from './common/Modal'
 
-export interface IMsgBoxProps extends IBaseModalProps {
+export declare interface IMsgBoxProps extends IBaseModalProps {
   title: string,
   content: string,
   hasCloseBtn?: boolean,

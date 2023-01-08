@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { freezeBody, unfreezeBody } from '../../utils/helpers/domHelper'
 import useClickOutside from '../../utils/hooks/useClickOutside'
 
-export interface IBaseModalProps {
+export declare interface IBaseModalProps {
   isVisible: boolean,
   onRequestClose: () => void
 }
@@ -48,6 +48,10 @@ const Modal = ({ className, isVisible, isCloseByBackdrop, isCloseByEsc, children
   // 讓畫面被鎖定來避免畫面滾動的混亂
   useEffect(() => {
     isVisible ? freezeBody() : unfreezeBody()
+
+    return () => {
+      unfreezeBody()
+    }
   }, [isVisible])
 
   return isVisible

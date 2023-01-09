@@ -49,7 +49,8 @@
       "space-before-function-paren": "off",
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "warn",
-      "import/no-anonymous-default-export": "off"
+      "import/no-anonymous-default-export": "off",
+      "jsx-a11y/anchor-is-valid": "off"
     },
     "globals": {
       "JSX": true
@@ -89,7 +90,8 @@
     "rules": {
       "indentation": 4,
       "max-line-length": null,
-      "scss/comment-no-empty": null
+      "scss/comment-no-empty": null,
+      "selector-class-pattern": null
     }
   }
 }

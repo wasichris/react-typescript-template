@@ -253,7 +253,8 @@ const Sample = (props: IProps) => {
           showMsgBox({
             content: '這是第一個訊息。',
             title: '訊息佇列',
-            mainBtn: { label: '我知道了', onClick: () => console.log('我知道了') }
+            mainBtn: { label: '我知道了', onClick: () => console.log('我知道了') },
+            minorBtn: { label: '關閉' }
           })
           showMsgBox({
             content: '這是第二個訊息，多了右上 x 關閉鈕，可以點擊關閉，亦可按下 Esc 或點擊非彈跳視窗區域關閉。',

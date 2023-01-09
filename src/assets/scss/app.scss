@@ -17,11 +17,8 @@
 // =================== 通用樣式(尚未建立成組件) ========================
 // =================================================================
 
-.btn-link {
-    padding: 0;
-    background: transparent;
-    border: none;
-}
+// ...
+// ...
 
 // =================================================================
 // ===================== 主體樣式(網站主結構) =========================
@@ -72,7 +69,7 @@
             cursor: pointer;
 
             &:hover {
-                color: $color-link;
+                color: $color-btn;
             }
         }
     }
@@ -197,18 +194,16 @@
             }
         }
 
+        &__action-group {
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 10px;
+            padding-top: 20px;
+            padding-bottom: 10px;
+        }
+
         &__btn {
             padding: 5px 20px;
-            margin-top: 20px;
-            line-height: 30px;
-            color: #fff;
-            background-color: $color-main;
-            border: 0;
-            border-radius: 5px;
-
-            &:disabled {
-                background-color: #ccc;
-            }
         }
     }
 }

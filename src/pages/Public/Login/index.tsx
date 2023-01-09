@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import FormTextInput from '../../../components/form/FormTextInput'
 import useLoginForm from './hook/useLoginForm'
 import { Form, Formik } from 'formik'
+import Button from '../../../components/Button'
 
 interface IProps {
 };
@@ -57,7 +58,9 @@ const Login = (props: IProps) => {
                 <FormTextInput id="pcode" name="pcode" type="password" />
               </div>
 
-              <input type="submit" className="form__btn" disabled={!isValid} value='Login System' />
+              <div className='form__action-group'>
+                <Button className='form__btn' type="submit" outfit='primary' disabled={!isValid}>Login System</Button>
+              </div>
 
             </Form>
           )}

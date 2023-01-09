@@ -66,10 +66,10 @@ h6 {
 
 /* Default element style */
 a {
-    color: $color-link;
+    color: $color-btn;
     text-decoration: none;
 
     &:hover {
-        color: $color-link;
+        filter: brightness(1.1);
     }
 }

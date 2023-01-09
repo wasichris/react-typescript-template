@@ -1,3 +1,4 @@
+import Button from './Button'
 import Modal, { IBaseModalProps } from './common/Modal'
 
 export declare interface IMsgBoxProps extends IBaseModalProps {
@@ -47,8 +48,8 @@ const MsgBox = (props: IMsgBoxProps) => {
 
       {/* Footer */}
       <div className="c-msg-box__footer">
-        {props.mainBtn && <button onClick={handleMainBtnClick}>{props.mainBtn.label}</button>}
-        {props.minorBtn && <button onClick={handleMinorBtnClick}>{props.minorBtn.label}</button>}
+        {props.mainBtn && <Button onClick={handleMainBtnClick} outfit='primary'>{props.mainBtn.label}</Button>}
+        {props.minorBtn && <Button onClick={handleMinorBtnClick}>{props.minorBtn.label}</Button>}
       </div>
 
     </Modal >

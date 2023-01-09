@@ -33,11 +33,12 @@ const MsgBox = (props: IMsgBoxProps) => {
       isCloseByEsc={props.hasCloseBtn}
       isCloseByBackdrop={props.hasCloseBtn}
     >
+      {/* Close Button */}
+      {props.hasCloseBtn && <div className='c-msg-box__close-btn' onClick={props.onRequestClose} />}
 
       {/* Header */}
       <div className='c-msg-box__header'>
         <div className='c-msg-box__title'> {props.title} </div>
-        {props.hasCloseBtn && <div className='c-msg-box__close-btn' onClick={props.onRequestClose} />}
       </div>
 
       {/* Body */}

@@ -47,7 +47,7 @@ export const incrementAsync =
       return { counter: getState().counter.value }
     }
 
-// Selection
+// Selection (prefix 'select')
 // e.g. const counterValue = useAppSelector(state => state.counter.value)
 //      const counterValue = useAppSelector(selectCount)
 export const selectCount = (state: RootState) => state.counter.value

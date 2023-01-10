@@ -10,8 +10,6 @@ const initialState = {
 }
 
 // Slice
-// - Model Actions as Events, Not Setters
-// - Write Meaningful Action Names
 const appSlice = createSlice({
   name: 'app',
   initialState,
@@ -63,8 +61,7 @@ export const startApp = createAction(`${appSlice.name}/startApp`)
 export const loginSuccess = createAction<{ authToken: string }>(`${appSlice.name}/loginSuccess`)
 export const logout = createAction(`${appSlice.name}/logout`)
 
-// Selection
-// plz prefixing selector function names with 'select'
+// Selection (prefix 'select')
 export const selectLoadingApiCounter = (state: RootState) => state.app.loadingApiList.length
 
 // Action creators are generated for each case reducer function

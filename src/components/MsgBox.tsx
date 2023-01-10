@@ -44,7 +44,6 @@ const MsgBox = (props: IMsgBoxProps) => {
       {/* Body */}
       <div className='c-msg-box__body'>
         <div className="c-msg-box__content"> {props.content}</div>
-
       </div>
 
       {/* Footer */}

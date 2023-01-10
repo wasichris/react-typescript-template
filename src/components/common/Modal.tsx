@@ -3,6 +3,7 @@ import { PropsWithChildren, useCallback, useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { freezeBody, unfreezeBody } from '../../utils/helpers/domHelper'
 import useClickOutside from '../../utils/hooks/useClickOutside'
+import useKeyDownMonitor from '../../utils/hooks/useKeyDownMonitor'
 
 export declare interface IBaseModalProps {
   isVisible: boolean,
@@ -21,29 +22,19 @@ const Modal = ({ className, isVisible, isCloseByBackdrop, isCloseByEsc, children
   // 將彈跳視窗移出到特定的元素上
   const portalTarget = target || document.body
 
+  // 通知父層來請求關閉
   const requestCloseModal = useCallback(() => {
     isVisible && onRequestClose && onRequestClose()
   }, [isVisible, onRequestClose])
 
   // 點選 Backdrop 來關閉彈跳視窗
   const modalRef = useRef<HTMLDivElement>(null)
-  useClickOutside(modalRef, () => isCloseByBackdrop && requestCloseModal(), true)
+  const isEnableClickMonitor = isVisible && isCloseByBackdrop === true
+  useClickOutside(modalRef, () => requestCloseModal(), isEnableClickMonitor)
 
   // 收到按下 Esc 鍵的事件時關閉彈跳視窗
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Escape') isCloseByEsc && requestCloseModal()
-    },
-    [isCloseByEsc, requestCloseModal]
-  )
-
-  // 監看 window 下的所有 keydown 事件
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown)
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [handleKeyDown])
+  const isEnableKeyMonitor = isVisible && isCloseByEsc === true
+  useKeyDownMonitor(e => e.key === 'Escape' && requestCloseModal(), isEnableKeyMonitor)
 
   // 讓畫面被鎖定來避免畫面滾動的混亂
   useEffect(() => {

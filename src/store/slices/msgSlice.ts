@@ -47,8 +47,7 @@ const msgSlice = createSlice({
   }
 })
 
-// Selection
-// plz prefixing selector function names with 'select'
+// Selection (prefix 'select')
 export const selectCurrentGlobalMsg = (state: RootState) => state.msg.queue[0]
 
 // Action creators are generated for each case reducer function

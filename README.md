@@ -14,6 +14,7 @@ It is recommended to use [Visual Studio Code](https://code.visualstudio.com/) fo
 
 <br>
 
+
 ## Related Packages
 
 The project is using several packages to take care of each requirement as below:
@@ -45,6 +46,7 @@ Example:
 * m: create BEM `modifier` in scss file
 
 <br>
+
 
 ## Available Scripts
 
@@ -95,5 +97,11 @@ Builds the app for production in each mode to the `build` folder.
 Your app is ready to be deployed!
 
 > If your website is not located in the root directory, you should modify the `PUBLIC_URL` information in the build script in your package.json file. If you do not set `PUBLIC_URL` to match the location of your sub-directory, the path for your static resources may not be correct.
+
+<br>
+
+## Developing Guideline
+
+Before beginning development, please read the [dev guideline](README_GUIDELINE.md) first and then start writing code.
 
 <br>

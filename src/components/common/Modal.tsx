@@ -2,8 +2,8 @@ import clsx from 'clsx'
 import { PropsWithChildren, useCallback, useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { freezeBody, unfreezeBody } from '../../utils/helpers/domHelper'
-import useClickOutside from '../../utils/hooks/useClickOutside'
-import useKeyDownMonitor from '../../utils/hooks/useKeyDownMonitor'
+import useClickOutsideHandler from '../../utils/hooks/useClickOutsideHandler'
+import useKeyDownHandler from '../../utils/hooks/useKeyDownHandler'
 
 export declare interface IBaseModalProps {
   isVisible: boolean,
@@ -27,14 +27,14 @@ const Modal = ({ className, isVisible, isCloseByBackdrop, isCloseByEsc, children
     isVisible && onRequestClose && onRequestClose()
   }, [isVisible, onRequestClose])
 
-  // 點選 Backdrop 來關閉彈跳視窗
+  // 點選 Backdrop (非modal區塊) 來關閉彈跳視窗
   const modalRef = useRef<HTMLDivElement>(null)
   const isEnableClickMonitor = isVisible && isCloseByBackdrop === true
-  useClickOutside(modalRef, () => requestCloseModal(), isEnableClickMonitor)
+  useClickOutsideHandler(modalRef, () => requestCloseModal(), isEnableClickMonitor)
 
   // 收到按下 Esc 鍵的事件時關閉彈跳視窗
   const isEnableKeyMonitor = isVisible && isCloseByEsc === true
-  useKeyDownMonitor(e => e.key === 'Escape' && requestCloseModal(), isEnableKeyMonitor)
+  useKeyDownHandler(e => e.key === 'Escape' && requestCloseModal(), isEnableKeyMonitor)
 
   // 讓畫面被鎖定來避免畫面滾動的混亂
   useEffect(() => {

@@ -3,10 +3,10 @@ import React, { useEffect } from 'react'
 /**
  * Observe clicks outside of the DOM
  * @param refs references of the DOM that you intend to bind the hook
- * @param callback action when clicking outside of the DOM
+ * @param handler handler when clicking outside of the DOM
  * @param isEnable is enable observe or not
  */
-export default (refs: React.RefObject<HTMLElement>, callback: () => void, isEnable: boolean) => {
+export default (refs: React.RefObject<HTMLElement>, handler: () => void, isEnable: boolean) => {
   useEffect(() => {
     const touchOutSideHandler = (event: TouchEvent | MouseEvent) => {
       if (Array.isArray(refs)) {
@@ -14,10 +14,10 @@ export default (refs: React.RefObject<HTMLElement>, callback: () => void, isEnab
         const isClickInside = refs.some(
           (ref) => ref.current && ref.current.contains(event.target as Node)
         )
-        if (isEnable && callback && !isClickInside) callback()
+        if (isEnable && handler && !isClickInside) handler()
       } else if (refs.current && !refs.current.contains(event.target as Node)) {
         // single target
-        if (isEnable && callback) callback()
+        if (isEnable && handler) handler()
       }
     }
 
@@ -28,5 +28,5 @@ export default (refs: React.RefObject<HTMLElement>, callback: () => void, isEnab
       document.removeEventListener('mousedown', touchOutSideHandler)
       document.removeEventListener('touchstart', touchOutSideHandler)
     }
-  }, [refs, callback, isEnable])
+  }, [refs, handler, isEnable])
 }

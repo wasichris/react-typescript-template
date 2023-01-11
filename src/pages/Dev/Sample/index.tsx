@@ -8,7 +8,7 @@ import FormTextInput from '../../../components/form/FormTextInput'
 import { useRef, useState } from 'react'
 import { getEnumDescription, getEnumOptions } from '../../../utils/helpers/decoratorHelper'
 import { decrement, increment, incrementAsync, selectCount } from '../../../store/slices/counterSlice'
-import useClickOutside from '../../../utils/hooks/useClickOutside'
+import useClickOutsideHandler from '../../../utils/hooks/useClickOutsideHandler'
 import useAppDispatch from '../../../utils/hooks/useAppDispatch'
 import useAppSelector from '../../../utils/hooks/useAppSelector'
 import sampleApi from '../../../services/api/sampleApi'
@@ -48,7 +48,7 @@ const Sample = (props: IProps) => {
 
   // 範例：hook
   const targetDiv = useRef<HTMLElement>(null)
-  useClickOutside(targetDiv, () => console.log('clicked outside of my area!!'), true)
+  useClickOutsideHandler(targetDiv, () => console.log('outside of the area clicked!!'), true)
 
   // 範例：call mutation api (no cached)
   const loadingApiCounter = useAppSelector(selectLoadingApiCounter)

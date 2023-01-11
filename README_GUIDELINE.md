@@ -1,9 +1,9 @@
 
 # 開發手冊
 
-進行開發前請參考以下注意事項，並且搭配範例先行測試。專案啟用 stylelint 與 eslint 檢查 coding style，嚴格禁止自行關閉檢查規則。所有警告或錯誤都應該要修正或提出與團隊共同討論。
+進行開發前請參考以下注意事項，專案使用 stylelint 與 eslint 檢查 coding style，請勿自行關閉檢查規則，所有警告或錯誤都應該要修正或提出與團隊共同討論。
 
-請務必確實安裝以下 VS Code Extensions 來確保代碼受到保護提示：
+請務必確實安裝啟用以下 VS Code Extensions 來確保代碼受到檢查提示：
 * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 * [StyleLint](https://marketplace.visualstudio.com/items?itemName=stylelint.vscode-stylelint)
 * [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
@@ -12,8 +12,8 @@
 
 ### 通用規範：
 
-- 請使用 Functional Component 搭配 Hook 進行開發。
-- 
+- 共用方法請確實提供 JSDoc 註解說明使用方式。
+- 使用 Functional Component 搭配 Hook 進行開發。
 
 <br>
 <br>
@@ -52,42 +52,40 @@
 
 ### 路徑檔案：
 - src/assets/scss/
-    - app.scss: 網站樣式
+    - app.scss: 網站頁面樣式
     - components.scss: 通用組件樣式
 - src/assets/scss/normalize/
     - _normalize.scss: 通用正規化樣式檔案(禁止修改)
-    - _normalize_custom.scss: 此網站客製化的正規化樣式檔案
+    - _normalize_custom.scss: 客製化的正規化樣式檔案
 - src/assets/scss/utils/
-    - _function.scss: 定義方法
-    - _mixins.scss: 定義混和指令
-    - _variables.scss: 定義變數
+    - _function.scss: 定義 scss 方法
+    - _mixins.scss: 定義 scss mixin 混和指令
+    - _variables.scss: 定義 scss variable 變數
 
 <br>
 
 ### 開發規範：
 
-- 預設已經載入 _normalize.scss 讓元素樣式於各瀏覽器的顯示效果趨近一致。
-- 如果有全站性樣式需要訂定時(e.g. 站台預設文字, link 顏色 ...)，請於 _normalize_custom.scss 中統一訂定。
-- 樣式 class 名稱 prefix 說明：
-    - 通用組件：root class name 請使用 .c- 開頭，並使用 kebab case 接上通用組件名
+- 預設已載入 _normalize.scss 使元素樣式於各瀏覽器的顯示效果相近。
+- 全站性樣式 (e.g. 站台預設文字, link 顏色 ...) 請於 _normalize_custom.scss 中統一訂定。
+- 樣式 class 名稱 prefix 說明：  
+    - 通用組件：根 class name 請使用 .c- 開頭，並使用 kebab case 接上通用組件名
         ``` scss
-        .c-button {
-            // ...
-        }
+        .c-button { /* for Button component */}
+        .c-form-input { /* for FormInput component */}
         ```
-    - 頁面組件：root class name 請使用 .pg- 開頭，並使用 kebab case 接上頁面組件名
+    - 頁面組件：根 class name 請使用 .pg- 開頭，並使用 kebab case 接上頁面組件名
         ``` scss
-        .pg-login {
-            // ...
-        }
+        .pg-login { /* for Login page */ }
+        .pg-user-register { /* for UserRegister page */ }
         ```
-- 設定 z-index 時，請使用 _functions.scss 中定義的 z function 賦予數值，避免各自給予 z-index 數值而造成混亂。
+- 設定 z-index 時，請使用 _functions.scss 中定義的 z function 賦予數值，避免 z-index 數值四散而造成優先序混亂。
     ``` scss
     .modal {
         z-index: z(modal);
     }
     ```
-- 設定 media query 時，請使用 _mixins.scss 中定義的 respond-above mixin 來設定，方便套用相同的 break point 設定。
+- 設定 media query 時，請使用 _mixins.scss 中定義的 respond-above mixin 來設定，方便套用相同 break point 設定。
     ``` scss
     .c-msg-box {
         max-width: 100%;
@@ -104,7 +102,7 @@
 
 # 通用組件 Component
 
-重複出現的功能/樣式性區塊請建立成組件進行重用。
+重複出現的功能/樣式性區塊請建立成組件以利重用。
 
 <br>
 
@@ -116,12 +114,13 @@
 
 ### 開發規範：
 
-- 請勿直接相依外部資源(e.g. 讀取全域狀態 redux 或呼叫 api 等行為)，請保持 pure 只透過 props 與外界溝通。
-- 若需要相依全域狀態 redux 的功能性組件(e.g. OTP)，則歸類至 container 組件範圍，請於 containers 資料夾下定義。
-- 檔名為組件名稱，一個組件一個 tsx 檔案，並使用大駝峰式命名，可適度以資料夾為組件做分類。
-- 組件樣式請定義於 /assets/scss/components.scss 中。
-- 請使用 `fcf` (Functional Component by Filename) code snippet 建立組件結構，需包含 IProps 介面定義。
-- Props 屬性請使用小駝峰式命名並明確給予資料類型。
+- 禁止相依外部資源(e.g. 讀取全域狀態 redux 或呼叫 api 等行為)，只能透過 props 與外界溝通。
+- 若需相依外部資源的功能性組件(e.g. OTP)，則歸類至 container 組件範圍，請於 containers 資料夾下定義。
+- 以單個 tsx 檔案建立組件，檔名為組件名稱，並使用大駝峰式命名。
+- 適度以資料夾為組件進行分類 (e.g. 表單類輸入組件都放置在 form 資料夾下，並以 Form 作為 prefix)
+- 組件樣式定義於 /assets/scss/components.scss 中。
+- 可使用 `fcf` (Functional Component by Filename) code snippet 建立組件結構，包含 IProps 介面定義。
+- 定義 Props 屬性使用小駝峰式命名並給予明確資料類型。
 
 <br>
 
@@ -129,9 +128,9 @@
 ### 相關 Props Type 參考：
 
 - PropsWithChildren\<IProps>
-- ButtonHTMLAttributes\<HTMLButtonElement>
+- IProps & ButtonHTMLAttributes\<HTMLButtonElement>
 
-> 但如果只想開放特定屬性，就不用合併 HTMLAttributes 類型 (e.g 例如只用到 className 就直接在 IProps 宣告即可)；會使用到 HTMLAttributes 表示將把所有 props 都會傳入原生的 HTML element 中才有意義 (例如 `<button {...props} >xx</button>` ) 
+> 但如果只想開放特定屬性，就不用合併 HTMLAttributes 類型 (e.g 例如只用到 className 就直接在 IProps 宣告即可)；會使用到 HTMLAttributes 表示將把所有 props 都會傳入原生的 HTML element 中時才有意義 (例如 `<button {...props} > submit </button>` ) 
 
 <br>
 
@@ -175,27 +174,43 @@ export default Button
 
 # 系統常數 Constant
 
-系統中使用到的固定數值請放置到系統常數維護，避免無法看出意圖的 magic string / number 散落四處；另外，如果有前端維護的下拉式清單，也須一併維護於此處。
+系統中使用到的固定數值請放置到系統常數維護，避免無法看出意圖的 magic string / number 散落四處；另外，如果有前端維護的固定下拉式選單需求，也須一併維護於此處。
 
 <br>
 
 ### 路徑檔案：
-- src/constant/values.ts: 單一常數數值
+- src/constant/values.ts: 常數數值
 - src/constant/enums.ts: 列舉式常數數值(包含前端維護的下拉選單)
 
 <br>
 
 ### 開發規範：
 
-- 常數數值名稱使用 upper snake case 方式命名 (e.g. DATE_FORMAT )
+- 常數數值名稱使用 upper snake case 方式命名 (e.g. DATE_FORMAT)
 - 需加上 JSDoc 註解，說明常數用途
+- 下拉選單請定義於 enums.ts 中
+    - 透過 EnumDescription 註記選單顯示文字 (可放置文字或語系擋key值)
+    - 透過 getEnumOptions 取得清單
+        ``` html
+        <select name="gender" id="gender">
+            {getEnumOptions(GenderEnum).map(o => 
+                <option key={o.value} value={o.value}>{o.label}</option>)}
+        </select>
+        ```
+    - 透過 getEnumDescription 取得 Description
+        ``` html
+            <input type="button" value="get GenderEnum.MALE description" onClick={() => {
+                const description = getEnumDescription(GenderEnum, GenderEnum.MALE)
+                alert(description)
+            }} />
+        ```
 
 <br>
 
 
 ### 程式範例：
 
-單一常數數值
+常數數值
 ``` typescript
 /**
  * 全站 date-fns 日期格式
@@ -249,24 +264,24 @@ export class GenderEnum {
 
 # 環境變數 Environment
 
-會因為環境切換而改變的常數請放置到環境變數維護。
+會依環境切換而可能改變的常數請放置到環境變數維護。
 
 <br>
 
 ### 路徑檔案：
 - src/environment/development.ts: 開發環境的環境變數
 - src/environment/test.ts: 單元測試環境的環境變數
-- src/environment/production.ts: 生產環境的環境變數(區分不同模式)
-    - AppModeEnum.SIT： 整合測試環境
-    - AppModeEnum.UAT： 用戶測試環境
-    - AppModeEnum.PROD： 正式上線環境
+- src/environment/production.ts: 生產環境的環境變數(區分三種模式)
+    - AppModeEnum.SIT： 整合測試模式
+    - AppModeEnum.UAT： 用戶測試模式
+    - AppModeEnum.PROD： 正式上線模式
 
 <br>
 
 ### 開發規範：
 
 - 變數名稱使用小駝峰方式命名 (e.g. apiUrl )
-- 需在 IEnvironment 加上 JSDoc 註解，說明常數用途
+- 需在 IEnvironment 加上 JSDoc 註解，說明變數用途
 
 <br>
 
@@ -302,9 +317,9 @@ const developmentEnvironment: IEnvironment = {
 
 # 多國語系 i18n
 
-預設支援英文與繁體中文兩種語系，會先取得瀏覽器的語系作為預設語系，若非站台所支援的語系時會 fallback 到預設繁體中文語系。
+預設支援中英兩種語系，會先取得瀏覽器語系，若非站台所支援的語系時會 fallback 到預設繁體中文語系。
 
-> 盡量避免到處都可以切換語系，因為有些文字不會即時響應(e.g. 表單錯誤訊息)，除非重新觸發渲染或重載頁面，所以盡量在入口處(頁面組成單純)中提供語系切換功能，以免在功能複雜處進行切換時造成部分文字無法即時響應的狀況。
+> 盡量避免到處都可以切換語系，因為有些文字在切換時不會即時響應(e.g. 表單錯誤訊息)，除非重新觸發渲染或重載頁面時才會套用新語系，所以盡量在入口處(頁面組成單純)中提供語系切換功能，以免在功能複雜處進行切換時造成部分文字無法即時響應變動的狀況。
 
 <br>
 
@@ -740,6 +755,11 @@ const showMsgBox = (globalMsg: GlobalMsg) => store.dispatch(addGlobalMsg(globalM
 <br>
 
 
+
+# 通用訊息呼叫方式
+
+<br>
+<br>
 
 
 # 表單操作與檢核邏輯

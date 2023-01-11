@@ -75,4 +75,11 @@ const router = createBrowserRouter([
 // 訂閱路由變化事件
 router.subscribe(routerSubscriber)
 
+// 提供給組件外可以使用的轉址方法
+// - 在組件內使用 useNavigator 提供的 navigate 方法會包含 basename
+// - 但直接使用 router.navigate 不包含 basename，所以我們要在封裝起來
+export const appNavigate = (url: string) => {
+  router.navigate({ pathname: router.basename + url })
+}
+
 export default router

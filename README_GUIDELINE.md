@@ -501,14 +501,15 @@ const Component = (props: IProps) => {
     return <button onclick={()=>navigate('/dev/sample/user01')}>go</button>
 }
 ```
-組件外使用 router 實體
+組件外使用自定義的 appNavigate 方法進行轉址
 ``` typescript
-import router from '/router'
+import { appNavigate } from '/router'
 
 const goSomewhere = () => {
-    router.navigate('/home/main')
+    appNavigate('/home/main')
 }
 ```
+> 不要使用 router.navigate('/xx/oo') 轉址，因為在有 basename 的情境會有問題，因為路徑不會自動加上 basename 在前面（但組件內使用的 useNavigate 不會有這個問題） 
 
 <br>
 

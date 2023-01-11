@@ -2,7 +2,7 @@
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
 import { RootState } from '..'
 import { startApp, loginSuccess, logout, updateLoginInfo } from '../slices/appSlice'
-import router from '../../router'
+import { appNavigate } from '../../router'
 import { getQueryStrValue } from '../../utils/helpers/urlHelper'
 
 const authListenerMiddleware = createListenerMiddleware()
@@ -35,7 +35,7 @@ authListenerMiddleware.startListening({
 
           // 回到原本欲訪問的頁面
           const redirectUrl = getQueryStrValue('redirect_url')
-          redirectUrl ? router.navigate(redirectUrl) : router.navigate('/home/main')
+          redirectUrl ? appNavigate(redirectUrl) : appNavigate('/home/main')
         } else {
           // #############
           // ### 已登入 ###
@@ -46,7 +46,7 @@ authListenerMiddleware.startListening({
 
           // 處理登出事宜
           dispatch(updateLoginInfo({ authToken: '', isLogin: false }))
-          router.navigate('/public/login')
+          appNavigate('/public/login')
         }
       }
     } catch (error) {

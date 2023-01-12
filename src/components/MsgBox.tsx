@@ -26,12 +26,15 @@ const MsgBox = (props: IMsgBoxProps) => {
     props.onRequestClose()
   }
 
+  const isNoWayToClose =
+    !props.mainBtn && !props.minorBtn && !props.hasCloseBtn
+
   return (
     <Modal
       {...props}
       className='c-msg-box'
-      isCloseByEsc={props.hasCloseBtn}
-      isCloseByBackdrop={props.hasCloseBtn}
+      isCloseByEsc={isNoWayToClose || props.hasCloseBtn}
+      isCloseByBackdrop={isNoWayToClose || props.hasCloseBtn}
     >
       {/* Close Button */}
       {props.hasCloseBtn && <div className='c-msg-box__close-btn' onClick={props.onRequestClose} />}

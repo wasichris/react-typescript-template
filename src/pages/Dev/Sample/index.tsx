@@ -38,8 +38,7 @@ const Sample = (props: IProps) => {
   }
 
   // 範例：formik (邏輯抽出至 hook 來降低此組件的複雜度)
-  const { initFormValues, setInitFormValues, validationSchema, onFormSubmit } =
-    useSampleForm({ account: '', password: '', salary: 0 })
+  const form = useSampleForm({ account: '', password: '', salary: 0 })
 
   // 範例：redux
   const counterValue = useAppSelector(state => state.counter.value)
@@ -148,9 +147,9 @@ const Sample = (props: IProps) => {
       <h2 className='section__title'>表單檢核</h2>
       <Formik
         enableReinitialize
-        initialValues={initFormValues}
-        validationSchema={validationSchema()}
-        onSubmit={onFormSubmit}
+        initialValues={form.initFormValues}
+        validationSchema={form.validationSchema()}
+        onSubmit={form.onFormSubmit}
       >
         {({ dirty, isValid, resetForm, values }) => (
           <Form >
@@ -172,7 +171,7 @@ const Sample = (props: IProps) => {
 
             <input
               type="button"
-              onClick={() => resetForm({ values: initFormValues })}
+              onClick={() => resetForm({ values: form.initFormValues })}
               value={t('__clear' /* 清除 */)!} />
 
             <input
@@ -184,7 +183,7 @@ const Sample = (props: IProps) => {
 
             <input
               type="button"
-              onClick={() => setInitFormValues({ ...initFormValues, salary: values.salary + 1 })}
+              onClick={() => form.setInitFormValues({ ...form.initFormValues, salary: values.salary + 1 })}
               value={'搭配 enableReinitialize 重新給予初始值來 re-init 表單（可能是從遠端來的資料）'} />
 
           </Form>

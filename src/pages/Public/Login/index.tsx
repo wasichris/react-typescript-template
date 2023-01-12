@@ -14,8 +14,7 @@ const Login = (props: IProps) => {
   const isLogin = useAppSelector(s => s.app.isLogin)
 
   // 範例：formik (邏輯抽出至 hook 來降低此組件的複雜度)
-  const { initFormValues, validationSchema, onFormSubmit } =
-    useLoginForm({ userId: '', pcode: '' })
+  const form = useLoginForm({ userId: '', pcode: '' })
 
   useEffect(() => {
     // 已登入用戶，直接轉向登入後首頁
@@ -34,9 +33,9 @@ const Login = (props: IProps) => {
 
         <Formik
           enableReinitialize
-          initialValues={initFormValues}
-          validationSchema={validationSchema()}
-          onSubmit={onFormSubmit}
+          initialValues={form.initFormValues}
+          validationSchema={form.validationSchema()}
+          onSubmit={form.onFormSubmit}
           validateOnMount
         >
           {({ isValid }) => (

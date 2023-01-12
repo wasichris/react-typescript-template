@@ -1,6 +1,6 @@
 
 const KEY = {
-  LNG: '@i18nextLng'
+  LANG: '@i18nextLng'
 }
 
 /**
@@ -14,11 +14,11 @@ export default {
    * 網站語系
    */
   get lang() {
-    return window.localStorage.getItem(KEY.LNG) || ''
+    return window.localStorage.getItem(KEY.LANG) || ''
   },
   set lang(value) {
-    if (value) window.localStorage.setItem(KEY.LNG, value)
-    else window.localStorage.removeItem(KEY.LNG)
+    if (value) window.localStorage.setItem(KEY.LANG, value)
+    else window.localStorage.removeItem(KEY.LANG)
   }
 
 }

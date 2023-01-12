@@ -100,77 +100,6 @@
 <br>
 
 
-# 通用組件 Component
-
-重複出現的功能/樣式性區塊請建立成組件以利重用。
-
-<br>
-
-### 路徑檔案：
-- src/components/
-
-
-<br>
-
-### 開發規範：
-
-- 禁止相依外部資源(e.g. 讀取全域狀態 redux 或呼叫 api 等行為)，只能透過 props 與外界溝通。
-- 若需相依外部資源的功能性組件(e.g. OTP)，則歸類至 container 組件範圍，請於 containers 資料夾下定義。
-- 以單個 tsx 檔案建立組件，檔名為組件名稱，並使用大駝峰式命名。
-- 適度以資料夾為組件進行分類 (e.g. 表單類輸入組件都放置在 form 資料夾下，並以 Form 作為 prefix)
-- 組件樣式定義於 /assets/scss/components.scss 中。
-- 可使用 `fcf` (Functional Component by Filename) code snippet 建立組件結構，包含 IProps 介面定義。
-- 定義 Props 屬性使用小駝峰式命名並給予明確資料類型。
-
-<br>
-
-
-### 相關 Props Type 參考：
-
-- PropsWithChildren\<IProps>
-- IProps & ButtonHTMLAttributes\<HTMLButtonElement>
-
-> 但如果只想開放特定屬性，就不用合併 HTMLAttributes 類型 (e.g 例如只用到 className 就直接在 IProps 宣告即可)；會使用到 HTMLAttributes 表示將把所有 props 都會傳入原生的 HTML element 中時才有意義 (例如 `<button {...props} > submit </button>` ) 
-
-<br>
-
-
-### 程式範例：
-``` typescript
-/* /components/Button.tsx */
-
-import clsx from 'clsx'
-import { ButtonHTMLAttributes } from 'react'
-
-interface IProps {
-  outfit?: 'primary' | 'link' | undefined;
-}
-
-const Button = (props: IProps & ButtonHTMLAttributes<HTMLButtonElement>) => {
-  const { className, outfit, type = 'button', children, ...restProps } = props
-  return (
-    <button
-      className={clsx('c-button', outfit && `c-button--outfit-${outfit}`, className)}
-      type={type}
-      {...restProps}
-    >
-
-      {children}
-
-    </button>
-  )
-}
-
-<br>
-
-export default Button
-
-```
-
-<br>
-<br>
-
-
 
 # 系統常數 Constant
 
@@ -262,9 +191,12 @@ export class GenderEnum {
 <br>
 
 
+
+
+
 # 環境變數 Environment
 
-會依環境切換而可能改變的常數請放置到環境變數維護。
+依環境切換而可能改變的常數，請放置到環境變數維護。
 
 <br>
 
@@ -280,8 +212,10 @@ export class GenderEnum {
 
 ### 開發規範：
 
+- 變數需定義於 IEnvironment 中並加上 JSDoc 註解，說明變數用途
+- 先於 development.ts 定義數值，後續再依據需調整的環境進行覆寫
+- test.ts 與 production.ts 數值都基於 development.ts，因此若數值相同則無需設定
 - 變數名稱使用小駝峰方式命名 (e.g. apiUrl )
-- 需在 IEnvironment 加上 JSDoc 註解，說明變數用途
 
 <br>
 
@@ -315,132 +249,139 @@ const developmentEnvironment: IEnvironment = {
 <br>
 
 
-# 多國語系 i18n
 
-預設支援中英兩種語系，會先取得瀏覽器語系，若非站台所支援的語系時會 fallback 到預設繁體中文語系。
 
-> 盡量避免到處都可以切換語系，因為有些文字在切換時不會即時響應(e.g. 表單錯誤訊息)，除非重新觸發渲染或重載頁面時才會套用新語系，所以盡量在入口處(頁面組成單純)中提供語系切換功能，以免在功能複雜處進行切換時造成部分文字無法即時響應變動的狀況。
+# 本地端儲存空間 Storage
+
+統一於此定義網站所有本地端資訊存取的方式，例如封裝 session / local storage, cookie 等存取行為，避免後續因存取位置變化而牽動過多程式。
 
 <br>
 
 ### 路徑檔案：
-- src/i18n/locales/en.ts: 英文語系檔
-- src/i18n/locales/zh-TW.ts: 中文語系檔
+- src/utils/storage.ts
 
 <br>
-
 
 ### 開發規範：
 
-- 語系變數名稱使用 __ 作為 prefix 並搭配小駝峰方式命名 (e.g. __password )
-- 變數名稱貼近語系即可，不需要依據頁面分類（因為實務上很難區分共不共用的語系文字）
-- 可適度加上 name space 來區分語系類型（e.g. __validation_xxx for 檢核相關） 
+- 變數名稱使用小駝峰方式命名 (e.g. isRememberMe )
+- 於上方統一定義數值存放的 Key 值，變數使用 upper snake case 方式命名 (e.g. IS_REMEMBER_ME)
+- 需加上 JSDoc 註解，說明變數用途
 
 <br>
 
-
-### 取得語系文字方式：
-
-組件內使用 useTranslation Hook
+### 程式範例：
+封裝本地端資訊存取行為 
 ``` typescript
-import { useTranslation } from 'react-i18next'
-
-const Component = (props: IProps) => {
-    const { t } = useTranslation()
-    return <div>{t('__account' /* 帳號 */)}</div>
+/* src/utils/storage.ts */
+const KEY = {
+  LANG: '@i18nextLng'
 }
-```
-組件外使用 i18n 實體
-``` typescript
-import i18n from '/i18n'
-
-const getSomething = () => {
-    return i18n.t('__account' /* 帳號 */)
-}
-```
-
-<br>
-
-
-### 語系檔案範例：
-``` typescript
-/* src/i18n/locales/zh-TW.ts */
 
 export default {
 
-  /* ================================= */
-  /* ====  欄位檢核提示文字  ============ */
-  /* ================================= */
+  /**
+   * 網站語系
+   */
+  get lang() {
+    return window.localStorage.getItem(KEY.LANG) || ''
+  },
+  set lang(value) {
+    if (value) window.localStorage.setItem(KEY.LANG, value)
+    else window.localStorage.removeItem(KEY.LANG)
+  }
 
-  __validation_invalid: `欄位檢核錯誤`,
-  __validation_required: `請輸入資訊`,
-  __validation_required_with_name: `請輸入{{name}}`,
-
-  /* ================================= */
-  /* ====  其他不分類文字   ============ */
-  /* ================================= */
-
-  __account: `帳號`,
-  __male: `男性`,
-  __female: `女性`,
 }
 ```
+操作本地端資訊方式
+``` typescript
+import storage from '/utils/storage'
+
+// 取值
+const defaultLng = storage.lang
+
+// 設值
+storage.lang = lang
+
+// 刪除
+storage.lang = ''
+
+```
+
+
 
 <br>
 <br>
 
 
 
-# 模擬 API 資料源 
 
-使用 Mock Service Worker 從瀏覽器端攔截正常發出的 request 請求，並依據定義回傳對應的資料來提供開發使用。 
 
+# 通用組件 Component
+
+重複出現的功能/樣式性區塊請建立成組件以利重用。
 
 <br>
 
 ### 路徑檔案：
-- src/mocks/api/: 放置 api handler 定義檔
-- src/mockHelper.ts: 放置產生假資料的輔助方法(e.g. getRandomInt)
+- src/components/
+
+
+<br>
+
+### 開發規範：
+
+- 禁止相依外部資源(e.g. 讀取全域狀態 redux 或呼叫 api 等行為)，只能透過 props 與外界溝通。
+- 若需相依外部資源的功能性組件(e.g. OTP)，則歸類至 container 組件範圍，請於 containers 資料夾下定義。
+- 以 tsx 檔案建立組件，檔名為組件名稱，並使用大駝峰式命名。
+- 適度以資料夾為組件進行分類 (e.g. 表單類輸入組件都放置在 form 資料夾下，並以 Form 作為 prefix)
+- 組件樣式定義於 /assets/scss/components.scss 中。
+- 可使用 `fcf` (Functional Component by Filename) code snippet 建立組件結構，包含 IProps 介面定義。
+- 定義 Props 屬性使用小駝峰式命名並給予明確資料類型。
 
 <br>
 
 
-### 開發規範：
+### 相關 Props Type 參考：
 
-- 請依照 api 功能類型區分不同的 api handler 檔案，例如：
-    - /sample/getUserInfo 可以定義在 sampleApi.ts 中
-    - /auth/login 可以定義在 authApi.ts 中
-- 回傳的資料請貼近真實的數值內容才足以反應真實情況
-- 可多利用 mockHelper 中的 random 方法來返回一些變動的資料，可以測試到不同情境。
+- PropsWithChildren\<IProps>
+- IProps & ButtonHTMLAttributes\<HTMLButtonElement>
+
+> 但如果只想開放特定屬性，就不用合併 HTMLAttributes 類型 (e.g 例如只用到 className 就直接在 IProps 宣告即可)；會使用到 HTMLAttributes 表示將把所有 props 都會傳入原生的 HTML element 中時才有意義 (例如 `<button {...props} > submit </button>` ) 
 
 <br>
 
 
 ### 程式範例：
 ``` typescript
-/* src/mocks/api/sampleApi.ts */
-const sampleApi = [
-    rest.get(getApiUrl('/sample/get-products'), (req, res, ctx) => {
-        const urHeader = req.headers.get('ur-header') ?? ''
-        const category = req.url.searchParams.get('category')
-        const response = createRes<ISampleGetProductsRes>({
-        products: getRandomArray(3, () => ({
-            category,
-            id: getGuid(),
-            stock: getRandomIntRange(10, 100),
-            price: getRandomInt(5),
-            gender: getRandomArrayItem([GenderEnum.MALE, GenderEnum.FEMALE])
-        }))
-        })
+/* /components/Button.tsx */
 
-        return res(
-        ctx.set('my-header', urHeader),
-        ctx.status(200),
-        ctx.delay(),
-        ctx.json(response)
-        )
-    }),
-]
+import clsx from 'clsx'
+import { ButtonHTMLAttributes } from 'react'
+
+interface IProps {
+  outfit?: 'primary' | 'link' | undefined;
+}
+
+const Button = (props: IProps & ButtonHTMLAttributes<HTMLButtonElement>) => {
+  const { className, outfit, type = 'button', children, ...restProps } = props
+  return (
+    <button
+      className={clsx('c-button', outfit && `c-button--outfit-${outfit}`, className)}
+      type={type}
+      {...restProps}
+    >
+
+      {children}
+
+    </button>
+  )
+}
+
+<br>
+
+export default Button
+
 ```
 
 <br>
@@ -458,7 +399,7 @@ const sampleApi = [
 - src/pages/Public/
     - index.tsx: 無需登入的公開頁面樣板
 - src/pages/Home/
-    - index.tsx: 需要登入的私有頁面樣板
+    - index.tsx: 需要登入的私有頁面樣板(登入狀態檢核)
 
 <br>
 
@@ -467,10 +408,10 @@ const sampleApi = [
 - 請依照 router 設定的 url 階層放置頁面組件資料夾
 - 以資料夾為單位放置頁面組件，列如：  
   `/src/pages/Public/Login/`
-  - index.tsx 頁面組件
-  - components/ 頁面組件拆出的小組件  
+  - index.tsx 頁面組件定義於此
+  - components/ 頁面組件拆出的私有小組件  
   (檔名為組件名稱，一個組件一個 tsx 檔案，並使用大駝峰式命名)
-  - hooks/ 頁面組件拆出的邏輯hook  
+  - hooks/ 頁面組件拆出的私有邏輯 hook  
   (檔名為Hook名稱，一個Hook一個 tsx 檔案，並使用 use 開頭的小駝峰式命名)
 - 請使用 `fc` (Functional Component) code snippet 建立組件結構，需包含 IProps 介面定義。
 - Props 屬性請使用小駝峰式命名並明確給予資料類型。
@@ -566,6 +507,83 @@ const router = createBrowserRouter([
 <br>
 
 
+# 多國語系 i18n
+
+預設支援中英兩種語系，會先取得瀏覽器語系，若非站台所支援的語系時會 fallback 到預設繁體中文語系。
+
+> 盡量避免到處都可以切換語系，因為有些文字在切換時不會即時響應(e.g. 表單錯誤訊息)，除非重新觸發渲染或重載頁面時才會套用新語系，所以盡量在入口處(頁面組成單純)中提供語系切換功能，以免在功能複雜處進行切換時造成部分文字無法即時響應變動的狀況。
+
+<br>
+
+### 路徑檔案：
+- src/i18n/locales/en.ts: 英文語系檔
+- src/i18n/locales/zh-TW.ts: 中文語系檔
+
+<br>
+
+
+### 開發規範：
+
+- 語系變數名稱使用 __ 作為 prefix 並搭配小駝峰方式命名 (e.g. __password )
+- 變數名稱貼近語系即可，不需要依據頁面分類（因為實務上很難區分共不共用的語系文字）
+- 可適度加上 name space 來區分語系類型（e.g. __validation_xxx for 檢核相關） 
+
+<br>
+
+
+### 取得語系文字方式：
+
+組件內使用 useTranslation Hook
+``` typescript
+import { useTranslation } from 'react-i18next'
+
+const Component = (props: IProps) => {
+    const { t } = useTranslation()
+    return <div>{t('__account' /* 帳號 */)}</div>
+}
+```
+組件外使用 i18n 實體
+``` typescript
+import i18n from '/i18n'
+
+const getSomething = () => {
+    return i18n.t('__account' /* 帳號 */)
+}
+```
+
+<br>
+
+
+### 語系檔案範例：
+``` typescript
+/* src/i18n/locales/zh-TW.ts */
+
+export default {
+
+  /* ================================= */
+  /* ====  欄位檢核提示文字  ============ */
+  /* ================================= */
+
+  __validation_invalid: `欄位檢核錯誤`,
+  __validation_required: `請輸入資訊`,
+  __validation_required_with_name: `請輸入{{name}}`,
+
+  /* ================================= */
+  /* ====  其他不分類文字   ============ */
+  /* ================================= */
+
+  __account: `帳號`,
+  __male: `男性`,
+  __female: `女性`,
+}
+```
+
+<br>
+<br>
+
+
+
+
 
 # API 服務 Services 
 
@@ -576,6 +594,7 @@ const router = createBrowserRouter([
 ### 路徑檔案：
 - src/services/api/: 放置 api 定義檔
 - src/services/models/: 放置 api request / response 物件類別
+    - common.ts: 通用的 api request / response 物件結構
 - src/services/baseApiService.ts: 設定 request / response interceptor
 
 <br>
@@ -583,22 +602,70 @@ const router = createBrowserRouter([
 
 ### 開發規範：
 
-- 請依照 api 功能類型區分不同的 api handler 檔案，例如：
-    - /sample/getUserInfo 可以定義在 sampleApi.ts 中
-    - /auth/login 可以定義在 authApi.ts 中
-- 建立 api 時，請依照是否要使用快取來決定使用下列哪一種方式建立
-    - 需要快取：builder.query
-    - 無需快取：builder.mutation
-- API 命名使用大駝峰式命名
-- API 名稱請依照 url 訂定，例如：/sample/get-user 則命名為 SampleGetUser
+- 請依照 API 功能類型區分不同的 API 定義檔，例如：
+    - /sample/getUserInfo api 可以定義在 /api/sampleApi.ts 中
+    - /auth/login api 可以定義在 /api/authApi.ts 中
+- 建立 API Endpoints
+    - 建立 API 時，請依照是否要使用快取來決定使用下列哪一種方式建立
+        - 需要快取：builder.query
+        - 無需快取：builder.mutation
+    - API 命名使用大駝峰式命名
+    - API 名稱請參考 url 訂定，讓其具有唯一性，例如：/sample/get-user 則命名為 SampleGetUser
+- Request / Response 物件介面定義
+    - 依照 api 定義檔檔名於 /services/models/ 建立對應的檔案
+    - api request body 物件介面命名規則為 I+API名稱+Req (e.g. ISampleGetUserReq)
+    - api request response 物件介面命名規則為 I+API名稱+Res (e.g. ISampleGetUserRes)
+- HTTP Request/Response Interceptor  
+    - 可以對 Request 資料進行一致性的處理（e.g. Request header 加入 token）  
+    - 可以對 Response 結果進行一致性的處理（e.g. 判斷結果碼來執行特定行為，如登出系統）
 
 <br>
 
-
-
 ### 呼叫方式：
+建立 API Endpoint 
+``` typescript
+import { base64Encode } from '../../utils/helpers/encodeHelper'
+import { baseApiService } from '../baseApiService'
+import baseReqCreator from '../baseReqCreator'
+import { IBaseRes } from '../models/common'
+import { ISampleGetProductsReq, ISampleGetProductsRes, ISampleGetImgReq, ISampleGetUserReq } from '../models/sample'
 
-組件內使用 Hook
+const sampleApi = baseApiService.injectEndpoints({
+  endpoints: (builder) => ({
+
+    // 範例：發出 POST API 並取得 Image (快取:builder.query)
+    SampleGetImg: builder.query<string, ISampleGetImgReq>({
+      query: (req) => ({
+        url: '/sample/get-img',
+        method: 'POST',
+        body: baseReqCreator(req),
+        // 有需要特別處理才需要 handle 
+        responseHandler: async (response: Response) => {
+          const arrayBuffer = await response.arrayBuffer()
+          return 'data:image/png;base64,' + base64Encode(arrayBuffer)
+        }
+      })
+    }),
+
+    // 範例：發出 GET API 並取得 JSON (無快取:builder.mutation)
+    SampleGetProducts: builder.mutation<IBaseRes<ISampleGetProductsRes>, ISampleGetProductsReq>({
+      query: (req) => ({
+        url: `/sample/get-products?category=${req.category}`,
+        method: 'GET'
+      })
+    }),
+
+  }),
+  overrideExisting: true
+})
+
+export default sampleApi
+
+
+```
+
+
+組件內使用 Hook 呼叫 API
 ``` typescript
 import sampleApi from '/services/api/sampleApi'
 
@@ -632,7 +699,7 @@ const Component = (props: IProps) => {
     return <img alt="" src={base64Img} />
 }
 ```
-在 Thunk 中使用 endpoints 
+在 Thunk 直接使用 endpoints 呼叫 API
 ``` typescript
 import sampleApi from '/services/api/sampleApi'
 
@@ -643,6 +710,65 @@ export const initApp = (): AppThunk => async (dispatch, getState) => {
 
 <br>
 <br>
+
+
+
+# 模擬 API 資料源 
+
+透過 Mock Service Worker 套件，讓我們可以在網路層 (Network) 發出實際的請求 (Request)，並透過 Service Worker 攔截，回傳預先定義好的資料內容。
+
+
+<br>
+
+### 路徑檔案：
+- src/mocks/api/: 放置 api handler 定義檔
+- src/mockHelper.ts: 放置產生假資料的輔助方法(e.g. getRandomInt)
+
+<br>
+
+
+### 開發規範：
+
+- 請依照 api 功能類型區分不同的 api handler 檔案，例如：
+    - /sample/getUserInfo 可以定義在 sampleApi.ts 中
+    - /auth/login 可以定義在 authApi.ts 中
+- 回傳資料請貼近真實內容才足以反應真實情況
+- 利用 mockHelper 中的 random 方法來返回一些變動的資料，以測試到不同情境。
+
+<br>
+
+
+### 程式範例：
+``` typescript
+/* src/mocks/api/sampleApi.ts */
+const sampleApi = [
+    rest.get(getApiUrl('/sample/get-products'), (req, res, ctx) => {
+        const urHeader = req.headers.get('ur-header') ?? ''
+        const category = req.url.searchParams.get('category')
+        const response = createRes<ISampleGetProductsRes>({
+        products: getRandomArray(3, () => ({
+            category,
+            id: getGuid(),
+            stock: getRandomIntRange(10, 100),
+            price: getRandomInt(5),
+            gender: getRandomArrayItem([GenderEnum.MALE, GenderEnum.FEMALE])
+        }))
+        })
+
+        return res(
+        ctx.set('my-header', urHeader),
+        ctx.status(200),
+        ctx.delay(),
+        ctx.json(response)
+        )
+    }),
+]
+```
+
+<br>
+<br>
+
+
 
 
 # 全域狀態 Redux 
@@ -674,6 +800,30 @@ export const initApp = (): AppThunk => async (dispatch, getState) => {
 - 操作狀態請使用自定義的 useAppDispatch 及 useAppSelector 獲得具體型別
     - import useAppDispatch from '/utils/hooks/useAppDispatch'
     - import useAppSelector from '/utils/hooks/useAppSelector'
+
+<br>
+
+
+
+### 全域狀態持久化：
+如果全域狀態中有部分資訊需要在頁面重整時被保留下來(e.g. 登入狀態, token)，此時就可以透過 persistReducer 設定要保留的參數及保留的地方(預設在localStorage)。
+``` typescript
+/* src/store/index.ts */
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' 
+
+// Persist state for app reducer
+const appPersistConfig = {
+  key: appSlice.name,
+  storage,
+  whitelist: ['isLogin', 'authToken']
+}
+
+// Reducer
+const rootReducer = combineReducers({
+  app: persistReducer(appPersistConfig, appSlice.reducer),
+})
+```
 
 <br>
 
@@ -723,6 +873,223 @@ const showMsgBox = (globalMsg: GlobalMsg) => store.dispatch(addGlobalMsg(globalM
 
 
 
+
+# 表單操作與檢核邏輯
+
+統一使用 Formik 搭配 yup 進行表單操作與檢核
+
+> 檢核錯誤文字盡量在需求訪談期間就規範好一致性(避免相同類型的錯誤要顯示不同文字 e.g. 請輸入介於 0 ~ 10 的數字 or 請輸入大於 0 小於 10 的數字)，並且不要包含 `欄位名稱` 在訊息中 (e.g. "請輸入用戶姓名" 可以使用 "請輸入資訊" 呈現就好)，這樣可以大幅降低開發複雜度
+
+<br>
+
+### 路徑檔案：
+- src/utils/validation/: 
+    - schema.ts: 客製化的 yup 檢核邏輯
+    - schemaChain.ts: 針對特定類型資料的 yup 檢核邏輯串
+
+<br>
+
+### 開發規範：
+
+
+- 先查看 yup 是否提供所需的檢核邏輯 (e.g. min, max, moreThan ...)
+- 不符需求可以自行建立檢核邏輯：  
+  `schema`:
+    - 客製化的檢核邏輯定義於 schema.ts 中，變數命名使用 Schema 結尾 (e.g. maxDigitNumberSchema)
+    - 請針對"獨立"通用檢核邏輯設立（e.g. 檢核字串長度是否在指定範圍內）
+
+  `schemaChain`:
+    - 組合性的檢核邏輯定義於 schemaChain.ts 中，變數命名使用小駝峰，名稱請貼近檢核對象類型(e.g. twMoneyAmt)
+    - 請針對通用且有意義性資料的"複合性"檢核邏輯設立（e.g. 台幣金額[數字＋整數＋正數]）  
+    <br>
+- 建立組件內私有 hook 來收納表單檢核邏輯，避免過多資訊造成頁面組件的複雜性提高  
+    - hook 檔案建立於 sub 資料夾 hooks 中 (e.g. src/pages/dev/Sample/hooks/)
+    - 使用 use 開頭 + 表單名稱 + Form 結尾命名 hook (e.g. useSampleForm.ts)
+    - 使用 `uf` (use form) code snippet 來建立表單 hook 代碼結構
+    - 使用 hook 收納表單資料介面、表單初始資料、檢核邏輯、表單送出行為。  
+
+
+ <br>
+
+### 程式範例：
+
+客製化的檢核邏輯
+``` typescript
+/**
+* 檢核數字的位數是否在範圍內
+ * @param max 金額位數上限
+ * @returns schema
+*/
+export const maxDigitNumberSchema = (max = 1) =>
+  yup.number().test({
+    name: 'maxDigitNumberSchema',
+    exclusive: true,
+    params: { max },
+    message: t('__validation_maxDigitNumber', { max })!,
+    test: (value) => {
+      if (!value) return true
+      return value < Math.pow(10, max)
+    }
+  })
+
+```
+
+組合性的檢核邏輯
+``` typescript
+/**
+ * 台幣金額檢核邏輯[需大於0且上限10位數] (e.g. 月收入、貸款金額)
+ * @param isRequired 是否必填
+ * @param name 欄位名稱
+ * @returns
+ */
+twMoneyAmt: (isRequired: boolean, name?: string) => {
+  return yup
+    .number()
+    .concat(
+      isRequired
+        ? name
+          ? yup.number().required(getRequiredMsg(name))
+          : yup.number().required()
+        : yup.number())
+    .integer()
+    .moreThan(0)
+    .concat(maxDigitNumberSchema(10))
+}
+```
+
+組件內私有 hook 來收納表單檢核邏輯
+``` typescript
+import { FormikHelpers } from 'formik'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import * as yup from 'yup'
+import { getRequiredMsg } from '/utils/helpers/commonHelper'
+import { strLengthRangeSchema } from '/utils/validations/schema'
+import schemaChain from '/utils/validations/schemaChain'
+
+// 定義表單資料
+interface IFormValues {
+  account: string,
+  password: string,
+  salary: number
+}
+
+const useSampleForm = (initValues: IFormValues) => {
+  const { t } = useTranslation()
+  const [initFormValues, setInitFormValues] = useState(initValues)
+
+  // 檢核邏輯
+  const validationSchema = () =>
+    yup.object({
+      account:
+        // 如果必填錯誤訊息需要欄位名稱，就這樣覆寫訊息，只需傳入欄位名稱
+        yup.string().required(getRequiredMsg(t('__account' /* 帳號 */)))
+          .max(5), // 內建邏輯
+      password:
+        // 如果必填錯誤訊息不需要欄位名稱，就回應預設通用訊息"請輸入資訊"
+        yup.string().required()
+          .concat(strLengthRangeSchema(2, 10)), // 自定邏輯
+      salary:
+        schemaChain
+          .twMoneyAmt(true, t('__salary' /* 月薪 */)!) // 自定邏輯串(針對通用且有意義性的資料類型)
+    })
+
+  // 送出表單
+  const onFormSubmit = (values: IFormValues, actions: FormikHelpers<IFormValues>) => {
+    alert(JSON.stringify(values, null, 2))
+    actions.setSubmitting(false)
+  }
+
+  // 回傳表單資訊給使用組件
+  return { initFormValues, setInitFormValues, validationSchema, onFormSubmit }
+}
+
+export default useSampleForm
+```
+
+表單主體
+``` typescript
+
+const Sample = (props: IProps) => {
+
+  // 表貪邏輯抽出至 hook 來降低此組件的複雜度
+  const form = useSampleForm({ account: '', password: '', salary: 0 })
+
+  return <>
+   <section>
+      <h2>表單檢核</h2>
+      <Formik
+        enableReinitialize
+        initialValues={form.initFormValues}
+        validationSchema={form.validationSchema()}
+        onSubmit={form.onFormSubmit}
+      >
+        {({ dirty, isValid, resetForm, values }) => (
+          <Form >
+
+            <div>
+              <label htmlFor='account' > {t('__account' /* 帳號 */)}</label>
+              <FormTextInput id="account" name="account" type="text" />
+            </div>
+
+            <div>
+              <label htmlFor='password' > {t('__pwd' /* 密碼 */)} </label>
+              <FormTextInput id="password" name="password" type="password" />
+            </div>
+
+            <div>
+              <label htmlFor='salary' > {t('__salary' /* 月薪 */)} </label>
+              <FormTextInput id="salary" name="salary" type="text" caption={t('__useTwd' /* 使用臺幣為單位 */)} />
+            </div>
+
+            <input
+              type="button"
+              onClick={() => resetForm({ values: form.initFormValues })}
+              value={t('__clear' /* 清除 */)!} />
+
+            <input
+              type="submit"
+              disabled={!(dirty && isValid)}
+              value={t('__submit' /* 送出 */)!} />
+
+            <br />
+
+            <input
+              type="button"
+              onClick={() => form.setInitFormValues({ ...form.initFormValues, salary: values.salary + 1 })}
+              value={'搭配 enableReinitialize 重新給予初始值來 re-init 表單（可能是從遠端來的資料）'} />
+
+          </Form>
+        )}
+      </Formik>
+    </section>
+  </>
+
+}
+
+```
+
+
+<br>
+<br>
+
+
+
+# API 全域錯誤處理
+
+- `src/services/baseApiService.ts`  
+  HTTP Request/Response Interceptor :  
+  可以對 Request 資料進行一致性的處理（e.g. Request header 加入 token）  
+  可以對 Response 結果進行一致性的處理（e.g. 判斷結果碼來執行特定行為，如登出系統）
+  
+- `src/store/middleware/apiErrorHandleMiddleware.ts`  
+  接收到非 HTTP 200 狀態則屬異常回應，會透過 Middleware 統一彈窗提示處理。
+
+
+<br>
+<br>
+
+
 # 共用工具物件 Utils 
 
 共用邏輯性 extension, helper, hook, validation 可定義於此。 
@@ -733,10 +1100,7 @@ const showMsgBox = (globalMsg: GlobalMsg) => store.dispatch(addGlobalMsg(globalM
 - src/utils/extensions/: 擴充方法(需在 index.tsx 載入)
 - src/utils/helper/: 共用邏輯方法
 - src/utils/hooks/: 組件共用 hook 邏輯
-- src/utils/validation/: 共用資料檢核邏輯
-    - schema.ts: 客製化的 yup 檢核邏輯
-    - schemaChain.ts: 針對特定類型資料的 yup 檢核邏輯串
-- src/utils/storage.ts: 存取前端保存資料的共用方法
+
 
 <br>
 
@@ -744,31 +1108,207 @@ const showMsgBox = (globalMsg: GlobalMsg) => store.dispatch(addGlobalMsg(globalM
 
 - extension 命名請使用 Extension 作為 postfix
 - helper 命名請使用 Helper 作為 postfix
-- hook 命名請使用 use 作為 prefix
-- schema 請針對"獨立"通用檢核邏輯設立  
- （e.g. 檢核字串長度是否在指定範圍內）
-- schemaChain 請針對通用且有意義性資料的"複合性"檢核邏輯設立  
- （e.g. 金額[數字＋整數＋正數]）
-
+  (依據使用性質區分不同 helper，若無特殊性可放置在 commonHelper)
+- hook 命名請使用 use 作為 prefix  
+  (放置 component / container 中的共用邏輯)
 
 <br>
 <br>
 
 
 
-# 通用訊息呼叫方式
+
+# 應用說明 - 通用訊息呼叫方式
+
+預設提供全域訊息顯示的叫用機制，用以呈現文字資訊給用戶。
+
+<br>
+
+### 程式範例：
+``` typescript
+import { showMsgBox } from '/utils/helpers/commonHelper'
+
+showMsgBox({
+    content: '這是第一個訊息。',
+    title: '訊息佇列',
+    mainBtn: { label: '我知道了', onClick: () => console.log('我知道了') },
+    minorBtn: { label: '關閉', onClick: () => console.log('關閉') },
+    hasCloseBtn: true
+})
+```
 
 <br>
 <br>
 
 
-# 表單操作與檢核邏輯
+
+
+
+
+# 應用說明 - 監聽 Redux Action
+
+有時候我們只想要知道某個 Action 被 dispatch 了，然後需要在特定組件上執行某些行為，而無關乎 Action 透過 Reducer 變動了什麼數值；此時我們就可以透過監聽的方式來監看 Action 。
+
+- 全域監聽：可以透過 createListenerMiddleware 加入 store middleware 來處理   
+(e.g. /src/store/middleware/authListenerMiddleware.ts 監看 startApp Action)
+
+- 組件監聽：可以透過 addListener 在組件內監聽事件
+  ``` typescript
+  import { increment } from './store/slices/counterSlice'
+  import { addListener } from '@reduxjs/toolkit'
+
+  const app = () => {
+    useEffect(() => {
+      // Could also just `return dispatch(addListener())` directly, but showing this
+      // as a separate variable to be clear on what's happening
+      const unsubscribe = dispatch(
+        addListener({
+          actionCreator: increment,
+          effect: (action, listenerApi) => {
+            // do some useful logic here
+          }
+        })
+      )
+      return unsubscribe
+    }, [])
+
+    return <div> ... </div>
+  }
+  ```
+
 
 <br>
 <br>
 
 
-# 基礎站台載入流程(含檢核)
+# 應用說明 - 站台載入流程
+
+網站在載入時通常會有兩件事情需要處理，而本樣板已建立基礎流程，方便開發者完成下面兩件事情。
+- 載入網站前必需要完成的行為 (e.g. 取得網站參數)
+- 檢核用戶登入狀態及接續行為
+
+<br>
+
+載入 app.tsx 後會先執行 initApp Thunk Action，只有順利完成這邊定義的行為(回傳 true)後，才會載入 router 進入對應頁面，因此針對載入網站前需要完成的行為可定義於此。
+``` typescript
+/* src/store/slices/appSlice.ts */
+export const initApp =
+  (): AppThunk<Promise<boolean>> =>
+    async (dispatch, getState) => {
+      let isInitAppSuccess = true
+      
+      // do some init app job here
+      // ...
+
+      // 順利完成後發送 startApp 訊號  
+      dispatch(startApp())
+
+      return isInitAppSuccess
+    }
+```
+
+<br>
+
+
+上述在順利完成載入網站所需要執行的動作後，隨即會發出 startApp Action 訊號觸發監聽此訊號的 authListenerMiddleware 中介層，而這邊就是一個登入狀態的狀態機(State Machine)，依據狀態來等待特定 Action 訊號進行下個動作，舉例如下：
+
+- 目前尚未登入：
+    - 等待登入成功訊號(loginSuccess action)
+    - 若接收到登入成功訊號，則進行登入後行為(e.g. 設定用戶資訊與token、導頁到登入後首頁)
+    - 並且進入已登入狀態來等待登出訊號(logout action)  
+<br>
+
+- 目前已經登入：
+    - 等待登出訊號(logout action)
+    - 若接收到登出訊號，則進行登出行為(e.g. 清除用戶資訊與token、導頁到登入頁)
+    - 並且進入未登入狀態來等待登入成功訊號(loginSuccess action)
+
+<br>
+
+/src/store/middleware/authListenerMiddleware.ts 
+``` typescript
+import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
+import { RootState } from '..'
+import { startApp, loginSuccess, logout, updateLoginInfo } from '../slices/appSlice'
+import { appNavigate } from '../../router'
+import { getQueryStrValue } from '../../utils/helpers/urlHelper'
+
+const authListenerMiddleware = createListenerMiddleware()
+
+authListenerMiddleware.startListening({
+  actionCreator: startApp,
+  effect: async (action, listenerApi) => {
+    listenerApi.cancelActiveListeners()
+
+    // State Machines for auth
+    const { take, dispatch, getState /* getOriginalState */ } = listenerApi
+    try {
+      while (true) {
+        // 檢查目前是否為已登入狀態
+        const getRootState = getState as () => RootState
+        const isLogin = getRootState().app.isLogin
+        if (isLogin === false) {
+          // #############
+          // ### 未登入 ###
+          // #############
+
+          // [阻塞] 等待登入成功訊號
+          const [{ payload: { authToken } }] = await take(loginSuccess.match)
+
+          // 處理登入事宜
+          dispatch(updateLoginInfo({ authToken, isLogin: true }))
+
+          // 回到原本欲訪問的頁面
+          const redirectUrl = getQueryStrValue('redirect_url')
+          redirectUrl ? appNavigate(redirectUrl) : appNavigate('/home/main')
+        } else {
+          // #############
+          // ### 已登入 ###
+          // #############
+
+          // [阻塞] 等待登出要求訊號
+          await take(isAnyOf(logout))
+
+          // 處理登出事宜
+          dispatch(updateLoginInfo({ authToken: '', isLogin: false }))
+          appNavigate('/public/login')
+        }
+      }
+    } catch (error) {
+      console.error('authListenerMiddleware error:', error)
+    }
+  }
+})
+
+export default authListenerMiddleware.middleware
+```
+
+<br>
+
+所以執行登入由各組件執行，當登入成功後只需要送出登入成功訊號(loginSuccess action)，並且夾帶所需 authToken 資訊即可，後續行為都統一交給 authListenerMiddleware 控制；反之如果是要登出，就只要送出登出訊號(logout action)即可。
+
+``` typescript
+
+const onLoginFormSubmit = async (values: IFormValues, actions: FormikHelpers<IFormValues>) => {
+    const request = { pcode: values.pcode, userId: values.userId }
+    const response = await apiSampleLogin(request).unwrap()
+    const { header: { returnCode, returnMsg }, body } = response
+    if (returnCode.isSuccessCode()) {
+
+        // 登入成功，發送登入成功訊號(loginSuccess action)
+        dispatch(loginSuccess({ authToken: body.authCode }))
+
+    } else {
+        showMsgBox({ title: '登入', content: `登入失敗(${returnCode}:${returnMsg})` })
+    }
+    actions.setSubmitting(false)
+}
+
+// 登出
+const onLogout = () =>  dispatch(logout())
+
+```
+
 
 <br>
 <br>

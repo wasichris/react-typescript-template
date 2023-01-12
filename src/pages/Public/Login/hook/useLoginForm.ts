@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import sampleApi from '../../../../services/api/sampleApi'
 import { loginSuccess } from '../../../../store/slices/appSlice'
-import { getRequiredMsg } from '../../../../utils/helpers/commonHelper'
+import { getRequiredMsg, showMsgBox } from '../../../../utils/helpers/commonHelper'
 import useAppDispatch from '../../../../utils/hooks/useAppDispatch'
 
 interface IFormValues {
@@ -33,7 +33,7 @@ const useLoginForm = (initValues: IFormValues) => {
     if (returnCode.isSuccessCode()) {
       dispatch(loginSuccess({ authToken: body.authCode }))
     } else {
-      alert(`登入失敗(${returnCode}:${returnMsg})`)
+      showMsgBox({ title: '登入', content: `登入失敗(${returnCode}:${returnMsg})` })
     }
     actions.setSubmitting(false)
   }

@@ -26,21 +26,21 @@ const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttri
   }
 
   return (
-    <div className={clsx('c-form-text-input', className)}>
+    <div className={clsx('cp-form-text-input', className)}>
       <input
         {...field}
         {...props}
-        className="c-form-text-input__input"
+        className="cp-form-text-input__input"
         onChange={handleChange}
         onBlur={handleBlur}
         autoComplete="off"
       />
 
       {/* 提示文字 */}
-      {caption ? <div className="c-form-text-input__caption"> {caption} </div> : null}
+      {caption ? <div className="cp-form-text-input__caption"> {caption} </div> : null}
 
       {/* 檢核錯誤提示 */}
-      {hasError ? <div className="c-form-text-input__error" > {meta.error} </div> : null}
+      {hasError ? <div className="cp-form-text-input__error" > {meta.error} </div> : null}
     </div>
   )
 }

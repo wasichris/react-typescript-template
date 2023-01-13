@@ -1,6 +1,6 @@
-// 使用 c prefix 的 component name 作為頂層 class name
+// 使用 cp prefix 的 component name 作為頂層 class name
 
-.c-form-text-input {
+.cp-form-text-input {
     &__input {
         width: 100%;
         padding: 2px 10px;
@@ -19,7 +19,7 @@
     }
 }
 
-.c-loading-mask {
+.cp-loading-mask {
     position: fixed;
     top: 0;
     z-index: z(loading-mask);
@@ -99,7 +99,7 @@
     }
 }
 
-.c-modal {
+.cp-modal {
     &__backdrop {
         position: fixed;
         inset: 0;
@@ -121,7 +121,7 @@
     }
 }
 
-.c-msg-box {
+.cp-msg-box {
     position: relative;
     padding: 25px 30px;
     animation: append-animate 0.1s linear;
@@ -203,7 +203,7 @@
     }
 }
 
-.c-button {
+.cp-button {
     padding: 4px 15px;
     line-height: 2;
     cursor: pointer;

@@ -44,7 +44,7 @@
 
 
 
-# 樣式設計 SCSS
+# 樣式設計 (SCSS)
 
 使用 scss 設計站台樣式，並搭配 BEM 命名原則定義樣式類別名稱。
 
@@ -54,6 +54,7 @@
 - src/assets/scss/
     - app.scss: 網站頁面樣式
     - components.scss: 通用組件樣式
+    - containers.scss: 通用容器樣式
 - src/assets/scss/normalize/
     - _normalize.scss: 通用正規化樣式檔案(禁止修改)
     - _normalize_custom.scss: 客製化的正規化樣式檔案
@@ -69,10 +70,14 @@
 - 預設已載入 _normalize.scss 使元素樣式於各瀏覽器的顯示效果相近。
 - 全站性樣式 (e.g. 站台預設文字, link 顏色 ...) 請於 _normalize_custom.scss 中統一訂定。
 - 樣式 class 名稱 prefix 說明：  
-    - 通用組件：根 class name 請使用 .c- 開頭，並使用 kebab case 接上通用組件名
+    - 通用組件：根 class name 請使用 .cp- 開頭，並使用 kebab case 接上通用組件名
         ``` scss
-        .c-button { /* for Button component */}
-        .c-form-input { /* for FormInput component */}
+        .cp-button { /* for Button component */}
+        .cp-form-input { /* for FormInput component */}
+        ```
+    - 通用容器：根 class name 請使用 .ct- 開頭，並使用 kebab case 接上通用組件名
+        ``` scss
+        .ct-otp-modal { /* for OtpModal container */}
         ```
     - 頁面組件：根 class name 請使用 .pg- 開頭，並使用 kebab case 接上頁面組件名
         ``` scss
@@ -87,7 +92,7 @@
     ```
 - 設定 media query 時，請使用 _mixins.scss 中定義的 respond-above mixin 來設定，方便套用相同 break point 設定。
     ``` scss
-    .c-msg-box {
+    .cp-msg-box {
         max-width: 100%;
 
         @include respond-above {
@@ -101,7 +106,7 @@
 
 
 
-# 系統常數 Constant
+# 系統常數 (Constant)
 
 系統中使用到的固定數值請放置到系統常數維護，避免無法看出意圖的 magic string / number 散落四處；另外，如果有前端維護的固定下拉式選單需求，也須一併維護於此處。
 
@@ -194,7 +199,7 @@ export class GenderEnum {
 
 
 
-# 環境變數 Environment
+# 環境變數 (Environment)
 
 依環境切換而可能改變的常數，請放置到環境變數維護。
 
@@ -204,9 +209,9 @@ export class GenderEnum {
 - src/environment/development.ts: 開發環境的環境變數
 - src/environment/test.ts: 單元測試環境的環境變數
 - src/environment/production.ts: 生產環境的環境變數(區分三種模式)
-    - AppModeEnum.SIT： 整合測試模式
-    - AppModeEnum.UAT： 用戶測試模式
-    - AppModeEnum.PROD： 正式上線模式
+    - `AppModeEnum.SIT`： 整合測試模式
+    - `AppModeEnum.UAT`： 用戶測試模式
+    - `AppModeEnum.PROD`： 正式上線模式
 
 <br>
 
@@ -251,9 +256,9 @@ const developmentEnvironment: IEnvironment = {
 
 
 
-# 本地端儲存空間 Storage
+# 本地端儲存空間 (Storage)
 
-統一於此定義網站所有本地端資訊存取的方式，例如封裝 session / local storage, cookie 等存取行為，避免後續因存取位置變化而牽動過多程式。
+封裝所有本地端資訊存取方式(e.g. session / local storage, cookie...)，避免後續因存取位置調整而牽動過多程式。
 
 <br>
 
@@ -265,7 +270,7 @@ const developmentEnvironment: IEnvironment = {
 ### 開發規範：
 
 - 變數名稱使用小駝峰方式命名 (e.g. isRememberMe )
-- 於上方統一定義數值存放的 Key 值，變數使用 upper snake case 方式命名 (e.g. IS_REMEMBER_ME)
+- 於上方統一定義存放數值的 Key 值，使用 upper snake case 方式命名 (e.g. IS_REMEMBER_ME)
 - 需加上 JSDoc 註解，說明變數用途
 
 <br>
@@ -303,7 +308,7 @@ const defaultLng = storage.lang
 // 設值
 storage.lang = lang
 
-// 刪除
+// 移除
 storage.lang = ''
 
 ```
@@ -317,9 +322,10 @@ storage.lang = ''
 
 
 
-# 通用組件 Component
+# 通用組件 (Component)
 
 重複出現的功能/樣式性區塊請建立成組件以利重用。
+> 禁止直接相依外部資源(e.g. 讀取全域狀態 redux 或呼叫 api 等行為)，若需直接相依外部資源的功能性組件則歸類至 Container 中定義。
 
 <br>
 
@@ -331,8 +337,8 @@ storage.lang = ''
 
 ### 開發規範：
 
-- 禁止相依外部資源(e.g. 讀取全域狀態 redux 或呼叫 api 等行為)，只能透過 props 與外界溝通。
-- 若需相依外部資源的功能性組件(e.g. OTP)，則歸類至 container 組件範圍，請於 containers 資料夾下定義。
+- 禁止直接相依外部資源(e.g. 讀取全域狀態 redux 或呼叫 api 等行為)，只能透過 props 與外界溝通。
+- 若需直接相依外部資源的功能性組件(e.g. OTP)，則歸類至 container 組件範圍，請於 containers 資料夾下定義。
 - 以 tsx 檔案建立組件，檔名為組件名稱，並使用大駝峰式命名。
 - 適度以資料夾為組件進行分類 (e.g. 表單類輸入組件都放置在 form 資料夾下，並以 Form 作為 prefix)
 - 組件樣式定義於 /assets/scss/components.scss 中。
@@ -367,7 +373,7 @@ const Button = (props: IProps & ButtonHTMLAttributes<HTMLButtonElement>) => {
   const { className, outfit, type = 'button', children, ...restProps } = props
   return (
     <button
-      className={clsx('c-button', outfit && `c-button--outfit-${outfit}`, className)}
+      className={clsx('cp-button', outfit && `cp-button--outfit-${outfit}`, className)}
       type={type}
       {...restProps}
     >
@@ -378,8 +384,6 @@ const Button = (props: IProps & ButtonHTMLAttributes<HTMLButtonElement>) => {
   )
 }
 
-<br>
-
 export default Button
 
 ```
@@ -388,7 +392,7 @@ export default Button
 <br>
 
 
-# 頁面組件 Pages 
+# 頁面組件 (Pages) 
 
 對應到 router 設定的每個對應頁面。 
 
@@ -422,7 +426,7 @@ export default Button
 
 
 
-# 網站路由 Router 
+# 網站路由 (Router) 
 
 定義 URL 所訪問到的頁面組件位置。 
 
@@ -507,7 +511,7 @@ const router = createBrowserRouter([
 <br>
 
 
-# 多國語系 i18n
+# 多國語系 (i18n)
 
 預設支援中英兩種語系，會先取得瀏覽器語系，若非站台所支援的語系時會 fallback 到預設繁體中文語系。
 
@@ -585,7 +589,7 @@ export default {
 
 
 
-# API 服務 Services 
+# API 服務 (Services) 
 
 定義站台對外的所有 api 請求方式。 
 
@@ -621,7 +625,7 @@ export default {
 
 <br>
 
-### 呼叫方式：
+### 程式範例：
 建立 API Endpoint 
 ``` typescript
 import { base64Encode } from '../../utils/helpers/encodeHelper'
@@ -699,7 +703,7 @@ const Component = (props: IProps) => {
     return <img alt="" src={base64Img} />
 }
 ```
-在 Thunk 直接使用 endpoints 呼叫 API
+在組件外直接使用 dispatch endpoint 呼叫 API
 ``` typescript
 import sampleApi from '/services/api/sampleApi'
 
@@ -713,7 +717,7 @@ export const initApp = (): AppThunk => async (dispatch, getState) => {
 
 
 
-# 模擬 API 資料源 
+# 模擬 API 資料源 (Mock)
 
 透過 Mock Service Worker 套件，讓我們可以在網路層 (Network) 發出實際的請求 (Request)，並透過 Service Worker 攔截，回傳預先定義好的資料內容。
 
@@ -771,7 +775,7 @@ const sampleApi = [
 
 
 
-# 全域狀態 Redux 
+# 全域狀態 (Redux) 
 
 定義全域狀態，讓各組件都可以同步接收到狀態的改變。 
 
@@ -874,7 +878,7 @@ const showMsgBox = (globalMsg: GlobalMsg) => store.dispatch(addGlobalMsg(globalM
 
 
 
-# 表單操作與檢核邏輯
+# 表單操作與檢核邏輯 (Formik & Yup)
 
 統一使用 Formik 搭配 yup 進行表單操作與檢核
 
@@ -1090,7 +1094,7 @@ const Sample = (props: IProps) => {
 <br>
 
 
-# 共用工具物件 Utils 
+# 共用工具物件 (Utils) 
 
 共用邏輯性 extension, helper, hook, validation 可定義於此。 
 
@@ -1118,9 +1122,31 @@ const Sample = (props: IProps) => {
 
 
 
-# 應用說明 - 通用訊息呼叫方式
+# 應用 - 開發技巧
 
-預設提供全域訊息顯示的叫用機制，用以呈現文字資訊給用戶。
+提供一些常見的開發技巧。
+
+<br>
+
+
+- 使用 clsx 簡化條件式 class name 的操作
+    ``` typescript
+    import clsx from 'clsx'
+    const isActive = true
+    const otherClassName = 'red highlight'
+    const className = clsx('cp-button', isActive && 'active', otherClassName)
+    /* className = 'cp-button active red highlight' */
+    ```
+
+
+<br>
+<br>
+
+
+
+# 應用 - 通用訊息呼叫方式
+
+預設透過 msgSlice 提供全域訊息顯示的叫用機制，用以呈現文字資訊給用戶。
 
 <br>
 
@@ -1145,7 +1171,7 @@ showMsgBox({
 
 
 
-# 應用說明 - 監聽 Redux Action
+# 應用 - 監聽 Redux Action
 
 有時候我們只想要知道某個 Action 被 dispatch 了，然後需要在特定組件上執行某些行為，而無關乎 Action 透過 Reducer 變動了什麼數值；此時我們就可以透過監聽的方式來監看 Action 。
 
@@ -1181,17 +1207,18 @@ showMsgBox({
 <br>
 
 
-# 應用說明 - 站台載入流程
+# 應用 - 站台載入流程
 
-網站在載入時通常會有兩件事情需要處理，而本樣板已建立基礎流程，方便開發者完成下面兩件事情。
-- 載入網站前必需要完成的行為 (e.g. 取得網站參數)
-- 檢核用戶登入狀態及接續行為
+本樣板已建立基礎站台載入流程，方便處理以下兩個通用性的任務：
+- 執行載入網站前必需要完成的任務 (e.g. 呼叫 API 取得網站參數)
+- 檢核用戶登入狀態及處理接續行為
 
 <br>
 
-載入 app.tsx 後會先執行 initApp Thunk Action，只有順利完成這邊定義的行為(回傳 true)後，才會載入 router 進入對應頁面，因此針對載入網站前需要完成的行為可定義於此。
+網站載入 app.tsx 時會先執行 initApp Thunk Action，且只有在順利完成這邊定義的行為(回傳 true)後，才會載入 router 依據 URL 進入對應頁面，因此針對載入網站前需要完成的任務可定義於此。
 ``` typescript
 /* src/store/slices/appSlice.ts */
+
 export const initApp =
   (): AppThunk<Promise<boolean>> =>
     async (dispatch, getState) => {
@@ -1200,8 +1227,10 @@ export const initApp =
       // do some init app job here
       // ...
 
-      // 順利完成後發送 startApp 訊號  
-      dispatch(startApp())
+      if (isInitAppSuccess) {
+        // 順利完成後發送 startApp 訊號  
+        dispatch(startApp())
+      }
 
       return isInitAppSuccess
     }
@@ -1210,7 +1239,7 @@ export const initApp =
 <br>
 
 
-上述在順利完成載入網站所需要執行的動作後，隨即會發出 startApp Action 訊號觸發監聽此訊號的 authListenerMiddleware 中介層，而這邊就是一個登入狀態的狀態機(State Machine)，依據狀態來等待特定 Action 訊號進行下個動作，舉例如下：
+上述在順利完成載入網站前所需要執行的動作後，隨即會發出 startApp action 訊號觸發監聽此 action 的 authListenerMiddleware 中介層，而這邊就是一個登入狀態的狀態機(State Machine)，依據狀態來等待特定 action 訊號進行下個動作，舉例如下：
 
 - 目前尚未登入：
     - 等待登入成功訊號(loginSuccess action)
@@ -1225,8 +1254,10 @@ export const initApp =
 
 <br>
 
-/src/store/middleware/authListenerMiddleware.ts 
+
 ``` typescript
+/* /src/store/middleware/authListenerMiddleware.ts  */
+
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
 import { RootState } from '..'
 import { startApp, loginSuccess, logout, updateLoginInfo } from '../slices/appSlice'
@@ -1285,7 +1316,7 @@ export default authListenerMiddleware.middleware
 
 <br>
 
-所以執行登入由各組件執行，當登入成功後只需要送出登入成功訊號(loginSuccess action)，並且夾帶所需 authToken 資訊即可，後續行為都統一交給 authListenerMiddleware 控制；反之如果是要登出，就只要送出登出訊號(logout action)即可。
+因此登入行為由各組件執行，只需要在登入成功後送出登入成功訊號(loginSuccess action)，並且夾帶所需 authToken 資訊即可，後續行為都統一交給 authListenerMiddleware 控制；反之如果是要登出，也只要送出登出訊號(logout action)即可。
 
 ``` typescript
 
@@ -1308,6 +1339,51 @@ const onLoginFormSubmit = async (values: IFormValues, actions: FormikHelpers<IFo
 const onLogout = () =>  dispatch(logout())
 
 ```
+
+
+<br>
+<br>
+
+
+
+# 應用 - 識別版本
+
+當網站開發串上 CI / CD 後，全自動拉取最新版本程式進行建置部屬，所以有時候會對線上網站產生版本上的懷疑，因此我們把 git 的 commit id 補上作為識別，提供線上網站版本識別依據。
+
+- 使用 git-revision-webpack-plugin 取得本地端版控資訊 
+- 透過 Webpack DefinePlugin 設定到 process.env.APP_VERSION 中  
+  ``` typescript
+  const getAppVersionInfo = () => {
+    try {
+      // use git commit hash as version info
+      return `${gitRevisionPlugin.version()}@${gitRevisionPlugin.lastcommitdatetime()}@${Date.now()}`
+    } catch (error) {
+      return '[NO GIT INFO AS REFERENCE]'
+    }
+  }
+  
+  module.exports = {
+    webpack: {
+      configure: (webpackConfig: Configuration, { env, paths }: any) => {
+        // 加入 process.env 額外的環境變數
+        addDefinePluginEnvValue({
+          APP_VERSION: JSON.stringify(getAppVersionInfo())
+        }, webpackConfig)
+  
+        return webpackConfig
+      }
+    }
+  }
+  ```
+
+- 可以在 index.html 上查看版本資訊
+  ``` typescript
+  <!-- application version info -->
+  <div style="display: none;">
+        version: <%= process.env.APP_VERSION %>
+        <!--  version: a9ac24b@2023-01-12T18:11:44+08:00@1673573742077 -->
+  </div>
+  ```
 
 
 <br>

@@ -9,7 +9,7 @@ const Button = (props: IProps & ButtonHTMLAttributes<HTMLButtonElement>) => {
   const { className, outfit, type = 'button', children, ...restProps } = props
   return (
     <button
-      className={clsx('c-button', outfit && `c-button--outfit-${outfit}`, className)}
+      className={clsx('cp-button', outfit && `cp-button--outfit-${outfit}`, className)}
       type={type}
       {...restProps}
     >

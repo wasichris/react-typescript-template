@@ -32,25 +32,25 @@ const MsgBox = (props: IMsgBoxProps) => {
   return (
     <Modal
       {...props}
-      className='c-msg-box'
+      className='cp-msg-box'
       isCloseByEsc={isNoWayToClose || props.hasCloseBtn}
       isCloseByBackdrop={isNoWayToClose || props.hasCloseBtn}
     >
       {/* Close Button */}
-      {props.hasCloseBtn && <div className='c-msg-box__close-btn' onClick={props.onRequestClose} />}
+      {props.hasCloseBtn && <div className='cp-msg-box__close-btn' onClick={props.onRequestClose} />}
 
       {/* Header */}
-      <div className='c-msg-box__header'>
-        <div className='c-msg-box__title'> {props.title} </div>
+      <div className='cp-msg-box__header'>
+        <div className='cp-msg-box__title'> {props.title} </div>
       </div>
 
       {/* Body */}
-      <div className='c-msg-box__body'>
-        <div className="c-msg-box__content"> {props.content}</div>
+      <div className='cp-msg-box__body'>
+        <div className="cp-msg-box__content"> {props.content}</div>
       </div>
 
       {/* Footer */}
-      <div className="c-msg-box__footer">
+      <div className="cp-msg-box__footer">
         {props.mainBtn && <Button onClick={handleMainBtnClick} outfit='primary'>{props.mainBtn.label}</Button>}
         {props.minorBtn && <Button onClick={handleMinorBtnClick}>{props.minorBtn.label}</Button>}
       </div>

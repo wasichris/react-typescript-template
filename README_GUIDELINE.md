@@ -12,7 +12,7 @@
 
 ### 通用規範：
 
-- 共用方法請確實提供 JSDoc 註解說明使用方式。
+- 請確實提供 JSDoc 註解說明共用方法的作用與使用方式。
 - 使用 Functional Component 搭配 Hook 進行開發。
 
 <br>
@@ -916,7 +916,7 @@ const showMsgBox = (globalMsg: GlobalMsg) => store.dispatch(addGlobalMsg(globalM
 
 統一使用 Formik 搭配 yup 進行表單操作與檢核
 
-> 檢核錯誤文字盡量在需求訪談期間就規範好一致性(避免相同類型的錯誤要顯示不同文字 e.g. 請輸入介於 0 ~ 10 的數字 or 請輸入大於 0 小於 10 的數字)，並且不要包含 `欄位名稱` 在訊息中 (e.g. "請輸入用戶姓名" 可以使用 "請輸入資訊" 呈現就好)，這樣可以大幅降低開發複雜度
+> 檢核錯誤文字盡量在需求訪談期間就規範好一致性(避免相同類型的錯誤要顯示不同文字)，並且不要包含 `欄位名稱` 在訊息中 (e.g. "請輸入用戶姓名" 可以使用 "請輸入資訊" 呈現就好)，這樣可以大幅降低開發複雜度
 
 <br>
 
@@ -931,7 +931,8 @@ const showMsgBox = (globalMsg: GlobalMsg) => store.dispatch(addGlobalMsg(globalM
 
 
 - 先查看 yup 是否提供所需的檢核邏輯 (e.g. min, max, moreThan ...)
-- 不符需求可以自行建立檢核邏輯：  
+- 不符需求可以自行建立檢核 schema 邏輯： 
+
   `schema`:
     - 客製化的檢核邏輯定義於 schema.ts 中，變數命名使用 Schema 結尾 (e.g. maxDigitNumberSchema)
     - 請針對"獨立"通用檢核邏輯設立（e.g. 檢核字串長度是否在指定範圍內）
@@ -940,7 +941,7 @@ const showMsgBox = (globalMsg: GlobalMsg) => store.dispatch(addGlobalMsg(globalM
     - 組合性的檢核邏輯定義於 schemaChain.ts 中，變數命名使用小駝峰，名稱請貼近檢核對象類型(e.g. twMoneyAmt)
     - 請針對通用且有意義性資料的"複合性"檢核邏輯設立（e.g. 台幣金額[數字＋整數＋正數]）  
     <br>
-- 建立組件內私有 hook 來收納表單檢核邏輯，避免過多資訊造成頁面組件的複雜性提高  
+- 建立組件內私有 form hook 來收納表單檢核邏輯，避免過多資訊造成頁面組件的複雜性提高  
     - hook 檔案建立於 sub 資料夾 hooks 中 (e.g. src/pages/dev/Sample/hooks/)
     - 使用 use 開頭 + 表單名稱 + Form 結尾命名 hook (e.g. useSampleForm.ts)
     - 使用 `uf` (use form) code snippet 來建立表單 hook 代碼結構
@@ -995,7 +996,7 @@ twMoneyAmt: (isRequired: boolean, name?: string) => {
 }
 ```
 
-組件內私有 hook 來收納表單檢核邏輯
+組件內建立私有 form hook 來收納表單檢核邏輯
 ``` typescript
 import { FormikHelpers } from 'formik'
 import { useState } from 'react'
@@ -1050,7 +1051,8 @@ export default useSampleForm
 
 const Sample = (props: IProps) => {
 
-  // 表貪邏輯抽出至 hook 來降低此組件的複雜度
+  // 使用自定義 form hook 給定表單初始值
+  // 並從 form hook 取出表單檢核所需資訊
   const form = useSampleForm({ account: '', password: '', salary: 0 })
 
   return <>
@@ -1121,7 +1123,7 @@ const Sample = (props: IProps) => {
   可以對 Response 結果進行一致性的處理（e.g. 判斷結果碼來執行特定行為，如登出系統）
   
 - `src/store/middleware/apiErrorHandleMiddleware.ts`  
-  接收到非 HTTP 200 狀態則屬異常回應，會透過 Middleware 統一彈窗提示處理。
+  接收到非 HTTP 200 狀態的異常回應處理 (e.g. 彈窗提示)
 
 
 <br>
@@ -1138,7 +1140,7 @@ const Sample = (props: IProps) => {
 - src/utils/extensions/: 擴充方法(需在 index.tsx 載入)
 - src/utils/helper/: 共用邏輯方法
 - src/utils/hooks/: 組件共用 hook 邏輯
-
+- src/utils/validation/: 表單檢核邏輯
 
 <br>
 

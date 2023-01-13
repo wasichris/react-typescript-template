@@ -58,8 +58,8 @@
 - src/assets/scss/containers/: 通用容器樣式
 - src/assets/scss/pages/: 頁面樣式
 - src/assets/scss/normalize/
-    - _normalize.scss: 通用正規化樣式檔案(禁止修改)
-    - _normalize_custom.scss: 客製化的正規化樣式檔案
+    - _normalize.scss: 通用正規化樣式檔案(請勿異動)
+    - _normalize-custom.scss: 客製化的正規化樣式檔案
 - src/assets/scss/utils/
     - _function.scss: 定義 scss 方法
     - _mixins.scss: 定義 scss mixin 混和指令

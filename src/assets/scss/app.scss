@@ -5,6 +5,7 @@
 @import "./normalize/normalize_custom";
 @import "./components";
 @import "./containers";
+@import "./pages/";
 
 // =================================================================
 // =========== 工具性類別(可選用一組通用庫 e.g. tailwind) ==============
@@ -84,127 +85,5 @@
         padding: 10px 20px;
         margin: 0 auto;
         background-color: $color-bg-content;
-    }
-}
-
-// =================================================================
-// ==== 頁面樣式 (使用 pg prefix 的 page name 作為頂層 class name) =====
-// =================================================================
-
-.pg-dev {
-    padding: 20px 50px;
-    background-color: $color-bg-content;
-
-    .section {
-        padding: 15px;
-        margin: 20px 0;
-        border: 1px solid black;
-        border-radius: 5px;
-
-        &__title {
-            margin-top: 5px;
-        }
-
-        input {
-            max-width: 100%;
-        }
-    }
-
-    .input-group {
-        &__label {
-            display: inline-block;
-            width: 75px;
-            padding-right: 10px;
-            line-height: 40px;
-            vertical-align: top;
-        }
-
-        &__input {
-            display: inline-block;
-        }
-    }
-}
-
-.pg-login {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-
-    $box-radius: 10px;
-
-    .box {
-        display: flex;
-        width: 100%;
-        min-height: 400px;
-
-        @include respond-above {
-            width: 800px;
-            margin: 0 auto;
-        }
-
-        &__left {
-            display: none;
-            padding: 15px;
-
-            @include respond-above {
-                display: block;
-                min-width: 40%;
-                background-color: $color-main;
-                border-radius: $box-radius 0 0 $box-radius;
-            }
-        }
-
-        &__right {
-            width: 100%;
-            padding: 15px 30px;
-            background-color: white;
-            border-radius: $box-radius;
-
-            @include respond-above {
-                width: 60%;
-                border-radius: 0 $box-radius $box-radius 0;
-            }
-        }
-    }
-
-    .form {
-        &__title {
-            margin-top: 10px;
-            font-size: $base-font-size-32;
-            font-weight: bolder;
-        }
-
-        &__desc {
-            padding-bottom: 30px;
-            font-size: $base-font-size-12;
-            color: $color-caption;
-        }
-
-        &__input-group {
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 10px;
-
-            >label {
-                padding-bottom: 5px;
-            }
-        }
-
-        &__action-group {
-            display: flex;
-            flex-direction: row-reverse;
-            gap: 10px;
-            padding-top: 20px;
-            padding-bottom: 10px;
-        }
-
-        &__btn {
-            padding: 5px 20px;
-        }
     }
 }

@@ -26,6 +26,7 @@
 - src/: 主要程式碼區塊
 - src/assets/: 放置樣式相關資源(image/scss)
 - src/components/: 通用組件
+- src/containers/: 通用容器
 - src/constants/: 常數
 - src/environment/: 環境變數
 - src/i18n/: 多國語系相關檔案
@@ -53,8 +54,9 @@
 ### 路徑檔案：
 - src/assets/scss/
     - app.scss: 網站頁面樣式
-    - components.scss: 通用組件樣式
-    - containers.scss: 通用容器樣式
+- src/assets/scss/components/: 通用組件樣式
+- src/assets/scss/containers/: 通用容器樣式
+- src/assets/scss/pages/: 頁面樣式
 - src/assets/scss/normalize/
     - _normalize.scss: 通用正規化樣式檔案(禁止修改)
     - _normalize_custom.scss: 客製化的正規化樣式檔案
@@ -341,7 +343,7 @@ storage.lang = ''
 - 若需直接相依外部資源的功能性組件(e.g. OTP)，則歸類至 container 組件範圍，請於 containers 資料夾下定義。
 - 以 tsx 檔案建立組件，檔名為組件名稱，並使用大駝峰式命名。
 - 適度以資料夾為組件進行分類 (e.g. 表單類輸入組件都放置在 form 資料夾下，並以 Form 作為 prefix)
-- 組件樣式定義於 /assets/scss/components.scss 中。
+- 組件樣式定義於 /assets/scss/components/ 中。
 - 可使用 `fcf` (Functional Component by Filename) code snippet 建立組件結構，包含 IProps 介面定義。
 - 定義 Props 屬性使用小駝峰式命名並給予明確資料類型。
 
@@ -392,6 +394,37 @@ export default Button
 <br>
 
 
+# 容器組件 (Container) 
+
+重複出現的功能/樣式性區塊，且直接相依外部資源(e.g. 讀取全域狀態 redux 或呼叫 api 等行為)，請建立成容器組件以利重用。
+
+
+<br>
+
+### 路徑檔案：
+- src/containers/
+
+<br>
+
+### 開發規範：
+
+- 以資料夾為單位放置容器組件，使用大駝峰式命名，列如：  
+  `/src/container/OtpModal/`
+  - index.tsx 容器組件定義於此
+  - components/ 容器組件拆出的私有小組件  
+  (檔名為組件名稱，一個組件一個 tsx 檔案，並使用大駝峰式命名)
+  - hooks/ 容器組件拆出的私有邏輯 hook  
+  (檔名為Hook名稱，一個Hook一個 tsx 檔案，並使用 use 開頭的小駝峰式命名)
+- 組件樣式定義於 /assets/scss/containers/ 中。
+- 請使用 `fc` (Functional Component) code snippet 建立組件結構，需包含 IProps 介面定義。
+- Props 屬性請使用小駝峰式命名並明確給予資料類型。
+
+
+<br>
+<br>
+
+
+
 # 頁面組件 (Pages) 
 
 對應到 router 設定的每個對應頁面。 
@@ -410,13 +443,14 @@ export default Button
 ### 開發規範：
 
 - 請依照 router 設定的 url 階層放置頁面組件資料夾
-- 以資料夾為單位放置頁面組件，列如：  
+- 以資料夾為單位放置頁面組件，使用大駝峰式命名，列如：  
   `/src/pages/Public/Login/`
   - index.tsx 頁面組件定義於此
   - components/ 頁面組件拆出的私有小組件  
   (檔名為組件名稱，一個組件一個 tsx 檔案，並使用大駝峰式命名)
   - hooks/ 頁面組件拆出的私有邏輯 hook  
   (檔名為Hook名稱，一個Hook一個 tsx 檔案，並使用 use 開頭的小駝峰式命名)
+- 組件樣式定義於 /assets/scss/pages/ 中。
 - 請使用 `fc` (Functional Component) code snippet 建立組件結構，需包含 IProps 介面定義。
 - Props 屬性請使用小駝峰式命名並明確給予資料類型。
 

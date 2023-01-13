@@ -1,0 +1,21 @@
+.cp-modal {
+    &__backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: z(modal);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(0 0 0 / 40%);
+    }
+
+    &__box {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 90%;
+        max-height: 100vh;
+        background: white;
+        border-radius: 5px;
+    }
+}

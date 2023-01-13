@@ -1,0 +1,18 @@
+.cp-form-text-input {
+    &__input {
+        width: 100%;
+        padding: 2px 10px;
+        line-height: 30px;
+    }
+
+    &__caption {
+        font-size: smaller;
+        color: $color-caption;
+        text-align: right;
+    }
+
+    &__error {
+        color: $color-error;
+        text-align: right;
+    }
+}

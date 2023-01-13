@@ -1,0 +1,81 @@
+.cp-msg-box {
+    position: relative;
+    padding: 25px 30px;
+    animation: append-animate 0.1s linear;
+
+    @include respond-above {
+        max-width: 500px;
+    }
+
+    @keyframes append-animate {
+        from {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    &__header {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    &__body {
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 16px;
+        margin-top: 30px;
+        overflow-y: auto;
+
+        >* {
+            flex: 1;
+        }
+    }
+
+    &__title {
+        font-size: $base-font-size-20;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    &__close-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 15px;
+        height: 15px;
+        cursor: pointer;
+        opacity: 0.3;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        &::before,
+        &::after {
+            position: absolute;
+            left: 7px;
+            width: 1px;
+            height: 15px;
+            content: " ";
+            background-color: #333;
+        }
+
+        &::before {
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            transform: rotate(-45deg);
+        }
+    }
+}

@@ -79,7 +79,7 @@
         ```
     - 通用容器：根 class name 請使用 .ct- 開頭，並使用 kebab case 接上通用組件名
         ``` scss
-        .ct-otp-modal { /* for OtpModal container */}
+        .ct-app-layout { /* for AppLayout container */}
         ```
     - 頁面組件：根 class name 請使用 .pg- 開頭，並使用 kebab case 接上頁面組件名
         ``` scss

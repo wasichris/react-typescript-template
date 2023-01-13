@@ -1,6 +1,5 @@
-import React from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
-import logo from '../../assets/images/logo.svg'
+import { Outlet } from 'react-router-dom'
+import AppLayout from '../../containers/AppLayout'
 
 interface IProps {
 };
@@ -9,34 +8,14 @@ interface IProps {
  * 公開頁面的共用樣板
  */
 const Public = (props: IProps) => {
-  return <>
-    <header className="app-header">
+  return (
+    <AppLayout>
 
-      <img src={logo} alt="logo" className="app-header__logo" />
-      <span className="app-header__title">REACT</span>
+      {/* child route page */}
+      <Outlet />
 
-      <ul className="app-header__nav">
-        <li className="app-header__nav-item">
-          <NavLink to={'/dev/sample'}>Dev Sample</NavLink>
-        </li>
-
-        <li className="app-header__nav-item">
-          <NavLink to={'/public/login'}>Login</NavLink>
-        </li>
-      </ul>
-
-    </header>
-
-    <div className="app-body">
-      <div className="app-body__container">
-
-        {/* child route page */}
-        <Outlet />
-
-      </div>
-    </div>
-
-  </>
+    </AppLayout>
+  )
 }
 
 export default Public

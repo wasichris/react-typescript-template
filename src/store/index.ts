@@ -1,4 +1,4 @@
-import { Action, combineReducers, configureStore, DeepPartial, ThunkAction } from '@reduxjs/toolkit'
+import { Action, combineReducers, configureStore, PreloadedState, ThunkAction } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/dist/query'
 import { AppEnvEnum } from '../constants/enums'
 import environment from '../environment'
@@ -38,7 +38,7 @@ const middleware = [
 // Store
 export type RootState = ReturnType<typeof rootReducer>
 export const initStore =
-  (preloadedState?: DeepPartial<RootState>) => configureStore({
+  (preloadedState?: PreloadedState<RootState>) => configureStore({
     reducer: rootReducer,
 
     // Adding the api middleware enables caching, invalidation, polling,
@@ -55,7 +55,7 @@ export const initStore =
     devTools: environment.appEnv === AppEnvEnum.DEVELOPMENT,
 
     // preloaded state for unit test use
-    preloadedState: preloadedState as RootState
+    preloadedState
   })
 export const store = initStore()
 
@@ -67,9 +67,9 @@ export const persistor = persistStore(store)
 setupListeners(store.dispatch)
 
 // Type for Store
-export type AppStore = typeof store
+export type AppStore = ReturnType<typeof initStore>
 // Type for Store Dispatch
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = AppStore['dispatch']
 // Type for Redux-thunk
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

@@ -1,4 +1,4 @@
-import { DeepPartial } from '@reduxjs/toolkit'
+import { PreloadedState } from '@reduxjs/toolkit'
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Sample from '.'
@@ -116,9 +116,17 @@ describe('測試 Sample 範例頁面', () => {
   test('操作 store 執行 dispatch 變更 redux 狀態', () => {
     // Arrange
     // 測案需指定初始 state 時才需要設定 preloadedState
-    // 注意：如果指定 app slice 中某個屬性而已，則 app 其他狀態會視為 undefined
-    //      而其他 slice 並不會有影響，會使用預設的 initial state
-    const preloadedState: DeepPartial<RootState> = { app: { loadingApiList: ['api-01'] } }
+    // 注意：如果指定 app slice 狀態而已，
+    //      對於其他 slice 並不會有影響，會使用預設的 initial state
+    const preloadedState: PreloadedState<RootState> = {
+      app: {
+        isLogin: false,
+        authToken: '',
+        loadingApiList: ['api-01'],
+        _persist: { version: 1, rehydrated: false }
+      }
+    }
+
     const store = initStore(preloadedState)
 
     // Act
@@ -136,8 +144,8 @@ describe('測試 Sample 範例頁面', () => {
   test('操作 component 執行 dispatch 變更 redux 狀態', async () => {
     // Arrange
     // 測案需指定初始 state 時才需要設定 preloadedState
-    // 注意：如果指定 counter slice 中某個屬性而已，則 counter 其他狀態會視為 undefined
-    //      而其他 slice 並不會有影響，會使用預設的 initial state
+    // 注意：如果指定 counter slice 狀態而已，
+    //      對於其他 slice 並不會有影響，會使用預設的 initial state
     const { store } = renderWithProviders(<Sample />, {
       preloadedState: { counter: { value: 99 } }
     })

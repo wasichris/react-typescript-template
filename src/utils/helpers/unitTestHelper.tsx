@@ -1,13 +1,13 @@
-import React, { ReactElement } from 'react'
+import React, { PropsWithChildren, ReactElement } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { AppStore, initStore, RootState } from '../../store'
-import { DeepPartial } from '@reduxjs/toolkit'
+import { PreloadedState } from '@reduxjs/toolkit'
 
-type CustomRenderOption = Omit<RenderOptions, 'wrapper'> & {
-  preloadedState?: DeepPartial<RootState>,
-  store?: AppStore,
+interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
+  preloadedState?: PreloadedState<RootState>
+  store?: AppStore
   route?: string
 }
 
@@ -22,10 +22,10 @@ export const renderWithProviders = (
     // 傳入特定 route path 作為初始位置
     route = '/',
     ...renderOptions
-  }: CustomRenderOption = {}
+  }: ExtendedRenderOptions = {}
 ) => {
   window.history.pushState({}, 'testing page', route)
-  const Wrapper = ({ children }: { children: React.ReactNode }) => {
+  const Wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => {
     return (
       <Provider store={store} >
         <BrowserRouter>{children} </BrowserRouter>

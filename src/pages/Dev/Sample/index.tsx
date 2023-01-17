@@ -17,7 +17,7 @@ import { selectLoadingApiCounter } from '../../../store/slices/appSlice'
 import useSampleForm from './hooks/useSampleForm'
 import SampleImg from './components/SampleImg'
 import MsgBox from '../../../components/MsgBox'
-import { showMsgBox } from '../../../utils/helpers/commonHelper'
+import { showMsgBox } from '../../../utils/helpers/msgHelper'
 import Modal from '../../../components/common/Modal'
 
 interface IProps {

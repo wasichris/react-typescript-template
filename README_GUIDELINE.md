@@ -1188,7 +1188,7 @@ const Sample = (props: IProps) => {
 
 ### 程式範例：
 ``` typescript
-import { showMsgBox } from '/utils/helpers/commonHelper'
+import { showMsgBox } from '/utils/helpers/msgHelper'
 
 showMsgBox({
     content: '這是第一個訊息。',

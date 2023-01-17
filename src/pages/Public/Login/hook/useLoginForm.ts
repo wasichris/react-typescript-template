@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
 import sampleApi from '../../../../services/api/sampleApi'
 import { loginSuccess } from '../../../../store/slices/appSlice'
-import { getRequiredMsg, showMsgBox } from '../../../../utils/helpers/commonHelper'
+import { getRequiredMsg } from '../../../../utils/helpers/commonHelper'
+import { showMsgBox } from '../../../../utils/helpers/msgHelper'
 import useAppDispatch from '../../../../utils/hooks/useAppDispatch'
 
 interface IFormValues {

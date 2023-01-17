@@ -1,7 +1,7 @@
 
 import { Action, MiddlewareAPI, isRejectedWithValue, Middleware } from '@reduxjs/toolkit'
 import { AppDispatch, RootState } from '..'
-import { showMsgBox } from '../../utils/helpers/commonHelper'
+import { showMsgBox } from '../../utils/helpers/msgHelper'
 import { logout } from '../slices/appSlice'
 
 /**

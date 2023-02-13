@@ -4,6 +4,7 @@ import useAppDispatch from '../../utils/hooks/useAppDispatch'
 import useAppSelector from '../../utils/hooks/useAppSelector'
 import logo from '../../assets/images/logo.svg'
 import { PropsWithChildren } from 'react'
+import clsx from 'clsx'
 
 interface IProps {
   isAuthRequired?: boolean
@@ -23,6 +24,10 @@ const AppLayout = (props: PropsWithChildren<IProps>) => {
     dispatch(logout())
   }
 
+  const getLinkClassName = ({ isActive }: { isActive: boolean }) => {
+    return clsx('app-header__link', isActive && 'app-header__link--active')
+  }
+
   return (
     <div className='ct-app-layout'>
 
@@ -38,11 +43,11 @@ const AppLayout = (props: PropsWithChildren<IProps>) => {
           {!isLogin && <>
 
             <li className="app-header__nav-item">
-              <NavLink to={'/dev/sample'}>Dev Sample</NavLink>
+              <NavLink className={getLinkClassName} to={'/dev/sample'}>Dev Sample</NavLink>
             </li>
 
             <li className="app-header__nav-item">
-              <NavLink to={'/public/login'}>Login</NavLink>
+              <NavLink className={getLinkClassName} to={'/public/login'}>Login</NavLink>
             </li>
           </>}
 
@@ -50,15 +55,15 @@ const AppLayout = (props: PropsWithChildren<IProps>) => {
           {isLogin && <>
 
             <li className="app-header__nav-item">
-              <NavLink to={'/home/main'}>Main</NavLink>
-            </li>
-
-            <li className="app-header__nav-item app-header__nav-item--active">
-              <NavLink to={'/home/edit-profile'}>Profile</NavLink>
+              <NavLink className={getLinkClassName} to={'/home/main'}>Main</NavLink>
             </li>
 
             <li className="app-header__nav-item">
-              <a onClick={handleLogout}>Logout</a>
+              <NavLink className={getLinkClassName} to={'/home/edit-profile'}>Profile</NavLink>
+            </li>
+
+            <li className="app-header__nav-item">
+              <a className='app-header__link' onClick={handleLogout}>Logout</a>
             </li>
 
           </>}

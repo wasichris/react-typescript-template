@@ -28,15 +28,19 @@
 
         &__nav-item {
             margin: 0 10px;
+        }
 
-            >a,
-            button {
-                color: #fff;
-                cursor: pointer;
+        &__link {
+            color: #fff;
+            cursor: pointer;
 
-                &:hover {
-                    color: $color-btn;
-                }
+            &:hover {
+                color: $color-btn;
+            }
+
+            &--active {
+                font-weight: bolder;
+                color: $color-btn;
             }
         }
     }

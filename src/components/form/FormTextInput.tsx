@@ -12,16 +12,22 @@ const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttri
 
   const hasError = (meta.touched || field.value) && meta.error
 
+  const updateValue = (value: string) => {
+    if (props.type === 'number') {
+      helpers.setValue(value ? Number(value) : null)
+    } else {
+      helpers.setValue(value)
+    }
+  }
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    helpers.setValue(value)
+    updateValue(e.target.value)
     if (props.onChange) props.onChange(e)
   }
 
   const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
-    const value = e.target.value
     helpers.setTouched(true)
-    helpers.setValue(value)
+    updateValue(e.target.value)
     if (props.onBlur) props.onBlur(e)
   }
 

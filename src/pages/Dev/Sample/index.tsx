@@ -38,7 +38,7 @@ const Sample = (props: IProps) => {
   }
 
   // 範例：formik (邏輯抽出至 hook 來降低此組件的複雜度)
-  const form = useSampleForm({ account: '', password: '', salary: 0 })
+  const form = useSampleForm({ account: '', password: '', salary: null })
 
   // 範例：redux
   const counterValue = useAppSelector(state => state.counter.value)
@@ -166,7 +166,7 @@ const Sample = (props: IProps) => {
 
             <div className='input-group'>
               <label className='input-group__label' htmlFor='salary' > {t('__salary' /* 月薪 */)} </label>
-              <FormTextInput className='input-group__input' id="salary" name="salary" type="text" caption={t('__useTwd' /* 使用臺幣為單位 */)} />
+              <FormTextInput className='input-group__input' id="salary" name="salary" type="number" caption={t('__useTwd' /* 使用臺幣為單位 */)} />
             </div>
 
             <input
@@ -183,7 +183,7 @@ const Sample = (props: IProps) => {
 
             <input
               type="button"
-              onClick={() => form.setInitFormValues({ ...form.initFormValues, salary: values.salary + 1 })}
+              onClick={() => form.setInitFormValues({ ...form.initFormValues, salary: values.salary !== null ? values.salary + 1 : 0 })}
               value={'搭配 enableReinitialize 重新給予初始值來 re-init 表單（可能是從遠端來的資料）'} />
 
           </Form>

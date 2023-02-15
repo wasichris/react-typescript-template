@@ -14,7 +14,7 @@ import schemaChain from '../../../../utils/validations/schemaChain'
 interface IFormValues {
   account: string,
   password: string,
-  salary: number
+  salary: number | null
 }
 
 const useSampleForm = (initValues: IFormValues) => {

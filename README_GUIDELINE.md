@@ -1010,7 +1010,7 @@ import schemaChain from '/utils/validations/schemaChain'
 interface IFormValues {
   account: string,
   password: string,
-  salary: number
+  salary: number | null
 }
 
 const useSampleForm = (initValues: IFormValues) => {
@@ -1047,13 +1047,14 @@ export default useSampleForm
 ```
 
 表單主體
+> 表單物件屬性必須匹配 input 元素的 type 類型，例如以下 salary 為 number 類別，因此需要匹配 type="number" 的 input 輸入框才能取得正確類型的數值。
 ``` typescript
 
 const Sample = (props: IProps) => {
 
   // 使用自定義 form hook 給定表單初始值
   // 並從 form hook 取出表單檢核所需資訊
-  const form = useSampleForm({ account: '', password: '', salary: 0 })
+  const form = useSampleForm({ account: '', password: '', salary: null })
 
   return <>
    <section>
@@ -1061,7 +1062,7 @@ const Sample = (props: IProps) => {
       <Formik
         enableReinitialize
         initialValues={form.initFormValues}
-        validationSchema={form.validationSchema()}
+        validationSchema={form.validationSchema}
         onSubmit={form.onFormSubmit}
       >
         {({ dirty, isValid, resetForm, values }) => (
@@ -1079,7 +1080,7 @@ const Sample = (props: IProps) => {
 
             <div>
               <label htmlFor='salary' > {t('__salary' /* 月薪 */)} </label>
-              <FormTextInput id="salary" name="salary" type="text" caption={t('__useTwd' /* 使用臺幣為單位 */)} />
+              <FormTextInput id="salary" name="salary" type="number" caption={t('__useTwd' /* 使用臺幣為單位 */)} />
             </div>
 
             <input
@@ -1096,7 +1097,7 @@ const Sample = (props: IProps) => {
 
             <input
               type="button"
-              onClick={() => form.setInitFormValues({ ...form.initFormValues, salary: values.salary + 1 })}
+              onClick={() => form.setInitFormValues({ ...form.initFormValues, salary: values.salary !== null ? values.salary + 1 : 0 })}
               value={'搭配 enableReinitialize 重新給予初始值來 re-init 表單（可能是從遠端來的資料）'} />
 
           </Form>

@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { FieldHookConfig, useField } from 'formik'
-import { ChangeEvent, ClassAttributes, FocusEvent, InputHTMLAttributes } from 'react'
+import { ChangeEvent, ClassAttributes, FocusEvent, InputHTMLAttributes, KeyboardEvent, WheelEvent } from 'react'
 
 interface IProps {
   caption?: string | null
@@ -9,11 +9,11 @@ interface IProps {
 const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttributes<HTMLInputElement> &
   ClassAttributes<HTMLInputElement> & FieldHookConfig<string | number | null>) => {
   const [field, meta, helpers] = useField(props)
-
   const hasError = (meta.touched || field.value) && meta.error
+  const isNumberType = props.type === 'number'
 
   const updateValue = (value: string) => {
-    if (props.type === 'number') {
+    if (isNumberType) {
       helpers.setValue(value ? Number(value) : null)
     } else {
       helpers.setValue(value)
@@ -31,6 +31,27 @@ const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttri
     if (props.onBlur) props.onBlur(e)
   }
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const invalidChars = ['-', '+', 'e']
+    if (isNumberType && invalidChars.includes(e.key)) {
+      e.preventDefault()
+    }
+  }
+
+  const handleWheel = (e: WheelEvent<HTMLInputElement>) => {
+    // avoid scrolling wheel to change the number value
+    isNumberType && e.currentTarget.blur()
+  }
+
+  const getInputMode = () => {
+    switch (props.type) {
+      case 'number': return 'decimal'
+      case 'tel': return 'tel'
+      case 'email': return 'email'
+      default: return undefined
+    }
+  }
+
   const hasValue = (value: string | number | null) => {
     return value !== null && value !== undefined
   }
@@ -44,9 +65,12 @@ const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttri
         // As undefined is equal to null in js, an input value cannot be undefined either.
         // So change the null/undefined value to '' to make the input a controlled component.
         value={hasValue(field.value) ? field.value! : ''}
+        inputMode={getInputMode()}
         className="cp-form-text-input__input"
         onChange={handleChange}
         onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
+        onWheel={handleWheel}
         autoComplete="off"
       />
 

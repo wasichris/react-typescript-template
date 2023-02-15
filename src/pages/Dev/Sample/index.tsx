@@ -148,7 +148,7 @@ const Sample = (props: IProps) => {
       <Formik
         enableReinitialize
         initialValues={form.initFormValues}
-        validationSchema={form.validationSchema()}
+        validationSchema={form.validationSchema}
         onSubmit={form.onFormSubmit}
       >
         {({ dirty, isValid, resetForm, values }) => (

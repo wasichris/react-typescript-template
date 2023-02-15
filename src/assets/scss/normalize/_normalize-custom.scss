@@ -73,3 +73,16 @@ a {
         filter: brightness(1.1);
     }
 }
+
+/* Hide Arrows From Input Number */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* Chrome, Safari, Edge, Opera */
+    appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    /* Firefox */
+    appearance: textfield;
+}

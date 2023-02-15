@@ -7,7 +7,7 @@ interface IProps {
 }
 
 const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttributes<HTMLInputElement> &
-  ClassAttributes<HTMLInputElement> & FieldHookConfig<string>) => {
+  ClassAttributes<HTMLInputElement> & FieldHookConfig<string | number | null>) => {
   const [field, meta, helpers] = useField(props)
 
   const hasError = (meta.touched || field.value) && meta.error
@@ -25,11 +25,19 @@ const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttri
     if (props.onBlur) props.onBlur(e)
   }
 
+  const hasValue = (value: string | number | null) => {
+    return value !== null && value !== undefined
+  }
+
   return (
     <div className={clsx('cp-form-text-input', className)}>
       <input
         {...field}
         {...props}
+        // ReactDOM considers an input as a controlled component only when its value != null.
+        // As undefined is equal to null in js, an input value cannot be undefined either.
+        // So change the null/undefined value to '' to make the input a controlled component.
+        value={hasValue(field.value) ? field.value! : ''}
         className="cp-form-text-input__input"
         onChange={handleChange}
         onBlur={handleBlur}

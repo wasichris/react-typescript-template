@@ -1,7 +1,7 @@
 import Button from './Button'
 import Modal, { IBaseModalProps } from './common/Modal'
 
-export declare interface IMsgBoxProps extends IBaseModalProps {
+export interface IMsgBoxProps extends IBaseModalProps {
   title: string,
   content: string,
   hasCloseBtn?: boolean,

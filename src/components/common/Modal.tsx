@@ -5,7 +5,7 @@ import { freezeBody, unfreezeBody } from '../../utils/helpers/domHelper'
 import useClickOutsideHandler from '../../utils/hooks/useClickOutsideHandler'
 import useKeyDownHandler from '../../utils/hooks/useKeyDownHandler'
 
-export declare interface IBaseModalProps {
+export interface IBaseModalProps {
   isVisible: boolean,
   onRequestClose: () => void
 }

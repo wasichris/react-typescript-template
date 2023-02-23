@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { FieldHookConfig, useField } from 'formik'
-import { ChangeEvent, ClassAttributes, FocusEvent, InputHTMLAttributes, KeyboardEvent, WheelEvent } from 'react'
+import { ChangeEvent, ClassAttributes, FocusEvent, InputHTMLAttributes, KeyboardEvent, useEffect, useRef } from 'react'
 
 interface IProps {
   caption?: string | null
@@ -11,10 +11,26 @@ const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttri
   const [field, meta, helpers] = useField(props)
   const hasError = (meta.touched || field.value) && meta.error
   const isNumberType = props.type === 'number'
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    // avoid scrolling wheel to change the number value
+    const input = inputRef.current
+    const handleWheel = (e: WheelEvent) => {
+      if (isNumberType && input === document.activeElement) {
+        e.preventDefault()
+      }
+    }
+    input?.addEventListener('wheel', handleWheel)
+
+    return () => {
+      input?.removeEventListener('wheel', handleWheel)
+    }
+  }, [isNumberType])
 
   const updateValue = (value: string) => {
     if (isNumberType) {
-      helpers.setValue(value ? Number(value) : null)
+      helpers.setValue(value ? Number(value) : value)
     } else {
       helpers.setValue(value)
     }
@@ -36,11 +52,6 @@ const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttri
     if (isNumberType && invalidChars.includes(e.key)) {
       e.preventDefault()
     }
-  }
-
-  const handleWheel = (e: WheelEvent<HTMLInputElement>) => {
-    // avoid scrolling wheel to change the number value
-    isNumberType && e.currentTarget.blur()
   }
 
   const getInputMode = () => {
@@ -70,7 +81,7 @@ const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttri
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
-        onWheel={handleWheel}
+        ref={inputRef}
         autoComplete="off"
       />
 

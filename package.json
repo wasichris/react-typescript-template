@@ -16,6 +16,7 @@
     "clsx": "^1.2.1",
     "formik": "^2.2.9",
     "i18next": "^22.0.8",
+    "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.1.1",

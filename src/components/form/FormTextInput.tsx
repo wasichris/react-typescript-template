@@ -21,7 +21,7 @@ const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttri
         e.preventDefault()
       }
     }
-    input?.addEventListener('wheel', handleWheel)
+    input?.addEventListener('wheel', handleWheel, { passive: false })
 
     return () => {
       input?.removeEventListener('wheel', handleWheel)

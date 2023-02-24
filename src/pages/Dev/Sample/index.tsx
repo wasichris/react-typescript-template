@@ -37,6 +37,9 @@ const Sample = (props: IProps) => {
     storage.lang = lang
   }
 
+  // 範例：select items from enum
+  const [selectedGender, setSelectedGender] = useState(GenderEnum.MALE)
+
   // 範例：formik (邏輯抽出至 hook 來降低此組件的複雜度)
   const form = useSampleForm({ account: '', password: '', salary: null })
 
@@ -119,16 +122,16 @@ const Sample = (props: IProps) => {
       <h2 className='section__title'>使用Enum產生選單</h2>
       <div>
         <p>使用 GenderEnum 產生選單</p>
-        <select name="gender" id="gender">
+        <select name="gender" id="gender" value={selectedGender} onChange={e => setSelectedGender(e.target.value)}>
           {getEnumOptions(GenderEnum).map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       </div>
       <div>
         可以使用 GenderEnum 值取得定義的 description 文字
       </div>
-      <input type="button" value="get GenderEnum.MALE description" onClick={() => {
-        const description = getEnumDescription(GenderEnum, GenderEnum.MALE)
-        alert(description)
+      <input type="button" value="get description" onClick={() => {
+        const description = getEnumDescription(GenderEnum, selectedGender)
+        alert(`gender value '${selectedGender}' is ${description}`)
       }} />
     </section>
 

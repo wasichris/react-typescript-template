@@ -41,6 +41,7 @@ Example:
 * fcf: create `functional component by filename` 
 * af: create `arrow function` 
 * uf: create `useForm` hook
+* ff: create `formik form` JSX
 * b: create BEM `block` in scss file
 * e: create BEM `element` in scss file
 * m: create BEM `modifier` in scss file

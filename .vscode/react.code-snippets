@@ -65,6 +65,7 @@
     "prefix": "ff",
     "body": [
       "<Formik",
+      "  validateOnMount",
       "  enableReinitialize",
       "  initialValues={${1:form}.initFormValues}",
       "  validationSchema={${1:form}.validationSchema}",

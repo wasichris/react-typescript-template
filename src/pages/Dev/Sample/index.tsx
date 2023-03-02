@@ -41,7 +41,7 @@ const Sample = (props: IProps) => {
   const [selectedGender, setSelectedGender] = useState(GenderEnum.MALE)
 
   // 範例：formik (邏輯抽出至 hook 來降低此組件的複雜度)
-  const form = useSampleForm({ account: '', password: '', salary: null })
+  const form = useSampleForm({ account: '', password: '', age: null, salary: null })
 
   // 範例：redux
   const counterValue = useAppSelector(state => state.counter.value)
@@ -148,6 +148,7 @@ const Sample = (props: IProps) => {
 
     <section className='section'>
       <h2 className='section__title'>表單檢核</h2>
+
       <Formik
         enableReinitialize
         initialValues={form.initFormValues}
@@ -165,6 +166,11 @@ const Sample = (props: IProps) => {
             <div className='input-group'>
               <label className='input-group__label' htmlFor='password' > {t('__pwd' /* 密碼 */)} </label>
               <FormTextInput className='input-group__input' id='password' name='password' type='password' />
+            </div>
+
+            <div className='input-group'>
+              <label className='input-group__label' htmlFor='age' > {t('__age' /* 年齡 */)} </label>
+              <FormTextInput className='input-group__input' id='age' name='age' type='number' />
             </div>
 
             <div className='input-group'>

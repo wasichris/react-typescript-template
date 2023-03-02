@@ -14,6 +14,7 @@ import schemaChain from '../../../../utils/validations/schemaChain'
 interface IFormValues {
   account: string,
   password: string,
+  age: number | null,
   salary: number | null
 }
 
@@ -32,6 +33,9 @@ const useSampleForm = (initValues: IFormValues) => {
         // 如果必填錯誤訊息不需要欄位名稱，就回應預設通用訊息"請輸入資訊"
         yup.string().required()
           .concat(strLengthRangeSchema(2, 10)), // 自定邏輯
+      age:
+        // 數字在非必填時，必須加上 nullable 來允許 null 值
+        yup.number().nullable(), // 內建邏輯
       salary:
         schemaChain
           .twMoneyAmt(false, t('__salary' /* 月薪 */)!) // 自定邏輯串(針對通用且有意義性的資料類型)

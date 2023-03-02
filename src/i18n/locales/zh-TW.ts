@@ -30,6 +30,7 @@ export default {
   __submit: `送出`,
   __understand: `知道了`,
   __salary: `月薪`,
-  __useTwd: `使用臺幣為單位`
+  __useTwd: `使用臺幣為單位`,
+  __age: `年齡`
 
 }

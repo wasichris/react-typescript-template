@@ -12,7 +12,7 @@ import * as yup from 'yup'
  * @returns schema
  */
 export const strLengthRangeSchema = (min = 0, max = 10) =>
-  yup.string().test({
+  yup.string().nullable().test({
     name: 'strLengthRangeSchema',
     exclusive: true,
     params: { min, max }, // 這裡的值會可以被帶到 message 中使用
@@ -29,7 +29,7 @@ export const strLengthRangeSchema = (min = 0, max = 10) =>
  * @returns schema
 */
 export const maxDigitNumberSchema = (max = 1) =>
-  yup.number().test({
+  yup.number().nullable().test({
     name: 'maxDigitNumberSchema',
     exclusive: true,
     params: { max },

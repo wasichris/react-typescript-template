@@ -936,6 +936,7 @@ const showMsgBox = (globalMsg: GlobalMsg) => store.dispatch(addGlobalMsg(globalM
   `schema`:
     - 客製化的檢核邏輯定義於 schema.ts 中，變數命名使用 Schema 結尾 (e.g. maxDigitNumberSchema)
     - 請針對"獨立"通用檢核邏輯設立（e.g. 檢核字串長度是否在指定範圍內）
+    - 請加上 .nullable() 並在判斷式中判斷有值時才進行邏輯檢核
 
   `schemaChain`:
     - 組合性的檢核邏輯定義於 schemaChain.ts 中，變數命名使用小駝峰，名稱請貼近檢核對象類型(e.g. twMoneyAmt)
@@ -960,7 +961,7 @@ const showMsgBox = (globalMsg: GlobalMsg) => store.dispatch(addGlobalMsg(globalM
  * @returns schema
 */
 export const maxDigitNumberSchema = (max = 1) =>
-  yup.number().test({
+  yup.number().nullable().test({
     name: 'maxDigitNumberSchema',
     exclusive: true,
     params: { max },
@@ -989,7 +990,7 @@ twMoneyAmt: (isRequired: boolean, name?: string) => {
         ? name
           ? yup.number().required(getRequiredMsg(name))
           : yup.number().required()
-        : yup.number())
+        : yup.number().nullable())
     .integer()
     .moreThan(0)
     .concat(maxDigitNumberSchema(10))
@@ -997,6 +998,7 @@ twMoneyAmt: (isRequired: boolean, name?: string) => {
 ```
 
 組件內建立私有 form hook 來收納表單檢核邏輯
+> 數字檢核邏輯在非必填時，必須加上 nullable 來允許 null 值
 ``` typescript
 import { FormikHelpers } from 'formik'
 import { useState } from 'react'
@@ -1010,6 +1012,7 @@ import schemaChain from '/utils/validations/schemaChain'
 interface IFormValues {
   account: string,
   password: string,
+  age: number | null,
   salary: number | null
 }
 
@@ -1028,6 +1031,9 @@ const useSampleForm = (initValues: IFormValues) => {
         // 如果必填錯誤訊息不需要欄位名稱，就回應預設通用訊息"請輸入資訊"
         yup.string().required()
           .concat(strLengthRangeSchema(2, 10)), // 自定邏輯
+      age:
+        // 數字在非必填時必須加上 nullable 來允許 null 值
+        yup.number().nullable(), // 內建邏輯
       salary:
         schemaChain
           .twMoneyAmt(true, t('__salary' /* 月薪 */)!) // 自定邏輯串(針對通用且有意義性的資料類型)
@@ -1076,6 +1082,11 @@ const Sample = (props: IProps) => {
             <div>
               <label htmlFor='password' > {t('__pwd' /* 密碼 */)} </label>
               <FormTextInput id="password" name="password" type="password" />
+            </div>
+
+            <div className='input-group'>
+              <label htmlFor='age' > {t('__age' /* 年齡 */)} </label>
+              <FormTextInput id='age' name='age' type='number' />
             </div>
 
             <div>

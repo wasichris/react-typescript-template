@@ -30,6 +30,7 @@ export default {
   __submit: `Submit`,
   __understand: `Understand`,
   __salary: `Salary`,
-  __useTwd: `Please use TWD`
+  __useTwd: `Please use TWD`,
+  __age: `Age`
 
 }

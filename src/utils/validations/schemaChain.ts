@@ -24,7 +24,7 @@ export default {
           ? name
             ? yup.number().required(getRequiredMsg(name))
             : yup.number().required()
-          : yup.number())
+          : yup.number().nullable())
       .integer()
       .moreThan(0)
       .concat(maxDigitNumberSchema(10))

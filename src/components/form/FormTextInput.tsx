@@ -28,6 +28,14 @@ const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttri
     }
   }, [isNumberType])
 
+  useEffect(() => {
+    // Convert null field values to empty strings.
+    // Otherwise, Formik will treat null as an invalid number or string and generate an error.
+    if (!hasValue(field.value)) {
+      helpers.setValue('')
+    }
+  }, [field.value, helpers])
+
   const updateValue = (value: string) => {
     if (isNumberType) {
       helpers.setValue(value ? Number(value) : value)
@@ -77,19 +85,19 @@ const FormTextInput = ({ caption, className, ...props }: IProps & InputHTMLAttri
         // So change the null/undefined value to '' to make the input a controlled component.
         value={hasValue(field.value) ? field.value! : ''}
         inputMode={getInputMode()}
-        className="cp-form-text-input__input"
+        className='cp-form-text-input__input'
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
         ref={inputRef}
-        autoComplete="off"
+        autoComplete='off'
       />
 
       {/* 提示文字 */}
-      {caption ? <div className="cp-form-text-input__caption"> {caption} </div> : null}
+      {caption ? <div className='cp-form-text-input__caption'> {caption} </div> : null}
 
       {/* 檢核錯誤提示 */}
-      {hasError ? <div className="cp-form-text-input__error" > {meta.error} </div> : null}
+      {hasError ? <div className='cp-form-text-input__error' > {meta.error} </div> : null}
     </div>
   )
 }

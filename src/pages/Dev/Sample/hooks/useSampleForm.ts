@@ -34,7 +34,7 @@ const useSampleForm = (initValues: IFormValues) => {
           .concat(strLengthRangeSchema(2, 10)), // 自定邏輯
       salary:
         schemaChain
-          .twMoneyAmt(true, t('__salary' /* 月薪 */)!) // 自定邏輯串(針對通用且有意義性的資料類型)
+          .twMoneyAmt(false, t('__salary' /* 月薪 */)!) // 自定邏輯串(針對通用且有意義性的資料類型)
     })
 
   // 送出表單

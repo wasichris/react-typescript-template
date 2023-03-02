@@ -32,21 +32,21 @@ const AppLayout = (props: PropsWithChildren<IProps>) => {
     <div className='ct-app-layout'>
 
       {/* Header */}
-      <header className="app-header">
+      <header className='app-header'>
 
-        <img src={logo} alt="logo" className="app-header__logo" />
-        <span className="app-header__title">REACT</span>
+        <img src={logo} alt='logo' className='app-header__logo' />
+        <span className='app-header__title'>REACT</span>
 
-        <ul className="app-header__nav">
+        <ul className='app-header__nav'>
 
           {/* 未登入選單 */}
           {!isLogin && <>
 
-            <li className="app-header__nav-item">
+            <li className='app-header__nav-item'>
               <NavLink className={getLinkClassName} to={'/dev/sample'}>Dev Sample</NavLink>
             </li>
 
-            <li className="app-header__nav-item">
+            <li className='app-header__nav-item'>
               <NavLink className={getLinkClassName} to={'/public/login'}>Login</NavLink>
             </li>
           </>}
@@ -54,15 +54,15 @@ const AppLayout = (props: PropsWithChildren<IProps>) => {
           {/* 已登入選單 */}
           {isLogin && <>
 
-            <li className="app-header__nav-item">
+            <li className='app-header__nav-item'>
               <NavLink className={getLinkClassName} to={'/home/main'}>Main</NavLink>
             </li>
 
-            <li className="app-header__nav-item">
+            <li className='app-header__nav-item'>
               <NavLink className={getLinkClassName} to={'/home/edit-profile'}>Profile</NavLink>
             </li>
 
-            <li className="app-header__nav-item">
+            <li className='app-header__nav-item'>
               <a className='app-header__link' onClick={handleLogout}>Logout</a>
             </li>
 
@@ -73,8 +73,8 @@ const AppLayout = (props: PropsWithChildren<IProps>) => {
       </header>
 
       {/* Body */}
-      <div className="app-body">
-        <div className="app-body__container">
+      <div className='app-body'>
+        <div className='app-body__container'>
 
           {/* child */}
           {props.children}

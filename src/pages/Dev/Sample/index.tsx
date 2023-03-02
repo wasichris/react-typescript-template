@@ -95,7 +95,7 @@ const Sample = (props: IProps) => {
 
   // ===
 
-  return <div className="pg-dev">
+  return <div className='pg-dev'>
 
     <h1>Dev - Sample Page</h1>
 
@@ -111,25 +111,25 @@ const Sample = (props: IProps) => {
       <h2 className='section__title'>使用導航</h2>
       user id from url: {userId}
       <br />
-      <input type="button" value="go to /dev/sample/user01" onClick={() => { navigate('/dev/sample/user01') }} data-testid="goUser01Btn" />
+      <input type='button' value='go to /dev/sample/user01' onClick={() => { navigate('/dev/sample/user01') }} data-testid='goUser01Btn' />
       <br />
-      <input type="button" value="go to /dev/sample/user02" onClick={() => { navigate('/dev/sample/user02') }} />
+      <input type='button' value='go to /dev/sample/user02' onClick={() => { navigate('/dev/sample/user02') }} />
       <br />
-      <Link data-testid="goUser03Link" to="/dev/sample/user03?id=1234">go to /dev/sample/user03 by link</Link>
+      <Link data-testid='goUser03Link' to='/dev/sample/user03?id=1234'>go to /dev/sample/user03 by link</Link>
     </section>
 
     <section className='section' >
       <h2 className='section__title'>使用Enum產生選單</h2>
       <div>
         <p>使用 GenderEnum 產生選單</p>
-        <select name="gender" id="gender" value={selectedGender} onChange={e => setSelectedGender(e.target.value)}>
+        <select name='gender' id='gender' value={selectedGender} onChange={e => setSelectedGender(e.target.value)}>
           {getEnumOptions(GenderEnum).map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
       </div>
       <div>
         可以使用 GenderEnum 值取得定義的 description 文字
       </div>
-      <input type="button" value="get description" onClick={() => {
+      <input type='button' value='get description' onClick={() => {
         const description = getEnumDescription(GenderEnum, selectedGender)
         alert(`gender value '${selectedGender}' is ${description}`)
       }} />
@@ -142,8 +142,8 @@ const Sample = (props: IProps) => {
         <li>{t('__understand')}</li>
       </ul>
       <br />
-      <input type="button" value="en" onClick={() => { changeLang(LangEnum.EN) }} />
-      <input type="button" value="zh-TW" onClick={() => { changeLang(LangEnum.ZH_TW) }} />
+      <input type='button' value='en' onClick={() => { changeLang(LangEnum.EN) }} />
+      <input type='button' value='zh-TW' onClick={() => { changeLang(LangEnum.ZH_TW) }} />
     </section>
 
     <section className='section'>
@@ -159,33 +159,33 @@ const Sample = (props: IProps) => {
 
             <div className='input-group'>
               <label className='input-group__label' htmlFor='account' > {t('__account' /* 帳號 */)}</label>
-              <FormTextInput className='input-group__input' id="account" name="account" type="text" />
+              <FormTextInput className='input-group__input' id='account' name='account' type='text' />
             </div>
 
             <div className='input-group'>
               <label className='input-group__label' htmlFor='password' > {t('__pwd' /* 密碼 */)} </label>
-              <FormTextInput className='input-group__input' id="password" name="password" type="password" />
+              <FormTextInput className='input-group__input' id='password' name='password' type='password' />
             </div>
 
             <div className='input-group'>
               <label className='input-group__label' htmlFor='salary' > {t('__salary' /* 月薪 */)} </label>
-              <FormTextInput className='input-group__input' id="salary" name="salary" type="number" caption={t('__useTwd' /* 使用臺幣為單位 */)} />
+              <FormTextInput className='input-group__input' id='salary' name='salary' type='number' caption={t('__useTwd' /* 使用臺幣為單位 */)} />
             </div>
 
             <input
-              type="button"
+              type='button'
               onClick={() => resetForm({ values: form.initFormValues })}
               value={t('__clear' /* 清除 */)!} />
 
             <input
-              type="submit"
+              type='submit'
               disabled={!(dirty && isValid)}
               value={t('__submit' /* 送出 */)!} />
 
             <br />
 
             <input
-              type="button"
+              type='button'
               onClick={() => form.setInitFormValues({ ...form.initFormValues, salary: values.salary !== null ? values.salary + 1 : 0 })}
               value={'搭配 enableReinitialize 重新給予初始值來 re-init 表單（可能是從遠端來的資料）'} />
 
@@ -198,9 +198,9 @@ const Sample = (props: IProps) => {
       <h2 className='section__title'>Redux Toolkit</h2>
       <p>counter: {counterValue} = {counterValueSame}</p>
       <br />
-      <input type="button" value="+" onClick={() => { dispatch(increment()) }} data-testid="addCounterBtn" />
-      <input type="button" value="-" onClick={() => { dispatch(decrement()) }} />
-      <input type="button" value="thunk" onClick={async () => {
+      <input type='button' value='+' onClick={() => { dispatch(increment()) }} data-testid='addCounterBtn' />
+      <input type='button' value='-' onClick={() => { dispatch(decrement()) }} />
+      <input type='button' value='thunk' onClick={async () => {
         const result = await dispatch(incrementAsync(10))
         console.log(result)
       }} />
@@ -220,9 +220,9 @@ const Sample = (props: IProps) => {
       <p>loadingApiCounter: {loadingApiCounter}</p>
       <div>
         <h3>mutation(無快取)</h3>
-        <input type="button" value="call SampleGetProducts api(不列入loader)" onClick={handleCallSampleGetProductsApi} /> <br />
-        <input type="button" value="call SampleGetUser api(有列入loader)" onClick={handleCallSampleGetUserApi} data-testid="callSampleGetUserApiBtn" />
-        {username && <p data-testid="username">username : {username}</p>}
+        <input type='button' value='call SampleGetProducts api(不列入loader)' onClick={handleCallSampleGetProductsApi} /> <br />
+        <input type='button' value='call SampleGetUser api(有列入loader)' onClick={handleCallSampleGetUserApi} data-testid='callSampleGetUserApiBtn' />
+        {username && <p data-testid='username'>username : {username}</p>}
       </div>
       <div>
         <h3> query(有快取)</h3>
@@ -231,17 +231,17 @@ const Sample = (props: IProps) => {
       </div>
       <div>
         <span>使用 query-lazy 手動執行 SampleGetImg api 取得圖片</span>
-        <input type="button" value="get image" onClick={handleCallLazyCachedApi} />
-        <div> <img alt="" src={lazyBase64Img} /> </div>
+        <input type='button' value='get image' onClick={handleCallLazyCachedApi} />
+        <div> <img alt='' src={lazyBase64Img} /> </div>
       </div>
     </section>
 
     <section className='section'>
       <h2 className='section__title'>單元測試的附加情境</h2>
       <div>
-        <input data-testid="doSomethingBtn" type="button" value="呼叫組件傳入的callback"
+        <input data-testid='doSomethingBtn' type='button' value='呼叫組件傳入的callback'
           onClick={() => { props?.onSomethingDone && props.onSomethingDone() }} /> <br />
-        <p data-testid="title">{props.title}</p>
+        <p data-testid='title'>{props.title}</p>
       </div>
 
     </section>
@@ -249,9 +249,9 @@ const Sample = (props: IProps) => {
     <section className='section'>
       <h2 className='section__title'>彈跳視窗樣板設計＆通用文字訊息彈跳視窗呼叫方式</h2>
       <div>
-        <input type="button" value="顯示基礎 Modal 彈跳視窗" onClick={() => { setIsModalVisible(true) }} />
-        <input type="button" value="顯示組裝 Modal 後的 MsgBox 彈跳視窗" onClick={() => { setIsLocalMsgBoxVisible(true) }} />
-        <input type="button" value="使用 App 通用訊息佇列來顯示訊息(發兩則)" onClick={() => {
+        <input type='button' value='顯示基礎 Modal 彈跳視窗' onClick={() => { setIsModalVisible(true) }} />
+        <input type='button' value='顯示組裝 Modal 後的 MsgBox 彈跳視窗' onClick={() => { setIsLocalMsgBoxVisible(true) }} />
+        <input type='button' value='使用 App 通用訊息佇列來顯示訊息(發兩則)' onClick={() => {
           showMsgBox({
             content: '這是第一個訊息。',
             title: '訊息佇列',

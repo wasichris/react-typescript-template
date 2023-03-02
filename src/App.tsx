@@ -29,14 +29,14 @@ function App() {
   useEffect(() => { initApplication() }, [initApplication])
 
   return (
-    <div className="app">
+    <div className='app'>
 
       {/* api loader */}
       {loadingApiCounter > 0 && <LoadingMask />}
 
       {/* 識別環境 */}
       {environment.appMode !== AppModeEnum.PROD && (
-        <div className="env-info">Mode: {process.env.REACT_APP_MODE}</div>
+        <div className='env-info'>Mode: {process.env.REACT_APP_MODE}</div>
       )}
 
       {/* 全域文字訊息彈跳視窗 */}

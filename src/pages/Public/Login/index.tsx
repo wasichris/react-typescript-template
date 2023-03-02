@@ -23,13 +23,13 @@ const Login = (props: IProps) => {
 
   return <div className='pg-login'>
 
-    <div className="box">
+    <div className='box'>
 
-      <div className="box__left">
+      <div className='box__left'>
 
       </div>
 
-      <div className="box__right ">
+      <div className='box__right '>
 
         <Formik
           enableReinitialize
@@ -48,17 +48,17 @@ const Login = (props: IProps) => {
               </p>
 
               <div className='form__input-group'>
-                <label htmlFor="userId">User Id</label>
-                <FormTextInput id="userId" name="userId" type="text" />
+                <label htmlFor='userId'>User Id</label>
+                <FormTextInput id='userId' name='userId' type='text' />
               </div>
 
               <div className='form__input-group'>
-                <label htmlFor="pcode">password</label>
-                <FormTextInput id="pcode" name="pcode" type="password" />
+                <label htmlFor='pcode'>password</label>
+                <FormTextInput id='pcode' name='pcode' type='password' />
               </div>
 
               <div className='form__action-group'>
-                <Button className='form__btn' type="submit" outfit='primary' disabled={!isValid}>Login System</Button>
+                <Button className='form__btn' type='submit' outfit='primary' disabled={!isValid}>Login System</Button>
               </div>
 
             </Form>

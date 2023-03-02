@@ -46,11 +46,11 @@ const MsgBox = (props: IMsgBoxProps) => {
 
       {/* Body */}
       <div className='cp-msg-box__body'>
-        <div className="cp-msg-box__content"> {props.content}</div>
+        <div className='cp-msg-box__content'> {props.content}</div>
       </div>
 
       {/* Footer */}
-      <div className="cp-msg-box__footer">
+      <div className='cp-msg-box__footer'>
         {props.mainBtn && <Button onClick={handleMainBtnClick} outfit='primary'>{props.mainBtn.label}</Button>}
         {props.minorBtn && <Button onClick={handleMinorBtnClick}>{props.minorBtn.label}</Button>}
       </div>

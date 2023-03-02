@@ -25,14 +25,14 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      { index: true, element: <Navigate to="public" replace /> },
+      { index: true, element: <Navigate to='public' replace /> },
 
       /* [公開頁面區] */
       {
         path: 'public',
         element: Suspense(<PublicLayout />),
         children: [
-          { index: true, element: <Navigate to="landing" replace /> },
+          { index: true, element: <Navigate to='landing' replace /> },
           { path: 'landing', element: Suspense(<Landing />) },
           { path: 'login', element: Suspense(<Login />) }
         ]
@@ -43,10 +43,10 @@ const router = createBrowserRouter([
         path: 'home',
         element: Suspense(<HomeLayout />),
         children: [
-          { index: true, element: <Navigate to="main" replace /> },
+          { index: true, element: <Navigate to='main' replace /> },
           { path: 'main', element: Suspense(<Main />) },
           { path: 'edit-profile', element: Suspense(<EditProfile />) },
-          { path: '*', element: <Navigate to="main" replace /> }
+          { path: '*', element: <Navigate to='main' replace /> }
         ]
       },
 
@@ -56,7 +56,7 @@ const router = createBrowserRouter([
           path: 'dev',
           element: <Outlet />,
           children: [
-            { index: true, element: <Navigate to="sample" replace /> },
+            { index: true, element: <Navigate to='sample' replace /> },
             { path: 'sample/:userId', element: Suspense(<Sample />) },
             { path: 'sample', element: Suspense(<Sample />) }
           ]
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
         : {},
 
       /* [預設頁面] */
-      { path: '*', element: <Navigate to="public" replace /> }
+      { path: '*', element: <Navigate to='public' replace /> }
 
     ]
   }

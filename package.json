@@ -51,7 +51,11 @@
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "warn",
       "import/no-anonymous-default-export": "off",
-      "jsx-a11y/anchor-is-valid": "off"
+      "jsx-a11y/anchor-is-valid": "off",
+      "jsx-quotes": [
+        "warn",
+        "prefer-single"
+      ]
     },
     "globals": {
       "JSX": true

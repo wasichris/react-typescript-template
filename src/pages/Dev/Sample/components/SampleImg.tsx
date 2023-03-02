@@ -18,7 +18,7 @@ const SampleImg = (props: IProps) => {
       // pollingInterval: 60_000 // pull data every 1 minute
     })
   return (
-    <img alt="" src={base64Img} />
+    <img alt='' src={base64Img} />
   )
 }
 

@@ -93,6 +93,10 @@ const Sample = (props: IProps) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [isLocalMsgBoxVisible, setIsLocalMsgBoxVisible] = useState(false)
 
+  // 範例：Tailwind 語法測試
+  const createArray = (n: number) => Array.from({ length: n }, (_, i) => i + 1)
+  const boxes = createArray(5)
+
   // ===
 
   return <div className='pg-dev'>
@@ -293,6 +297,19 @@ const Sample = (props: IProps) => {
 
     </section>
 
+    <section className='section'>
+      <h2 className='section__title'>Tailwind 語法測試區</h2>
+      <div>
+        <div className='mt-2 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3'>
+          {boxes.map(b => (
+            <div key={b} className='rounded-md border bg-pink-400 p-2 text-center font-bold text-white'>
+              box {b}
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </section>
   </div>
 }
 

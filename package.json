@@ -44,7 +44,8 @@
     "extends": [
       "react-app",
       "react-app/jest",
-      "standard"
+      "standard",
+      "plugin:tailwindcss/recommended"
     ],
     "rules": {
       "space-before-function-paren": "off",
@@ -55,7 +56,8 @@
       "jsx-quotes": [
         "warn",
         "prefer-single"
-      ]
+      ],
+      "tailwindcss/no-custom-classname": "off"
     },
     "globals": {
       "JSX": true
@@ -77,12 +79,14 @@
     "@craco/craco": "^7.0.0",
     "cross-env": "^7.0.3",
     "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-tailwindcss": "^3.10.1",
     "git-revision-webpack-plugin": "^5.0.0",
     "msw": "^0.49.1",
     "sass": "^1.55.0",
     "stylelint": "^14.16.1",
     "stylelint-config-recess-order": "^3.1.0",
-    "stylelint-config-standard-scss": "^6.1.0"
+    "stylelint-config-standard-scss": "^6.1.0",
+    "tailwindcss": "^3.2.7"
   },
   "msw": {
     "workerDirectory": "public"

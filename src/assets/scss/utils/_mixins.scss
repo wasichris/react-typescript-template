@@ -10,31 +10,22 @@
 //     background-color: #fff;
 //
 //     // tablet
-//     @include respond-above(xs) {
+//     @include respond-above(md) {
 //         background-color: gray;
 //     }
 //
-//     // pc
-//     @include respond-above(md) {
+//     // laptops
+//     @include respond-above(lg) {
 //         background-color: red;
 //     }
 // }
 $breakpoints: (
-    // 400px
-    "xs": 25em,
-    // 544px
-    "sm": 34em,
-    // 768px
-    "md": 48em,
-    // 960px
-    "lg": 60em,
-    // 1280px
-    "xl": 80em,
-    // 1440px
-    "xxl": 90em
+    "md": 768px, // tablets
+    "lg": 992px, // laptops
+    "xl": 1280px // large laptops
 );
 
-@mixin respond-above($breakpoint: sm) {
+@mixin respond-above($breakpoint: md) {
     // If the breakpoint exists in the map.
     @if map-has-key($breakpoints, $breakpoint) {
         // Get the breakpoint value.

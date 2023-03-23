@@ -3,11 +3,12 @@ import { AppModeEnum } from './constants/enums'
 import environment from './environment'
 import { Outlet } from 'react-router-dom'
 import useAppSelector from './utils/hooks/useAppSelector'
-import { initApp, selectLoadingApiCounter } from './store/slices/appSlice'
+import { initAppAsync, selectLoadingApiCounter } from './store/slices/appSlice'
 import LoadingMask from './components/LoadingMask'
 import useAppDispatch from './utils/hooks/useAppDispatch'
 import { removeCurrentGlobalMsg, selectCurrentGlobalMsg } from './store/slices/msgSlice'
 import MsgBox from './components/MsgBox'
+import { unwrapResult } from '@reduxjs/toolkit'
 
 function App() {
   const loadingApiCounter = useAppSelector(selectLoadingApiCounter)
@@ -20,7 +21,8 @@ function App() {
       if (isInitApp.current === false) {
         // 初始網站，執行進入網站前必備的流程
         isInitApp.current = true
-        const isSuccess = await dispatch(initApp())
+        const resultAction = await dispatch(initAppAsync())
+        const isSuccess = unwrapResult(resultAction)
         setIsInitAppSuccess(isSuccess)
       }
     },

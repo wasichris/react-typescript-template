@@ -1,6 +1,7 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AppThunk, RootState } from '..'
+import { RootState } from '..'
 import sampleApi from '../../services/api/sampleApi'
+import { createAppAsyncThunk } from '../../utils/helpers/thunkHelper'
 
 // Define the initial state
 const initialState = {
@@ -30,31 +31,30 @@ const appSlice = createSlice({
 })
 
 // Thunk
-export const initApp =
-  (): AppThunk<Promise<boolean>> =>
-    async (dispatch, getState) => {
-      let isInitAppSuccess = true
+export const initAppAsync =
+  createAppAsyncThunk(`${appSlice.name}/initAppAsync`, async (_, { dispatch, getState }) => {
+    let isInitAppSuccess = true
 
-      // get essential info (e.g. config, request token...)
-      const response = await dispatch(sampleApi.endpoints.SampleGetConfig.initiate(null)).unwrap()
-      const { header: { returnCode, returnMsg }/*, body */ } = response
-      if (returnCode.isSuccessCode()) {
-        // success
+    // get essential info (e.g. config, request token...)
+    const response = await dispatch(sampleApi.endpoints.SampleGetConfig.initiate(null)).unwrap()
+    const { header: { returnCode, returnMsg }/*, body */ } = response
+    if (returnCode.isSuccessCode()) {
+      // success
 
-        // keep response body for further use
-        // ...
+      // keep response body for further use
+      // ...
 
-        // start listening auth flow (authListenerMiddleware)
-        dispatch(startApp())
-        isInitAppSuccess = true
-      } else {
-        // fail
-        console.error(`init app fail, ${returnCode}:${returnMsg}`)
-        isInitAppSuccess = false
-      }
-
-      return isInitAppSuccess
+      // start listening auth flow (authListenerMiddleware)
+      dispatch(startApp())
+      isInitAppSuccess = true
+    } else {
+      // fail
+      console.error(`init app fail, ${returnCode}:${returnMsg}`)
+      isInitAppSuccess = false
     }
+
+    return isInitAppSuccess
+  })
 
 // Extra actions
 export const startApp = createAction(`${appSlice.name}/startApp`)

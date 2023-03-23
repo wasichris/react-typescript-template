@@ -7,7 +7,7 @@ import { Formik, Form } from 'formik'
 import FormTextInput from '../../../components/form/FormTextInput'
 import { useRef, useState } from 'react'
 import { getEnumDescription, getEnumOptions } from '../../../utils/helpers/decoratorHelper'
-import { decrement, increment, incrementAsync, selectCount } from '../../../store/slices/counterSlice'
+import { decrement, increment, incrementAsync, incrementAsyncSimple, selectCount } from '../../../store/slices/counterSlice'
 import useClickOutsideHandler from '../../../utils/hooks/useClickOutsideHandler'
 import useAppDispatch from '../../../utils/hooks/useAppDispatch'
 import useAppSelector from '../../../utils/hooks/useAppSelector'
@@ -19,6 +19,7 @@ import SampleImg from './components/SampleImg'
 import MsgBox from '../../../components/MsgBox'
 import { showMsgBox } from '../../../utils/helpers/msgHelper'
 import Modal from '../../../components/common/Modal'
+import { unwrapResult } from '@reduxjs/toolkit'
 
 interface IProps {
   title?: string,
@@ -207,7 +208,12 @@ const Sample = (props: IProps) => {
       <input type='button' value='+' onClick={() => { dispatch(increment()) }} data-testid='addCounterBtn' />
       <input type='button' value='-' onClick={() => { dispatch(decrement()) }} />
       <input type='button' value='thunk' onClick={async () => {
-        const result = await dispatch(incrementAsync(10))
+        const resultAction = await dispatch(incrementAsync(10))
+        const result = unwrapResult(resultAction)
+        console.log(result)
+      }} />
+      <input type='button' value='thunk-simple (not able to be traced in redux dev tool)' onClick={async () => {
+        const result = await dispatch(incrementAsyncSimple(10))
         console.log(result)
       }} />
 

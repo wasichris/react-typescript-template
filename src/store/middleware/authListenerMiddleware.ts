@@ -1,5 +1,5 @@
 
-import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
+import { createListenerMiddleware, isAnyOf, TaskAbortError } from '@reduxjs/toolkit'
 import { RootState } from '..'
 import { startApp, loginSuccess, logout, updateLoginInfo } from '../slices/appSlice'
 import { appNavigate } from '../../router'
@@ -50,7 +50,11 @@ authListenerMiddleware.startListening({
         }
       }
     } catch (error) {
-      console.error('authListenerMiddleware error:', error)
+      if (error instanceof TaskAbortError && action.type === startApp.type) {
+        console.warn('authListenerMiddleware abort due to re-startApp')
+      } else {
+        console.error('authListenerMiddleware error:', error)
+      }
     }
 
     // 如果 take 多個 action 時，可以這樣識別是哪個 action 符合

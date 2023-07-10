@@ -5,9 +5,9 @@ import { AppEnvEnum, AppModeEnum } from '../constants/enums'
  */
 export interface IOption {
   /** 數值 */
-  value: string;
+  value: string
   /** 顯示文字 */
-  label: string;
+  label: string
 }
 
 /**
@@ -15,13 +15,13 @@ export interface IOption {
  */
 export interface IEnvironment {
   /** 運行環境 (development / production) */
-  appEnv: AppEnvEnum,
+  appEnv: AppEnvEnum
 
   /** 運行模式 (SIT / UAT / PROD) */
-  appMode: AppModeEnum,
+  appMode: AppModeEnum
 
   /** 使用的 API 中台位置 */
-  apiUrl: string,
+  apiUrl: string
 
   /** API 等待逾期時間 ms */
   apiTimeout: number

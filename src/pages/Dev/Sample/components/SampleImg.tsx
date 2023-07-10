@@ -7,9 +7,9 @@ import sampleApi from '../../../../services/api/sampleApi'
 // - 當頁面邏輯太複雜，也可以拆出 Component 降低頁面複雜度
 
 interface IProps {
-  width: number,
+  width: number
   height: number
-};
+}
 
 const SampleImg = (props: IProps) => {
   // call query api (cached) - 直接執行

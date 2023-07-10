@@ -9,7 +9,7 @@ import { showMsgBox } from '../../../../utils/helpers/msgHelper'
 import useAppDispatch from '../../../../utils/hooks/useAppDispatch'
 
 interface IFormValues {
-  userId: string,
+  userId: string
   pcode: string
 }
 

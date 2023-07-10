@@ -1,7 +1,7 @@
 /* eslint-disable no-extend-native */
 declare global {
   interface String {
-    isSuccessCode(): boolean;
+    isSuccessCode(): boolean
   }
 }
 

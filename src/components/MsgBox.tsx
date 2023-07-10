@@ -2,15 +2,15 @@ import Button from './Button'
 import Modal, { IBaseModalProps } from './common/Modal'
 
 export interface IMsgBoxProps extends IBaseModalProps {
-  title: string,
-  content: string,
-  hasCloseBtn?: boolean,
+  title: string
+  content: string
+  hasCloseBtn?: boolean
   mainBtn?: {
-    label: string,
+    label: string
     onClick?: () => void
-  },
+  }
   minorBtn?: {
-    label: string,
+    label: string
     onClick?: () => void
   }
 }

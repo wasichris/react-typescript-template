@@ -23,7 +23,7 @@ const appSlice = createSlice({
       const { payload: apiRequestId } = action
       state.loadingApiList = state.loadingApiList.filter(api => api !== apiRequestId)
     },
-    updateLoginInfo: (state, action: PayloadAction<{ isLogin: boolean, authToken: string }>) => {
+    updateLoginInfo: (state, action: PayloadAction<{ isLogin: boolean; authToken: string }>) => {
       state.isLogin = action.payload.isLogin
       state.authToken = action.payload.authToken
     }

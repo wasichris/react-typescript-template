@@ -6,8 +6,7 @@ import useLoginForm from './hook/useLoginForm'
 import { Form, Formik } from 'formik'
 import Button from '../../../components/Button'
 
-interface IProps {
-};
+interface IProps { }
 
 const Login = (props: IProps) => {
   const navigate = useNavigate()

@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { ButtonHTMLAttributes } from 'react'
 
 interface IProps {
-  outfit?: 'primary' | 'link';
+  outfit?: 'primary' | 'link'
 }
 
 const Button = (props: IProps & ButtonHTMLAttributes<HTMLButtonElement>) => {

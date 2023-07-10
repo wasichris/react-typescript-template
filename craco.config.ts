@@ -11,7 +11,7 @@ const gitRevisionPlugin = new GitRevisionPlugin()
 const addDefinePluginEnvValue = (value: object, webpackConfig: Configuration) => {
   // Use webpack plugin name to get matched plugin
   // This name is the plugin's constructor (plugin.constructor.name)
-  const { isFound, match: plugin }: { isFound: boolean, match: WebpackPluginInstance } =
+  const { isFound, match: plugin }: { isFound: boolean; match: WebpackPluginInstance } =
     getPlugin(webpackConfig, pluginByName('DefinePlugin'))
 
   if (isFound) {

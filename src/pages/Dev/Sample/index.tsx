@@ -22,9 +22,9 @@ import Modal from '../../../components/common/Modal'
 import { unwrapResult } from '@reduxjs/toolkit'
 
 interface IProps {
-  title?: string,
+  title?: string
   onSomethingDone?: () => void
-};
+}
 
 const Sample = (props: IProps) => {
   // 範例：route

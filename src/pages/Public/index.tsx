@@ -1,8 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import AppLayout from '../../containers/AppLayout'
 
-interface IProps {
-};
+interface IProps { }
 
 /**
  * 公開頁面的共用樣板

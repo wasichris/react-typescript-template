@@ -55,6 +55,20 @@
       "jsx-quotes": [
         "warn",
         "prefer-single"
+      ],
+      "no-extra-semi": "warn",
+      "@typescript-eslint/member-delimiter-style": [
+        "warn",
+        {
+          "multiline": {
+            "delimiter": "none",
+            "requireLast": false
+          },
+          "singleline": {
+            "delimiter": "semi",
+            "requireLast": false
+          }
+        }
       ]
     },
     "globals": {

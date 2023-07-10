@@ -6,15 +6,15 @@ import useClickOutsideHandler from '../../utils/hooks/useClickOutsideHandler'
 import useKeyDownHandler from '../../utils/hooks/useKeyDownHandler'
 
 export interface IBaseModalProps {
-  isVisible: boolean,
+  isVisible: boolean
   onRequestClose: () => void
 }
 
 interface IProps extends IBaseModalProps {
-  isCloseByBackdrop?: boolean,
-  isCloseByEsc?: boolean,
-  maxWidth?: string,
-  target?: HTMLElement,
+  isCloseByBackdrop?: boolean
+  isCloseByEsc?: boolean
+  maxWidth?: string
+  target?: HTMLElement
   className?: string
 }
 

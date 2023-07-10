@@ -23,7 +23,7 @@ export const getQueryStrValue = (key: string) => {
  * @param queryPairs key value pairs array
  * @returns current url with appending query string
  */
-export const appendQueryStrInCurrentUrl = (queryPairs: { key: string, value: string }[]) => {
+export const appendQueryStrInCurrentUrl = (queryPairs: { key: string; value: string }[]) => {
   const url = new URL(document.location.href)
   const params = new URLSearchParams(document.location.search)
 

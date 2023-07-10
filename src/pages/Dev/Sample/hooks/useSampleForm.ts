@@ -12,9 +12,9 @@ import schemaChain from '../../../../utils/validations/schemaChain'
 
 // 定義表單資料
 interface IFormValues {
-  account: string,
-  password: string,
-  age: number | null,
+  account: string
+  password: string
+  age: number | null
   salary: number | null
 }
 

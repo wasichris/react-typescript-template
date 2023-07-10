@@ -1,7 +1,6 @@
 import React from 'react'
 
-interface IProps {
-};
+interface IProps { }
 
 const Main = (props: IProps) => {
   return <h1>Private - EditProfile Page</h1>

@@ -1,14 +1,14 @@
 import { GenderEnum } from '../../constants/enums'
 
 export interface ISampleGetProductsReq {
-  category: string,
+  category: string
 }
 export interface ISampleGetProductsRes {
   products: {
-    id: string,
-    category: string | null,
-    price: number,
-    stock: number,
+    id: string
+    category: string | null
+    price: number
+    stock: number
     gender: GenderEnum
   }[]
 }
@@ -16,7 +16,7 @@ export interface ISampleGetProductsRes {
 // ===
 
 export interface ISampleGetImgReq {
-  width: number,
+  width: number
   height: number
 }
 
@@ -33,17 +33,17 @@ export interface ISampleGetUserRes {
 // ===
 
 export interface ISampleGetConfigRes {
-  clientId: string,
+  clientId: string
   config: Record<string, string>
 }
 
 // ===
 
 export interface ISampleLoginReq {
-  userId: string,
+  userId: string
   pcode: string
 }
 export interface ISampleLoginRes {
-  userName: string,
-  authCode: string,
+  userName: string
+  authCode: string
 }

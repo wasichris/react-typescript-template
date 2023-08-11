@@ -1,6 +1,7 @@
 import { Configuration, WebpackPluginInstance } from 'webpack'
 const { getPlugin, pluginByName } = require('@craco/craco')
 const { GitRevisionPlugin } = require('git-revision-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const gitRevisionPlugin = new GitRevisionPlugin()
 
 /**
@@ -23,6 +24,13 @@ const addDefinePluginEnvValue = (value: object, webpackConfig: Configuration) =>
   }
 }
 
+/**
+ * 透過 tsconfig-paths-webpack-plugin 使用 tsconfig 設定中的 path 來作為路徑的 alias
+ */
+const addTsconfigPathsPlugin = (webpackConfig: Configuration) => {
+  webpackConfig.resolve?.plugins?.push(new TsconfigPathsPlugin({}))
+}
+
 const getAppVersionInfo = () => {
   try {
     // use git commit hash as version info
@@ -36,9 +44,13 @@ module.exports = {
   webpack: {
     configure: (webpackConfig: Configuration, { env, paths }: any) => {
       // 加入 process.env 額外的環境變數
-      addDefinePluginEnvValue({
-        APP_VERSION: JSON.stringify(getAppVersionInfo())
-      }, webpackConfig)
+      addDefinePluginEnvValue(
+        { APP_VERSION: JSON.stringify(getAppVersionInfo()) },
+        webpackConfig
+      )
+
+      // 使用 tsconfig 設定中的 path 來作為路徑的 alias
+      addTsconfigPathsPlugin(webpackConfig)
 
       return webpackConfig
     }

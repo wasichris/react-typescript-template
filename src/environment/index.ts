@@ -1,4 +1,4 @@
-import { IEnvironment } from '../models/common'
+import { IEnvironment } from '@/models/common'
 
 // 依據建置環境選擇對應變數定義檔
 const env = process.env.NODE_ENV

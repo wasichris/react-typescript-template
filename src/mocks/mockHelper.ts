@@ -1,5 +1,5 @@
-import environment from '../environment'
-import { IBaseRes } from '../services/models/common'
+import environment from '@/environment'
+import { IBaseRes } from '@/services/models/common'
 
 /**
  * 依據傳入的 api 相對路徑，取得完整 api 路徑

@@ -1,4 +1,4 @@
-import { AppEnvEnum, AppModeEnum } from '../constants/enums'
+import { AppEnvEnum, AppModeEnum } from '@/constants/enums'
 
 /**
  * 下拉選單資訊

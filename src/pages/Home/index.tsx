@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import AppLayout from '../../containers/AppLayout'
+import AppLayout from '@/containers/AppLayout'
 
 interface IProps { }
 

@@ -2,8 +2,8 @@
 import { createListenerMiddleware, isAnyOf, TaskAbortError } from '@reduxjs/toolkit'
 import { RootState } from '..'
 import { startApp, loginSuccess, logout, updateLoginInfo } from '../slices/appSlice'
-import { appNavigate } from '../../router'
-import { getQueryStrValue } from '../../utils/helpers/urlHelper'
+import { appNavigate } from '@/router'
+import { getQueryStrValue } from '@/utils/helpers/urlHelper'
 
 const authListenerMiddleware = createListenerMiddleware()
 

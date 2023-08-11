@@ -3,7 +3,7 @@
 // 定義列舉，避免 magic num or string
 // ==================================
 
-import { EnumDescription } from '../utils/helpers/decoratorHelper'
+import { EnumDescription } from '@/utils/helpers/decoratorHelper'
 
 /**
  *  APP 運行環境

@@ -15,9 +15,11 @@ export default (refs: React.RefObject<HTMLElement>, handler: () => void, isEnabl
           (ref) => ref.current && ref.current.contains(event.target as Node)
         )
         if (isEnable && handler && !isClickInside) handler()
-      } else if (refs.current && !refs.current.contains(event.target as Node)) {
+      } else {
         // single target
-        if (isEnable && handler) handler()
+        const isClickOutside =
+          refs.current && !refs.current.contains(event.target as Node)
+        if (isEnable && handler && isClickOutside) handler()
       }
     }
 

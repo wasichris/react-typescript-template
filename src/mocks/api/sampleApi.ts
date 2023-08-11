@@ -1,9 +1,17 @@
 import { rest } from 'msw'
-import { GenderEnum } from '../../constants/enums'
-import { IBaseReq } from '../../services/models/common'
-import { ISampleLoginReq, ISampleLoginRes, ISampleGetProductsRes, ISampleGetImgReq, ISampleGetUserReq, ISampleGetUserRes, ISampleGetConfigRes } from '../../services/models/sample'
-import { getGuid } from '../../utils/helpers/commonHelper'
+import { GenderEnum } from '@/constants/enums'
+import { IBaseReq } from '@/services/models/common'
+import { getGuid } from '@/utils/helpers/commonHelper'
 import { createRes, getApiUrl, getRandomArray, getRandomArrayItem, getRandomInt, getRandomIntRange } from '../mockHelper'
+import {
+  ISampleLoginReq,
+  ISampleLoginRes,
+  ISampleGetProductsRes,
+  ISampleGetImgReq,
+  ISampleGetUserReq,
+  ISampleGetUserRes,
+  ISampleGetConfigRes
+} from '@/services/models/sample'
 
 const sampleApi = [
 

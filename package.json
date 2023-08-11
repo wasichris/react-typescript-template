@@ -96,7 +96,8 @@
     "sass": "^1.55.0",
     "stylelint": "^14.16.1",
     "stylelint-config-recess-order": "^3.1.0",
-    "stylelint-config-standard-scss": "^6.1.0"
+    "stylelint-config-standard-scss": "^6.1.0",
+    "tsconfig-paths-webpack-plugin": "^4.1.0"
   },
   "msw": {
     "workerDirectory": "public"
@@ -111,6 +112,11 @@
       "max-line-length": null,
       "scss/comment-no-empty": null,
       "selector-class-pattern": null
+    }
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "@/(.*)": "<rootDir>/src/$1"
     }
   }
 }

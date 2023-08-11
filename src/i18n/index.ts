@@ -2,9 +2,9 @@ import i18n, { t } from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import zh from './locales/zh-TW'
 import en from './locales/en'
-import environment from '../environment'
-import { AppEnvEnum, LangEnum } from '../constants/enums'
-import storage from '../utils/storage'
+import environment from '@/environment'
+import { AppEnvEnum, LangEnum } from '@/constants/enums'
+import storage from '@/utils/storage'
 import { setLocale } from 'yup'
 
 // setup lang validation msg for Yup

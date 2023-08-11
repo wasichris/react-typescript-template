@@ -1,4 +1,4 @@
-import { AppModeEnum } from '../constants/enums'
+import { AppModeEnum } from '@/constants/enums'
 import developmentEnvironment from './development'
 
 // 全部皆以 development 設置為基礎

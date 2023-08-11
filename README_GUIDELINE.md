@@ -509,9 +509,9 @@ const goSomewhere = () => {
 
 ### 程式範例：
 ``` typescript
-const PublicLayout = lazy(() => import(/* webpackChunkName: "public" */ '../pages/Public'))
-const Landing = lazy(() => import(/* webpackChunkName: "public" */ '../pages/Public/Landing'))
-const Login = lazy(() => import(/* webpackChunkName: "public" */ '../pages/Public/Login'))
+const PublicLayout = lazy(() => import(/* webpackChunkName: "public" */ '@/pages/Public'))
+const Landing = lazy(() => import(/* webpackChunkName: "public" */ '@/pages/Public/Landing'))
+const Login = lazy(() => import(/* webpackChunkName: "public" */ '@/pages/Public/Login'))
 
 const router = createBrowserRouter([
   {
@@ -662,22 +662,26 @@ export default {
 ### 程式範例：
 建立 API Endpoint 
 ``` typescript
-import { base64Encode } from '../../utils/helpers/encodeHelper'
-import { baseApiService } from '../baseApiService'
-import baseReqCreator from '../baseReqCreator'
-import { IBaseRes } from '../models/common'
-import { ISampleGetProductsReq, ISampleGetProductsRes, ISampleGetImgReq, ISampleGetUserReq } from '../models/sample'
+import { base64Encode } from '@/utils/helpers/encodeHelper'
+import { baseApiService } from '@/services/baseApiService'
+import baseReqCreator from '@/services/baseReqCreator'
+import { IBaseRes } from '@/services/models/common'
+import {
+  ISampleGetProductsReq,
+  ISampleGetProductsRes,
+  ISampleGetImgReq,
+  ISampleGetUserReq
+} from '@/services/models/sample'
 
 const sampleApi = baseApiService.injectEndpoints({
   endpoints: (builder) => ({
-
     // 範例：發出 POST API 並取得 Image (快取:builder.query)
     SampleGetImg: builder.query<string, ISampleGetImgReq>({
       query: (req) => ({
         url: '/sample/get-img',
         method: 'POST',
         body: baseReqCreator(req),
-        // 有需要特別處理才需要 handle 
+        // 有需要特別處理才需要 handle
         responseHandler: async (response: Response) => {
           const arrayBuffer = await response.arrayBuffer()
           return 'data:image/png;base64,' + base64Encode(arrayBuffer)
@@ -686,20 +690,20 @@ const sampleApi = baseApiService.injectEndpoints({
     }),
 
     // 範例：發出 GET API 並取得 JSON (無快取:builder.mutation)
-    SampleGetProducts: builder.mutation<IBaseRes<ISampleGetProductsRes>, ISampleGetProductsReq>({
+    SampleGetProducts: builder.mutation<
+      IBaseRes<ISampleGetProductsRes>,
+      ISampleGetProductsReq
+    >({
       query: (req) => ({
         url: `/sample/get-products?category=${req.category}`,
         method: 'GET'
       })
-    }),
-
+    })
   }),
   overrideExisting: true
 })
 
 export default sampleApi
-
-
 ```
 
 
@@ -1306,11 +1310,20 @@ export const initApp =
 ``` typescript
 /* /src/store/middleware/authListenerMiddleware.ts  */
 
-import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit'
-import { RootState } from '..'
-import { startApp, loginSuccess, logout, updateLoginInfo } from '../slices/appSlice'
-import { appNavigate } from '../../router'
-import { getQueryStrValue } from '../../utils/helpers/urlHelper'
+import {
+  createListenerMiddleware,
+  isAnyOf,
+  TaskAbortError
+} from '@reduxjs/toolkit'
+import { RootState } from '@/store'
+import {
+  startApp,
+  loginSuccess,
+  logout,
+  updateLoginInfo
+} from '@/store/slices/appSlice'
+import { appNavigate } from '@/router'
+import { getQueryStrValue } from '@/utils/helpers/urlHelper'
 
 const authListenerMiddleware = createListenerMiddleware()
 
@@ -1332,7 +1345,11 @@ authListenerMiddleware.startListening({
           // #############
 
           // [阻塞] 等待登入成功訊號
-          const [{ payload: { authToken } }] = await take(loginSuccess.match)
+          const [
+            {
+              payload: { authToken }
+            }
+          ] = await take(loginSuccess.match)
 
           // 處理登入事宜
           dispatch(updateLoginInfo({ authToken, isLogin: true }))
@@ -1354,7 +1371,11 @@ authListenerMiddleware.startListening({
         }
       }
     } catch (error) {
-      console.error('authListenerMiddleware error:', error)
+      if (error instanceof TaskAbortError && action.type === startApp.type) {
+        console.warn('authListenerMiddleware abort due to re-startApp')
+      } else {
+        console.error('authListenerMiddleware error:', error)
+      }
     }
   }
 })

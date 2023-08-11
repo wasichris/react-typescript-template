@@ -1,5 +1,5 @@
-import { AppEnvEnum, AppModeEnum } from '../constants/enums'
-import { IEnvironment } from '../models/common'
+import { AppEnvEnum, AppModeEnum } from '@/constants/enums'
+import { IEnvironment } from '@/models/common'
 
 const developmentEnvironment: IEnvironment = {
   appEnv: process.env.NODE_ENV as AppEnvEnum,

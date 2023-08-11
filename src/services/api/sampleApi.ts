@@ -1,8 +1,17 @@
-import { base64Encode } from '../../utils/helpers/encodeHelper'
+import { base64Encode } from '@/utils/helpers/encodeHelper'
 import { baseApiService } from '../baseApiService'
 import baseReqCreator from '../baseReqCreator'
 import { IBaseRes } from '../models/common'
-import { ISampleLoginReq, ISampleLoginRes, ISampleGetProductsReq, ISampleGetProductsRes, ISampleGetImgReq, ISampleGetUserReq, ISampleGetUserRes, ISampleGetConfigRes } from '../models/sample'
+import {
+  ISampleLoginReq,
+  ISampleLoginRes,
+  ISampleGetProductsReq,
+  ISampleGetProductsRes,
+  ISampleGetImgReq,
+  ISampleGetUserReq,
+  ISampleGetUserRes,
+  ISampleGetConfigRes
+} from '../models/sample'
 
 const sampleApi = baseApiService.injectEndpoints({
   endpoints: (builder) => ({

@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 import { PropsWithChildren, useCallback, useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom'
-import { freezeBody, unfreezeBody } from '../../utils/helpers/domHelper'
-import useClickOutsideHandler from '../../utils/hooks/useClickOutsideHandler'
-import useKeyDownHandler from '../../utils/hooks/useKeyDownHandler'
+import { freezeBody, unfreezeBody } from '@/utils/helpers/domHelper'
+import useClickOutsideHandler from '@/utils/hooks/useClickOutsideHandler'
+import useKeyDownHandler from '@/utils/hooks/useKeyDownHandler'
 
 export interface IBaseModalProps {
   isVisible: boolean

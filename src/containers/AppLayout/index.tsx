@@ -1,8 +1,8 @@
 import { Navigate, NavLink, useLocation } from 'react-router-dom'
-import { logout } from '../../store/slices/appSlice'
-import useAppDispatch from '../../utils/hooks/useAppDispatch'
-import useAppSelector from '../../utils/hooks/useAppSelector'
-import logo from '../../assets/images/logo.svg'
+import { logout } from '@/store/slices/appSlice'
+import useAppDispatch from '@/utils/hooks/useAppDispatch'
+import useAppSelector from '@/utils/hooks/useAppSelector'
+import logo from '@/assets/images/logo.svg'
 import { PropsWithChildren } from 'react'
 import clsx from 'clsx'
 

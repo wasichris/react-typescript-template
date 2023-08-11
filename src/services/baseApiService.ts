@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react'
-import environment from '../environment'
+import environment from '@/environment'
 
 const staggeredBaseQueryWithBailOut = retry(
 

@@ -1,6 +1,6 @@
 
 import React from 'react'
-import sampleApi from '../../../../services/api/sampleApi'
+import sampleApi from '@/services/api/sampleApi'
 
 // 說明 Component 使用時機：
 // - 不是只有因為需要共用才需要拆 Component 出來

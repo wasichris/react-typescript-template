@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '..'
-import { IMsgBoxProps } from '../../components/MsgBox'
+import { IMsgBoxProps } from '@/components/MsgBox'
 
 export type GlobalMsg = Omit<IMsgBoxProps, 'isVisible' | 'onRequestClose'> & {
   /**

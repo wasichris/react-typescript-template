@@ -2,11 +2,11 @@ import { FormikHelpers } from 'formik'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
-import sampleApi from '../../../../services/api/sampleApi'
-import { loginSuccess } from '../../../../store/slices/appSlice'
-import { getRequiredMsg } from '../../../../utils/helpers/commonHelper'
-import { showMsgBox } from '../../../../utils/helpers/msgHelper'
-import useAppDispatch from '../../../../utils/hooks/useAppDispatch'
+import sampleApi from '@/services/api/sampleApi'
+import { loginSuccess } from '@/store/slices/appSlice'
+import { getRequiredMsg } from '@/utils/helpers/commonHelper'
+import { showMsgBox } from '@/utils/helpers/msgHelper'
+import useAppDispatch from '@/utils/hooks/useAppDispatch'
 
 interface IFormValues {
   userId: string

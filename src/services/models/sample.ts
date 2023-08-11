@@ -1,4 +1,4 @@
-import { GenderEnum } from '../../constants/enums'
+import { GenderEnum } from '@/constants/enums'
 
 export interface ISampleGetProductsReq {
   category: string

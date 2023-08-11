@@ -1,20 +1,20 @@
 /* eslint-disable indent */
 import React, { lazy } from 'react'
 import { Outlet, Navigate, createBrowserRouter } from 'react-router-dom'
-import App from '../App'
-import { AppEnvEnum } from '../constants/enums'
-import environment from '../environment'
+import App from '@/App'
+import { AppEnvEnum } from '@/constants/enums'
+import environment from '@/environment'
 import routerSubscriber from './routerSubscriber'
 
 // 使用動態載入方式(code splitting)，避免剛訪問網站時就取得整包不一定會用到的 js 檔案
 // 請依照頁面類型分組，打包會依照分組獨立成一份以 webpackChunkName 設定名稱之 js 檔案
-const HomeLayout = lazy(() => import(/* webpackChunkName: "home" */ '../pages/Home'))
-const EditProfile = lazy(() => import(/* webpackChunkName: "home" */ '../pages/Home/EditProfile'))
-const Main = lazy(() => import(/* webpackChunkName: "home" */ '../pages/Home/Main'))
-const PublicLayout = lazy(() => import(/* webpackChunkName: "public" */ '../pages/Public'))
-const Landing = lazy(() => import(/* webpackChunkName: "public" */ '../pages/Public/Landing'))
-const Login = lazy(() => import(/* webpackChunkName: "public" */ '../pages/Public/Login'))
-const Sample = lazy(() => import(/* webpackChunkName: "dev" */ '../pages/Dev/Sample'))
+const HomeLayout = lazy(() => import(/* webpackChunkName: "home" */ '@/pages/Home'))
+const EditProfile = lazy(() => import(/* webpackChunkName: "home" */ '@/pages/Home/EditProfile'))
+const Main = lazy(() => import(/* webpackChunkName: "home" */ '@/pages/Home/Main'))
+const PublicLayout = lazy(() => import(/* webpackChunkName: "public" */ '@/pages/Public'))
+const Landing = lazy(() => import(/* webpackChunkName: "public" */ '@/pages/Public/Landing'))
+const Login = lazy(() => import(/* webpackChunkName: "public" */ '@/pages/Public/Login'))
+const Sample = lazy(() => import(/* webpackChunkName: "dev" */ '@/pages/Dev/Sample'))
 
 const Suspense = (component: JSX.Element) => <React.Suspense fallback={<>...</>}>
   {component}

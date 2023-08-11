@@ -1,7 +1,7 @@
 import { createAction, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '..'
-import sampleApi from '../../services/api/sampleApi'
-import { createAppAsyncThunk } from '../../utils/helpers/thunkHelper'
+import sampleApi from '@/services/api/sampleApi'
+import { createAppAsyncThunk } from '@/utils/helpers/thunkHelper'
 
 // Define the initial state
 const initialState = {

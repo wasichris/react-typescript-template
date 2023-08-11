@@ -2,9 +2,9 @@ import { FormikHelpers } from 'formik'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as yup from 'yup'
-import { getRequiredMsg } from '../../../../utils/helpers/commonHelper'
-import { strLengthRangeSchema } from '../../../../utils/validations/schema'
-import schemaChain from '../../../../utils/validations/schemaChain'
+import { getRequiredMsg } from '@/utils/helpers/commonHelper'
+import { strLengthRangeSchema } from '@/utils/validations/schema'
+import schemaChain from '@/utils/validations/schemaChain'
 
 // 說明 Hook 使用時機：
 // - 不是只有因為需要共用才需要拆 Hook 出來

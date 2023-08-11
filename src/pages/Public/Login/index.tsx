@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import useAppSelector from '../../../utils/hooks/useAppSelector'
+import useAppSelector from '@/utils/hooks/useAppSelector'
 import { useNavigate } from 'react-router-dom'
-import FormTextInput from '../../../components/form/FormTextInput'
+import FormTextInput from '@/components/form/FormTextInput'
 import useLoginForm from './hook/useLoginForm'
 import { Form, Formik } from 'formik'
-import Button from '../../../components/Button'
+import Button from '@/components/Button'
 
 interface IProps { }
 

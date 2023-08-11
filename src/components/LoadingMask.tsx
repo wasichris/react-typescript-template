@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { freezeBody, unfreezeBody } from '../utils/helpers/domHelper'
+import { freezeBody, unfreezeBody } from '@/utils/helpers/domHelper'
 
 interface IProps { }
 

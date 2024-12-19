@@ -24,6 +24,13 @@
             display: none;
             padding: 15px;
 
+            @include respond-above("lg") {
+                display: block;
+                min-width: 40%;
+                background-color: $color-main;
+                border-radius: $box-radius 0 0 $box-radius;
+            }
+
             @include respond-above {
                 display: block;
                 min-width: 40%;

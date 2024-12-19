@@ -3,8 +3,8 @@
   "editor.detectIndentation": false,
   "editor.suggestSelection": "recentlyUsed",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.stylelint": true
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
   },
   "[typescript]": {
     "editor.tabSize": 2

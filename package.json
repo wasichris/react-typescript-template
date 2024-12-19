@@ -38,7 +38,7 @@
     "test": "craco test",
     "lint": "npm run lint:ts && npm run lint:style",
     "lint:ts": "eslint . --ext .js,.jsx,.ts,.tsx, --ignore-path .gitignore",
-    "lint:style": "stylelint src/**/*.{scss,css}"
+    "lint:style": "stylelint **/*.{css,scss} --max-warnings 0"
   },
   "eslintConfig": {
     "extends": [
